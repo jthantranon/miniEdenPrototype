@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="meClient">
+<!--<html>-->
+<head>
+    <title>miniEden</title>
+    <!--<link href='css/glass.css' rel='stylesheet' type='text/css'>-->
+    <!--<link href='css/console.css' rel='stylesheet' type='text/css'>-->
+
+    <span hidden>
+        {% for cssLoadLine in cssLoads %}{{ cssLoadLine }}
+        {% endfor %}
+    </span>
+
+    <!--<script src="lib/require.js" data-main="main"></script>-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/1.0.5/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.7.0/angularfire.js"></script>
+    <script src="https://cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js"></script>
+
+
+
+    <!--<script type="text/javascript" src="lib/noty/packaged/jquery.noty.packaged.min.js"></script>-->
+    <!--<script type="text/javascript" src="lib/vendor/jquery.lettering.js"></script>-->
+    <!--<script type="text/javascript" src="lib/vendor/jquery.textillate.js"></script>-->
+    <!--<script type="text/javascript" src="lib/vendor/raphael-min.js"></script>-->
+
+
+</head>
+<body>
+<span hidden>{% raw %}</span>
+<div ng-controller="MainCtrl">
+    You have stumbled upon an anamoly in the very fabric of cyberspace. There is nothing to do here... for now.<br>
+    <br>
+    But...{{objects.terminal.name}}<br>
+    <br>
+    You do see a random access memory crystal and a <span eden-object></span> in front of it.<br>
+    <br>
+
+    <!--<eden-glass></eden-glass>-->
+
+    <div class="allWrapper" id="augShell" style="display: none">
+        <div class="innerAllWrapper">
+            <div class="titleWrapper">
+                <p>Augmented Shell</p>
+            </div>
+            <div class="stuffWrapper">
+                <div class="consoleResponse">
+                    <!-- <h3>Console Response</h3> -->
+                    <div class="consoleWrapper">
+                        <div class="consoleOutput"></div>
+                        <div class="consoleInput">
+                            <input name="consoleInputField" id="consoleInputField" type="text" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div eden-glass></div>-->
+
+
+    <div class="allWrapper" id="glassPrimer" style="display: none">
+        <div class="innerAllWrapper">
+            <div class="titleWrapper">
+                <p>Title</p>
+            </div>
+            <div class="stuffWrapper">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--<script src="js/client.js"></script>-->
+<span hidden>{% endraw %}</span>
+
+<span hidden>
+    {% for jsLoadLine in jsLoads %}{{ jsLoadLine }}
+    {% endfor %}
+</span>
+
+</body>
+</html>

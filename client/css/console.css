@@ -1,0 +1,91 @@
+@charset "utf-8";
+/* CSS Document */
+
+.consoleResponse {
+	height:100%;
+}
+
+
+.consoleResponse h3 {
+	background-color:#006666;
+	color:#FFF;
+	padding-left:3px;
+	text-transform:uppercase;
+	margin-bottom:5px;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+.consoleResponse .consoleWrapper {
+	font-family:"Lucida Console", Monaco, monospace;
+	font-size:14px;
+	color:#0FF;
+	border:#066 1px solid;
+	background-color:#000;
+	margin-top:5px;
+	height:100%;
+	opacity:.85;
+}
+
+.consoleResponse .consoleOutput {
+	height:90%;
+	padding:5px;
+	overflow-y:scroll;
+}
+
+
+.consoleResponse .consoleOutput p {
+	margin-top:0px;
+	margin-bottom:5px;
+	font-family:"Lucida Console", Monaco, monospace;
+}
+
+.consoleResponse .consoleInput {
+	padding:5px;
+}
+
+.consoleResponse input{
+	font-family:"Lucida Console", Monaco, monospace;
+	font-size:14px;
+	color:#0FF;
+	width:90%;
+	padding:0px;
+	border:#0FF 0px solid;
+	background-color:#000;
+		
+}
+
+.consoleResponse input:focus{
+    font-family:"Lucida Console", Monaco, monospace;
+    font-size:14px;
+    color:#0FF;
+    width:90%;
+    padding:0px;
+    border:#0FF 0px solid;
+    background-color:#000;
+    outline: none;
+
+}
+.consoleInputDisplay {
+    float: left;
+}
+#augShellCommandLine{
+    font-family:"Lucida Console", Monaco, monospace;
+    font-size:14px;
+    color:#0FF;
+    width:90%;
+    padding:0px;
+    border:#0FF 0px solid;
+    background-color:#000;
+}
+#augShellCommandLine:focus{
+    outline: none;
+}
+
+#caret {
+    float: left;
+    width: 5px;
+    height: 14px;
+    background: #f8ec77;
+    opacity: .95;
+}
+	
