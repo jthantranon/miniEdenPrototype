@@ -3,30 +3,30 @@
 <!--<html>-->
 <head>
     <title>miniEden</title>
-    <!--<link href='css/glass.css' rel='stylesheet' type='text/css'>-->
-    <!--<link href='css/console.css' rel='stylesheet' type='text/css'>-->
 
-    <span hidden>
-        {% for cssLoadLine in cssLoads %}{{ cssLoadLine }}
-        {% endfor %}
-    </span>
+    <script type="text/javascript">
+        ///////////////////////////////////////////////////////////////////////
+        /// AUTO FILE LOADING ARRAY CREATION - MUST BE KEPT IN INDEX.
+        /// Else it will throw an Uncaught SyntaxError do to code parse fail.
+        /// Don't know of a way to catch a parse error so we let it ride.
+        var JS_FILES = {{jsFiles}};
+        var JS_POST_FILES = {{jsPostFiles}};
+        var CSS_FILES = {{cssFiles}};
+    </script>
 
-    <!--<script src="lib/require.js" data-main="main"></script>-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/labjs/2.0.3/LAB.min.js"></script>
+    <script src="http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/1.0.5/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/0.7.0/angularfire.js"></script>
     <script src="https://cdn.firebase.com/js/simple-login/1.2.5/firebase-simple-login.js"></script>
 
-
-
-    <!--<script type="text/javascript" src="lib/noty/packaged/jquery.noty.packaged.min.js"></script>-->
-    <!--<script type="text/javascript" src="lib/vendor/jquery.lettering.js"></script>-->
-    <!--<script type="text/javascript" src="lib/vendor/jquery.textillate.js"></script>-->
-    <!--<script type="text/javascript" src="lib/vendor/raphael-min.js"></script>-->
-
+    <script src="js/preload/client.js"></script>
+    <script src="js/preload/script-loader.js"></script>
 
 </head>
 <body>
@@ -78,11 +78,6 @@
 
 <!--<script src="js/client.js"></script>-->
 <span hidden>{% endraw %}</span>
-
-<span hidden>
-    {% for jsLoadLine in jsLoads %}{{ jsLoadLine }}
-    {% endfor %}
-</span>
 
 </body>
 </html>

@@ -8,28 +8,32 @@ from os import listdir
 from os.path import isfile, join
 import jinja2
 import webapp2
+import json
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'])
 
-class MainPage(webapp2.RequestHandler): # Landing page for TCBEdit, No real use ATM
+
+class MainPage(webapp2.RequestHandler):
     def get(self):
-        cssPath = 'css/'
-        cssFiles = [cssPath+f for f in listdir(cssPath) if isfile(join(cssPath,f)) ]
-        cssLoads = [];
-        for file in cssFiles:
-            cssLoads.append('<link rel="stylesheet" href="'+file+'" type="text/css" />')
 
-        jsPath = 'js/'
-        jsFiles = [jsPath+f for f in listdir(jsPath) if isfile(join(jsPath,f)) ]
-        jsLoads = [];
-        for file in jsFiles:
-            jsLoads.append('<script src="'+file+'"></script>')
+        css_path = 'css/'
+        css_files = [css_path+f for f in listdir(css_path) if isfile(join(css_path, f))]
 
-        template_values = { 'cssLoads': cssLoads,
-                            'jsLoads': jsLoads,
-                            }
+        js_path = 'js/'
+        js_files = [js_path+f for f in listdir(js_path) if isfile(join(js_path, f))]
+
+        js_post_path = 'js/postload/'
+        js_post_files = [js_post_path+f for f in listdir(js_post_path) if isfile(join(js_post_path, f))]
+
+        template_values = {
+            'cssFiles': json.dumps(css_files),
+            'jsFiles': json.dumps(js_files),
+            'jsPostFiles': json.dumps(js_post_files),
+            'appEngineLoaded': '<span id="appEngineLoaded"></span>',
+        }
+
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))
 
