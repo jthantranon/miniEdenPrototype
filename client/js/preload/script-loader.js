@@ -14,7 +14,8 @@ var MAN_POST_JS_FILES = [
 
 var MAN_CSS_FILES = [
     'console',
-    'glass'
+    'glass',
+    'main'
 ];
 
 //////////////////////////////////////////////////////

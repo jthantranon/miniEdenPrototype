@@ -5,7 +5,7 @@ EDEN.GLASSCOMPS = {
         var $glass = {};
         var extra = extrasObjLit || false;
         var width = extra.width || 410;
-        var zIndex = extra.z||EDEN.zIndex.uiBack || 0;
+        var zIndex = extra.z||EDEN.zIndex.uiBack || 20;
 
         $glass.ctx = $('#glassPrimer').clone().css('top',100).css('left',100).css('z-index',zIndex)
             .attr('id',id).addClass(primaryClass);

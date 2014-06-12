@@ -71,7 +71,8 @@
 #augShellCommandLine{
     font-family:"Lucida Console", Monaco, monospace;
     font-size:14px;
-    color:#0FF;
+    /*color:#0FF;*/
+    color:#000;
     width:90%;
     padding:0px;
     border:#0FF 0px solid;

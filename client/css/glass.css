@@ -1,10 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
 
-/*body {*/
-	/*background-color:#000;*/
-/*}*/
-
 /* ----- GLASS STRUCTURE ----- */
 
 .allWrapper {
@@ -16,6 +12,7 @@
 	background: rgb(255,255,255); /* Old browsers */
 	background: radial-gradient(ellipse at center, rgba(255,255,255,.75) 0%,rgba(0,0,0,.75) 100%); /* W3C */	
 	border-radius:4px;
+    /*z-index: THIS IS SET IN GLASSCOMP.js*/
 	
 }
 
