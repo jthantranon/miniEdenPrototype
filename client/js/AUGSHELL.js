@@ -1,6 +1,8 @@
 var DIA = [];
-DIA[0] = "**Greetings wanderer. If you are reading this, you must have found the terminal. I've left notes here when I passed through in hopes someone else might find them useful. To access them type: 'notes' into the console.**"
-DIA[1] = "**Great, you've found my notes...**"
+DIA[0] = "**Greetings wanderer. If you are reading this, you must have found the terminal. I've left notes here when I passed through in hopes someone else might find them useful. To access them type: 'notes' into the console.**";
+DIA[1] = "**Great, you've found my notes. I am a wanderer like you but I have been wandering for a long long time. This is not the first of these crystals that I have found, there are more out there. This crystal is a memory crystal. When you arrived here you entered with a unique signature specific to your visit, when you return you will be someone else. It took me some time to figure out how to get it to remember me but I have laid the ground work for future wanderers by streamlining the process. You can use this terminal to interface with the crystal. To register your signature to the crystal, simply type 'register'.**";
+DIA[2] = "Please enter your email.";
+DIA[3] = "Please enter a password.";
 
 /////////////////////////////
 EDEN.AUGSHELL = {
@@ -26,7 +28,8 @@ EDEN.AUGSHELL = {
 
 
         $ctx.on('click',function(){
-            $('body').on('keyup',EDEN.AUGSHELL.focus);
+//            $('body').on('keyup',EDEN.AUGSHELL.focus);
+            $('#augShellCommandLine').focus();
         });
         $ctx.on('blur',function(){
             $('#augShellCommandLine').blur();

@@ -1,6 +1,13 @@
+var FB_REF = new Firebase('https://minieden.firebaseio.com');
+var FB_AUTH = new FirebaseSimpleLogin(FB_REF, function(error, user) {
+//  ...
+});
+
 var meClient = angular.module('meClient', []);
 var EDEN = {
-    zIndex: {}
+    zIndex: {},
+    state: {},
+    cache: {}
 };
 
 meClient.controller('MainCtrl', function ($scope) {
