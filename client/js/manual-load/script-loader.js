@@ -15,6 +15,7 @@
 
 var MAN_JS_PRE_FILES = [
     'globals',
+    'dialogue',
     'LAB-debug.min'
 ];
 
