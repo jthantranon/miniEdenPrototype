@@ -24,13 +24,21 @@
 <body>
 <span hidden>{% raw %}</span>
 <div class="stage">
-<div ng-controller="MainCtrl">
+<div ng-controller="MainCtrl" id="MainCtrl">
+    <div id="connectionUI" class="fixedWidth" style="display: none">
+        ====== Connection ======<br>
+        STATUS: {{connectionStatus}}<br>
+        ========================<br>
+    </div>
+
     You have stumbled upon an anamoly in the very fabric of cyberspace. There is nothing to do here... for now.<br>
     <br>
     But...<br>
     <br>
     You do see a random access memory crystal and a <span eden-object></span> in front of it.<br>
     <br>
+
+
 
     <!--<eden-glass></eden-glass>-->
 

@@ -14,7 +14,8 @@
 //];
 
 var MAN_JS_PRE_FILES = [
-    'globals'
+    'globals',
+    'LAB-debug.min'
 ];
 
 var MAN_JS_FILES = [
@@ -22,7 +23,6 @@ var MAN_JS_FILES = [
     'shell',
     'glass',
     'shell-api',
-    'LAB-debug.min'
 ];
 
 var MAN_POST_JS_FILES = [

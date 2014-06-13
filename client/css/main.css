@@ -14,3 +14,7 @@ div.stage {
   left:       0;
   position:   fixed;
 }
+
+.fixedWidth {
+    font-family: monospace;
+}

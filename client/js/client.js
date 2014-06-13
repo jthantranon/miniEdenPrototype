@@ -1,6 +1,7 @@
 var meClient = angular.module('meClient', []);
 
 meClient.controller('MainCtrl', function ($scope) {
+    $scope.connectionStatus = 'NOT CONNECTED';
     $scope.uuid = 'test';
     $scope.objects = {};
     $scope.objects.terminal = {
