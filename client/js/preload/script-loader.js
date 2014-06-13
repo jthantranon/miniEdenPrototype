@@ -5,6 +5,7 @@
 var MAN_JS_FILES = [
     'AUGSHELL',
     'GLASSCOMPS',
+    'shell-api',
     'LAB-debug.min'
 ];
 

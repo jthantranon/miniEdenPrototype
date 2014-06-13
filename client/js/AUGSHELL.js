@@ -1,3 +1,7 @@
+var DIA = [];
+DIA[0] = "**Greetings wanderer. If you are reading this, you must have found the terminal. I've left notes here when I passed through in hopes someone else might find them useful. To access them type: 'notes' into the console.**"
+DIA[1] = "**Great, you've found my notes...**"
+
 /////////////////////////////
 EDEN.AUGSHELL = {
 /////////////////////////////
@@ -32,14 +36,14 @@ EDEN.AUGSHELL = {
         this.$conInDisplay = $('<span class="consoleInputDisplay">></span><div id="caret"></div>').appendTo(this.$conOut);
 
 
-        this.$realInput.on('keyup',function(e){
+        this.$realInput.on('keyup' || 'keydown',function(e){
             var val = $(this).val();
             $('.consoleInputDisplay').html('> '+val);
             if(e.which == 13) { // if they hit enter
                 self.print(val);
-//                EDEN.api(val); // TODO: Implement commandline api file.
-                $(this).val(''); // clear textbox
-                $('.consoleInputDisplay').html('>');
+                EDEN.api(val); // TODO: Implement commandline api file.
+//                $(this).val(''); // clear textbox
+//                $('.consoleInputDisplay').html('>');
             }
         });
 
@@ -47,6 +51,7 @@ EDEN.AUGSHELL = {
         this.print("&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|_|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|_|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|_|_|&nbsp;&nbsp;&nbsp;&nbsp;<br/>&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;<br/>&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;<br/>&nbsp;&nbsp;&nbsp;_|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|_|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|_|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp;&nbsp;&nbsp;&nbsp;_|&nbsp; STUDIOS",'#cccccc');
         this.print("AugmentedEdenShell - Limited Edition Designer Software",'lime');
         this.print("Version 0.18 Beta",'lime');
+        this.print(DIA[0],'white');
 
 
 //        this.print("<img src='app/img/factions/uniconLogoLarge.png'>");
@@ -74,13 +79,13 @@ EDEN.AUGSHELL = {
         $('body').off('keyup',EDEN.AUGSHELL.focus);
     },
     print: function(msg,color){
+        var $conIn = $('.consoleInputDisplay');
         var msg = color == null ? ('<p>> ' + msg + '</p>') : ('<p>><span style="color:' + color + '"> ' + msg + '</span></p>');
-        $('.consoleInputDisplay').before(msg);
-        this.currentScroll = this.$conOut.prop("scrollHeight") - this.$conOut.height();
-        console.log(this.currentScroll);
-        this.$conOut.scrollTop(this.currentScroll); //.animate({ scrollBot: this.currentScroll }, 100);
+        $conIn.before(msg);
         this.$realInput.val('');
-        $('.consoleInputDisplay').html('>');
+        $conIn.html('>');
+        var currentScroll = this.$conOut.prop("scrollHeight") - this.$conOut.height();
+        this.$conOut.scrollTop(currentScroll + 100); //.animate({ scrollBot: this.currentScroll }, 100);
     }
 };
 
