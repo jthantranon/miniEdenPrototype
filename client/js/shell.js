@@ -16,6 +16,7 @@ EDEN.AUGSHELL = {
         var height = 310;
         this.$glass = EDEN.GLASSCOMPS.createGlass("augShell", "augShell","> Augmented Eden Shell");
         var $ctx = this.$glass.ctx;
+        this.$glass.ctx.css('width',width);
         this.$glass.inner.css('width',width);
         this.$glass.content.css('width',width).css('height',height);
         var $conResponse = EDEN.GLASSCOMPS.divClass(this.$glass.content,"consoleResponse");

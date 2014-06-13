@@ -1,14 +1,4 @@
-var FB_REF = new Firebase('https://minieden.firebaseio.com');
-var FB_AUTH = new FirebaseSimpleLogin(FB_REF, function(error, user) {
-//  ...
-});
-
 var meClient = angular.module('meClient', []);
-var EDEN = {
-    zIndex: {},
-    state: {},
-    cache: {}
-};
 
 meClient.controller('MainCtrl', function ($scope) {
     $scope.uuid = 'test';
@@ -19,7 +9,6 @@ meClient.controller('MainCtrl', function ($scope) {
         uuid: '1'
     };
     $scope.test = function(){
-//        alert('t');
         EDEN.AUGSHELL.toggle();
     }
 });
@@ -45,15 +34,4 @@ meClient.directive('edenGlass',function(){
     };
 });
 
-
-
-
-var gaeCheck = $('#appEngineLoaded').length;
-//if(gaeCheck){
-//    console.log(true);
-//} else {
-//    $LAB
-//        .script("js/AUGSHELL.js")
-//        .script("js/init.js")
-//    ;
-//}
+angular.bootstrap(document, ['meClient'])

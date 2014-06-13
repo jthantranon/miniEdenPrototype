@@ -9,6 +9,7 @@ EDEN.GLASSCOMPS = {
 
         $glass.ctx = $('#glassPrimer').clone().css('top',100).css('left',100).css('z-index',zIndex)
             .attr('id',id).addClass(primaryClass);
+//        $glass.allWrapper = $glass.ctx.find('.allWrapper').css('width',width);
         $glass.content = $glass.ctx.find('.stuffWrapper').css('width',width).css('max-height',600);
         $glass.inner = $glass.ctx.find('.innerAllWrapper').css('width',width)
             .resizable({alsoResize:$glass.content,minWidth: width});

@@ -21,6 +21,9 @@ class MainPage(webapp2.RequestHandler):
         css_path = 'css/'
         css_files = [css_path+f for f in listdir(css_path) if isfile(join(css_path, f))]
 
+        js_pre_path = 'js/preload/'
+        js_pre_files = [js_pre_path+f for f in listdir(js_pre_path) if isfile(join(js_pre_path, f))]
+
         js_path = 'js/'
         js_files = [js_path+f for f in listdir(js_path) if isfile(join(js_path, f))]
 
@@ -29,6 +32,7 @@ class MainPage(webapp2.RequestHandler):
 
         template_values = {
             'cssFiles': json.dumps(css_files),
+            'jsPreFiles': json.dumps(js_pre_files),
             'jsFiles': json.dumps(js_files),
             'jsPostFiles': json.dumps(js_post_files),
             'appEngineLoaded': '<span id="appEngineLoaded"></span>',
