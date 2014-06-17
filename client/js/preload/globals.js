@@ -27,14 +27,11 @@ var FB_AUTH = new FirebaseSimpleLogin(FB_REF, function(error, user) {
         // user authenticated with Firebase
 //        console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
         console.log(user);
-        EDEN.URR = REQ_REF.child('users').child(user.uid);
-        EDEN.URR.child('test').set('weee');
 
         var FB_CONNECTED_REF = FB_REF.child('.info').child('connected');
         FB_CONNECTED_REF.on('value', function(data){
            var dat = data.val();
             if(dat === true){
-//                FBR.privateYouser = FBR.privateUsers.child(user.uid);
                 FBR.reqYouser = FBR.requests.child(user.uid);
                 FBR.sessionsUser = FBR.sessions.child(user.uid);
                 var con = FBR.sessionsUser.push(true);
