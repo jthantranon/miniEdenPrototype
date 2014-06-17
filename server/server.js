@@ -62,11 +62,12 @@ console.log(cjs.test);
 
 sessionsRef.on('child_added',function(data){
     var dat = data.val();
-    var name = data.name();
-    console.log(name+" has logged in.");
-    EDEN.SOUL.create(name);
-    var test = EDEN.SOULS[name];
-    console.log(test);
+    EDEN.SOUL.create(dat);
+});
+
+sessionsRef.on('child_removed',function(data){
+    var dat = data.val();
+    EDEN.SOUL.remove(dat)
 });
 
 EDEN.SOULS = {};
@@ -74,7 +75,7 @@ EDEN.SOUL = {
     create: function(uid){
         var soul = {};
         soul.uid = uid;
-        soul.test = 'test';
+//        soul.test = 'test';
         soul.priRef = priUsersRef.child(uid);
         soul.priRef.on('value',function(data){
             console.log(data.name());
@@ -87,15 +88,19 @@ EDEN.SOUL = {
         });
 
         EDEN.SOULS[uid] = soul;
+        console.log(uid+" has logged in.");
+    },
+    remove: function(uid){
+        EDEN.SOULS[uid].priRef.off();
+        EDEN.SOULS[uid].reqRef.off();
+
+        delete EDEN.SOULS[uid];
+        console.log(uid+" has logged out.");
     }
 };
 
 
-sessionsRef.on('child_removed',function(data){
-    var dat = data.val();
-    var name = data.name();
-    console.log(name+" has logged out.");
-});
+
 
 uReqRef.on('value',function(data){
     var dat = data.val();
