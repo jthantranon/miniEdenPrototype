@@ -77,9 +77,12 @@ EDEN.api = function(raw){
             EDEN.state.settingEmail = true;
             EDEN.state.logginIn = true;
             break;
+        case "logout":
+            FB_AUTH.logout();
+            break;
         case "test":
             EDEN.AUGSHELL.print('tested','yellow');
-            FBR.reqYouser.child('test').set('meh');
+            FBR.reqYouser.child('test').set(cmd[1] || 'no test');
             break;
     }
 };

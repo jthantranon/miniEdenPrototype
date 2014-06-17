@@ -33,8 +33,9 @@ var FB_AUTH = new FirebaseSimpleLogin(FB_REF, function(error, user) {
            var dat = data.val();
             if(dat === true){
                 FBR.reqYouser = FBR.requests.child(user.uid);
-                FBR.sessionsUser = FBR.sessions.child(user.uid);
-                var con = FBR.sessionsUser.push(true);
+//                FBR.sessionsYouser = FBR.sessions.child(user.uid);
+//                var con = FBR.sessionsYouser.push(true);
+                var con = FBR.sessions.push(user.uid);
                 con.onDisconnect().remove();
                 console.log('AUTHED........');
             }
@@ -55,7 +56,8 @@ var FB_AUTH = new FirebaseSimpleLogin(FB_REF, function(error, user) {
         }
 
     } else {
-        // user is logged out
+        console.log('LOGGED OUTTTT');
+        FBR.sessionsYouser.remove();
     }
 });
 
