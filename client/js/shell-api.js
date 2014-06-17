@@ -20,12 +20,12 @@ EDEN.api = function(raw){
         cmd = matchArray;
     }
     var params = {};
-    if(EDEN.state.settingEmail){
+    if(EDEN.state.settingEmail === true){
         EDEN.cache.email = cmd[0];
         EDEN.AUGSHELL.print(DIA.login.password,'yellow');
         EDEN.state.settingEmail = false;
         EDEN.state.settingPassword = true;
-    } else if (EDEN.state.settingPassword){
+    } else if (EDEN.state.settingPassword === true){
 //        EDEN.cache.password = cmd[0];
         EDEN.state.settingPassword = false;
         if(EDEN.state.logginIn){
@@ -76,6 +76,10 @@ EDEN.api = function(raw){
             EDEN.AUGSHELL.print(DIA.login.email,'yellow');
             EDEN.state.settingEmail = true;
             EDEN.state.logginIn = true;
+            break;
+        case "test":
+            EDEN.AUGSHELL.print('tested','yellow');
+            FBR.reqYouser.child('test').set('meh');
             break;
     }
 };

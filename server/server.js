@@ -8,7 +8,7 @@
 //    }).resume();
 //}).listen(8080);
 
-var WSS_PORT = 8082
+var WSS_PORT = 8082;
 var Firebase = require('firebase');
 var pwHash = require('password-hash');
 //var FirebaseTokenGenerator = require("firebase-token-generator");
@@ -18,17 +18,24 @@ var clc = require('cli-color');
 var uuid = require('node-uuid');
 
 var cjs = require('../shared/commonJSTest.js');
+var FB_KEY = require('../shared/fb-key.js');
 
 var chance = new Chance();
 //var tokenGenerator = new FirebaseTokenGenerator('g0SM2eytPDTPm1VjIfhi1s2Iphbvd0sX09bQpLUE');
 
 var baseURL = "https://minieden.firebaseio.com";
 var baseRef = new Firebase(baseURL);
+var uReqRef = baseRef.child('requests').child('users');
 var pubRef = baseRef.child('public');
-var pwsRef = pubRef.child('worldState');
 var priRef = baseRef.child('private');
+var reqRef = baseRef.child('requests');
+
 var pubUsersRef = pubRef.child('users');
 var priUsersRef = priRef.child('users');
+//var reqUsersRef = reqRef.child('users');
+
+var pwsRef = pubRef.child('worldState');
+var sessionsRef = baseRef.child('sessions');
 var uRef;
 
 function LOG(msg,color){
@@ -38,7 +45,7 @@ function LOG(msg,color){
 
 /// Register Server with Firebase
 //////////////////////////////////
-baseRef.auth('g0SM2eytPDTPm1VjIfhi1s2Iphbvd0sX09bQpLUE', function(error) {
+baseRef.auth(FB_KEY.val, function(error) {
     if(error) {
         console.log("SERVER: Firebase login failed!", error);
     } else {
@@ -52,6 +59,48 @@ var EDEN = {
 };
 
 console.log(cjs.test);
+
+sessionsRef.on('child_added',function(data){
+    var dat = data.val();
+    var name = data.name();
+    console.log(name+" has logged in.");
+    EDEN.SOUL.create(name);
+    var test = EDEN.SOULS[name];
+    console.log(test);
+});
+
+EDEN.SOULS = {};
+EDEN.SOUL = {
+    create: function(uid){
+        var soul = {};
+        soul.uid = uid;
+        soul.test = 'test';
+        soul.priRef = priUsersRef.child(uid);
+        soul.priRef.on('value',function(data){
+            console.log(data.name());
+            console.log(data.val());
+        });
+        soul.reqRef = reqRef.child(uid);
+        soul.reqRef.on('value',function(data){
+            console.log(data.name());
+            console.log(data.val());
+        });
+
+        EDEN.SOULS[uid] = soul;
+    }
+};
+
+
+sessionsRef.on('child_removed',function(data){
+    var dat = data.val();
+    var name = data.name();
+    console.log(name+" has logged out.");
+});
+
+uReqRef.on('value',function(data){
+    var dat = data.val();
+    console.log(dat);
+});
 
 /// HELPER FUNCTIONS
 /////////////////////////////////////
