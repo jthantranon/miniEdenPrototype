@@ -26,7 +26,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -35,6 +36,7 @@ Icon
 .Spotlight-V100
 .Trashes
 
+.idea/
 shared/fb-key.js
 .idea/workspace.xml
 client/.idea/workspace.xml
