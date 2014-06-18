@@ -38,6 +38,8 @@ var pwsRef = pubRef.child('worldState');
 var sessionsRef = baseRef.child('sessions');
 var uRef;
 
+
+
 function LOG(msg,color){
     fmsg = color ? clc[color](msg) : msg;
     console.log(fmsg);
@@ -57,6 +59,12 @@ var SESSIONS = {};
 var EDEN = {
     USERS: {}
 };
+
+
+EDEN.grid = [];
+EDEN.grid[0] = ['A','B','C'];
+EDEN.grid[1] = ['D','E','F'];
+EDEN.grid[2] = ['G','H','I'];
 
 console.log(cjs.test);
 
@@ -148,6 +156,13 @@ EDEN.STATE = (function(state){
 
 var EDEN_RANDOM_EVENTS = (function(events){
     events = {};
+    events.scram = function(force){
+        var x = chance.integer({min: 0, max: 2});
+        var y = chance.integer({min: 0, max: 2});
+        EDEN.grid[x][y] = chance.character({alpha: true, casing: 'upper'});
+        pwsRef.child('grid').set(EDEN.grid);
+        console.log(EDEN.grid);
+    };
     events.weather = function(force){
         var l = {
             1: 'snow',
@@ -210,13 +225,14 @@ var EDEN_CLOCK = (function(clock,rEvents){
     }
 
     function eventsMicro(){
-
+        rEvents.scram();
     }
 
     function eventsMilli(){
         EDEN.STATE.update();
         rEvents.weather();
         rEvents.spawnMob();
+        rEvents.scram();
     }
 
 //    YY:MM:WW:DD:HH:MM:SS:MS

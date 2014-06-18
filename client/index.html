@@ -26,9 +26,22 @@
 <div class="stage">
 <div ng-controller="MainCtrl" id="MainCtrl">
     <div id="connectionUI" class="fixedWidth" style="display: none">
-        ====== Connection ======<br>
-        STATUS: {{connectionStatus}}<br>
-        ========================<br>
+    ======== Connection ========
+    STATUS: {{connectionStatus}}
+    ============================
+
+    ======== UI LIBRARY ========
+    connectionUI    | installed
+    locationUI      | craft
+    resourceUI      | craft
+    countdownUI     | craft
+    ============================
+    </div>
+    <div id="gridUI" class="fixedWidth grid"> =={{combo}}==
+ |{{grid[0][0]}}{{grid[0][1]}}{{grid[0][2]}}| Streak: {{comboCount}}
+ |{{grid[1][0]}}{{grid[1][1]}}{{grid[1][2]}}| Streak Score: {{comboScore}}
+ |{{grid[2][0]}}{{grid[2][1]}}{{grid[2][2]}}| Bank: {{resource}}
+ =====
     </div>
 
     You have stumbled upon an anamoly in the very fabric of cyberspace. There is nothing to do here... for now.<br>

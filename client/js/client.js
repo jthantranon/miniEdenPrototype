@@ -4,6 +4,13 @@ meClient.controller('MainCtrl', function ($scope) {
     $scope.connectionStatus = 'NOT CONNECTED';
     $scope.uuid = 'test';
     $scope.objects = {};
+    $scope.combo = '=';
+//    var grid = [];
+//    grid[0] = ['A','B','C'];
+//    grid[1] = ['D','E','F'];
+//    grid[2] = ['G','H','I'];
+//
+//    $scope.grid = grid;
     $scope.objects.terminal = {
         name: 'glowing terminal',
         type: 'terminal',
@@ -35,4 +42,17 @@ meClient.directive('edenGlass',function(){
     };
 });
 
-angular.bootstrap(document, ['meClient'])
+
+//EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("#MainCtrl")).scope();
+FBR.base.child('public').child('worldState').child('grid').on('value',function(data){
+//    console.log(data.val());
+//    var scope = angular.element($("#MainCtrl")).scope();
+        EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("#MainCtrl")).scope();
+        EDEN.$SCOPE.$apply(function(){
+        EDEN.$SCOPE.grid = data.val();
+        EDEN.grid = data.val();
+    });
+});
+
+
+angular.bootstrap(document, ['meClient']);
