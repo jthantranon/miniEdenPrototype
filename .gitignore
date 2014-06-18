@@ -37,6 +37,7 @@ Icon
 .Trashes
 
 .idea/
+client/.idea/
 shared/fb-key.js
 .idea/workspace.xml
 client/.idea/workspace.xml

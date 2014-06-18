@@ -17,6 +17,7 @@ EDEN.resource = 0;
 
 var FBR = {};
 FBR.base = new Firebase('https://minieden.firebaseio.com');
+FBR.public = FBR.base.child('public');
 FBR.private = FBR.base.child('private');
 FBR.requests = FBR.base.child('requests');
 FBR.sessions = FBR.base.child('sessions');
@@ -38,12 +39,28 @@ var FB_AUTH = new FirebaseSimpleLogin(FB_REF, function(error, user) {
         FB_CONNECTED_REF.on('value', function(data){
            var dat = data.val();
             if(dat === true){
+                FBR.pubYouser = FBR.public.child('users').child(user.uid);
                 FBR.reqYouser = FBR.requests.child(user.uid);
 //                FBR.sessionsYouser = FBR.sessions.child(user.uid);
 //                var con = FBR.sessionsYouser.push(true);
                 EDEN.seshRef = FBR.sessions.push(user.uid);
                 EDEN.seshRef.onDisconnect().remove();
                 console.log('AUTHED........');
+
+                FBR.pubYouser.on('value',function(data){
+                    var dat = data.val();
+                    if(dat){
+                        EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("#MainCtrl")).scope();
+                        EDEN.$SCOPE.$apply(function(){
+                            EDEN.$SCOPE.combo = dat.combo;
+                            EDEN.$SCOPE.comboCount = dat.comboCount;
+                            EDEN.$SCOPE.comboScore = dat.comboCount*EDEN.comboCount;
+                            EDEN.$SCOPE.resource = dat.resource;
+                        });
+                    }
+                });
+
+
             }
         });
 
@@ -97,7 +114,8 @@ EDEN.numCoord = {
 };
 
 $(window).on('keydown', function(e){
-    EDEN.Keys[EDEN.keybindLegend[e.which]] = true;
+//    EDEN.Keys[EDEN.keybindLegend[e.which]] = true; // not needed until holding down keys is important
+    FBR.reqYouser.child('keyPress').set(e.which);
     var c = EDEN.numCoord[e.which];
     console.log('you pressed ' + EDEN.keybindLegend[e.which] + '/' + e.which + '/' + l);
 
@@ -122,12 +140,12 @@ $(window).on('keydown', function(e){
         }
     }
 
-    EDEN.$SCOPE.$apply(function(){
-        EDEN.$SCOPE.combo = EDEN.combo;
-        EDEN.$SCOPE.comboCount = EDEN.comboCount;
-        EDEN.$SCOPE.comboScore = EDEN.comboCount*EDEN.comboCount;
-        EDEN.$SCOPE.resource = EDEN.resource;
-    });
+//    EDEN.$SCOPE.$apply(function(){
+//        EDEN.$SCOPE.combo = EDEN.combo;
+//        EDEN.$SCOPE.comboCount = EDEN.comboCount;
+//        EDEN.$SCOPE.comboScore = EDEN.comboCount*EDEN.comboCount;
+//        EDEN.$SCOPE.resource = EDEN.resource;
+//    });
 
 });
 $(window).on('keyup', function(e){

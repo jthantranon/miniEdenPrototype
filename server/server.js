@@ -78,21 +78,111 @@ sessionsRef.on('child_removed',function(data){
     EDEN.SOUL.remove(dat)
 });
 
+
+EDEN.Keys = {};
+EDEN.keybindLegend = {
+    87: 'w',
+    65: 'a',
+    83: 's',
+    68: 'd',
+    81: 'q',
+    69: 'e',
+    97: 'num1',
+    98: 'num2',
+    99: 'num3',
+    100: 'num4',
+    101: 'num5',
+    102: 'num6',
+    103: 'num7',
+    104: 'num8',
+    105: 'num9'
+};
+EDEN.numCoord = {
+    97: [2,0],
+    98: [2,1],
+    99: [2,2],
+    100: [1,0],
+    101: [1,1],
+    102: [1,2],
+    103: [0,0],
+    104: [0,1],
+    105: [0,2]
+};
+
 EDEN.SOULS = {};
 EDEN.SOUL = {
     create: function(uid){
         var soul = {};
+        soul.loaded = false;
         soul.uid = uid;
-//        soul.test = 'test';
+        soul.lastKey = null;
+//        soul.resource = 0;
+        soul.combo = '=';
+        soul.comboCount = 0;
+
+        soul.pubRef = pubUsersRef.child(uid);
         soul.priRef = priUsersRef.child(uid);
+        soul.reqRef = reqRef.child(uid);
+
+        soul.pubRef.on('value',function(data){
+            var dat = data.val();
+            soul.loaded = true;
+            soul.resource = dat.resource || 0;
+        });
+
+        var updateFB = function(){
+            soul.pubRef.child('combo').set(soul.combo);
+            soul.pubRef.child('comboCount').set(soul.comboCount);
+//            if(soul.loaded === true){
+//                soul.pubRef.child('resource').set(soul.resource);
+//            }
+        };
+
+        updateFB();
+
         soul.priRef.on('value',function(data){
             console.log(data.name());
             console.log(data.val());
         });
-        soul.reqRef = reqRef.child(uid);
         soul.reqRef.on('value',function(data){
+            var dat = data.val();
             console.log(data.name());
-            console.log(data.val());
+            console.log(dat);
+            if(dat.keyPress === null){
+                soul.lastKey = dat.keyPress;
+            } else if (dat.keyPress !== soul.keyPress){
+                soul.keyPress = dat.keyPress;
+                console.log(dat.keyPress);
+
+                var c = EDEN.numCoord[dat.keyPress];
+                var l = c ? EDEN.grid[c[0]][c[1]] : 'no grid';
+                console.log('you pressed ' + EDEN.keybindLegend[dat.keyPress] + '/' + dat.keyPress + '/' + l);
+
+                if(dat.keyPress === 107){
+                    soul.resource = soul.resource + (soul.comboCount*soul.comboCount);
+                    soul.comboCount = 0;
+                    console.log(soul.resource);
+                    soul.pubRef.child('resource').set(soul.resource);
+                }
+
+                if(c){
+
+                    if(soul.combo === '='){
+                        soul.combo = l;
+                        console.log('LETTER SET.');
+                    } else if (soul.combo === l){
+                        soul.comboCount++;
+                        console.log('COMBO '+ soul.comboCount +'!');
+                    } else if (soul.combo != l){
+                        console.log('COMBO BROKEN.');
+                        soul.combo = '=';
+                        soul.comboCount = 0;
+                    }
+                }
+
+                updateFB();
+
+            }
         });
 
         EDEN.SOULS[uid] = soul;
@@ -225,7 +315,7 @@ var EDEN_CLOCK = (function(clock,rEvents){
     }
 
     function eventsMicro(){
-        rEvents.scram();
+//        rEvents.scram();
     }
 
     function eventsMilli(){
