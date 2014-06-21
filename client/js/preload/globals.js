@@ -115,37 +115,41 @@ EDEN.numCoord = {
 
 $(window).on('keydown', function(e){
 //    EDEN.Keys[EDEN.keybindLegend[e.which]] = true; // not needed until holding down keys is important
-    FBR.reqYouser.child('keyPress').set(e.which);
-    var c = EDEN.numCoord[e.which];
-    console.log('you pressed ' + EDEN.keybindLegend[e.which] + '/' + e.which + '/' + l);
 
-    if(e.which === 107){
-        EDEN.resource = EDEN.resource + (EDEN.comboCount*EDEN.comboCount);
-        EDEN.comboCount = 0;
-        console.log(EDEN.resource);
-    }
+//    console.log('you pressed ' + EDEN.keybindLegend[e.which] + '/' + e.which + '/' + l);
 
-    if(c){
-        var l = EDEN.grid[c[0]][c[1]];
-        if(EDEN.combo === '='){
-            EDEN.combo = l;
-            console.log('LETTER SET.');
-        } else if (EDEN.combo === l){
-            EDEN.comboCount++;
-            console.log('COMBO '+ EDEN.comboCount +'!');
-        } else if (EDEN.combo != l){
-            console.log('COMBO BROKEN.');
-            EDEN.combo = '=';
+    if(EDEN.state.focus != 'shell'){
+        FBR.reqYouser.child('keyPress').set(e.which);
+        var c = EDEN.numCoord[e.which];
+
+        if(e.which === 107){
+            EDEN.resource = EDEN.resource + (EDEN.comboCount*EDEN.comboCount);
             EDEN.comboCount = 0;
+            console.log(EDEN.resource);
         }
-    }
 
-//    EDEN.$SCOPE.$apply(function(){
-//        EDEN.$SCOPE.combo = EDEN.combo;
-//        EDEN.$SCOPE.comboCount = EDEN.comboCount;
-//        EDEN.$SCOPE.comboScore = EDEN.comboCount*EDEN.comboCount;
-//        EDEN.$SCOPE.resource = EDEN.resource;
-//    });
+        if(c){
+            var l = EDEN.grid[c[0]][c[1]];
+            if(EDEN.combo === '='){
+                EDEN.combo = l;
+                console.log('LETTER SET.');
+            } else if (EDEN.combo === l){
+                EDEN.comboCount++;
+                console.log('COMBO '+ EDEN.comboCount +'!');
+            } else if (EDEN.combo != l){
+                console.log('COMBO BROKEN.');
+                EDEN.combo = '=';
+                EDEN.comboCount = 0;
+            }
+        }
+
+    //    EDEN.$SCOPE.$apply(function(){
+    //        EDEN.$SCOPE.combo = EDEN.combo;
+    //        EDEN.$SCOPE.comboCount = EDEN.comboCount;
+    //        EDEN.$SCOPE.comboScore = EDEN.comboCount*EDEN.comboCount;
+    //        EDEN.$SCOPE.resource = EDEN.resource;
+    //    });
+    }
 
 });
 $(window).on('keyup', function(e){
