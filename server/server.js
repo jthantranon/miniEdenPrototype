@@ -70,11 +70,14 @@ console.log(cjs.test);
 
 sessionsRef.on('child_added',function(data){
     var dat = data.val();
-    EDEN.SOUL.create(dat);
+    if(!EDEN.SOULS[dat]){
+        EDEN.SOUL.create(dat);
+    }
 });
 
 sessionsRef.on('child_removed',function(data){
     var dat = data.val();
+    console.log('REMOVING: ' + dat);
     EDEN.SOUL.remove(dat)
 });
 
@@ -112,10 +115,11 @@ EDEN.numCoord = {
 EDEN.SOULS = {};
 EDEN.SOUL = {
     create: function(uid){
+        console.log('THIS IS RUNNING THREE TIMES.');
         var soul = {};
         soul.loaded = false;
         soul.uid = uid;
-        soul.lastKey = null;
+        soul.keyPress = null;
 //        soul.resource = 0;
         soul.combo = '=';
         soul.comboCount = 0;
@@ -144,21 +148,22 @@ EDEN.SOUL = {
             console.log(data.name());
             console.log(data.val());
         });
-        soul.reqRef.on('value',function(data){
+
+        soul.reqRef.child('keyPress').on('value',function(data){
             var dat = data.val();
             console.log(data.name());
             console.log(dat);
-            if(dat.keyPress === null){
-                soul.lastKey = dat.keyPress;
-            } else if (dat.keyPress !== soul.keyPress){
-                soul.keyPress = dat.keyPress;
-                console.log(dat.keyPress);
+            if(dat === null){
+                soul.keyPress = dat;
+            } else if (dat !== soul.keyPress){
+                soul.keyPress = dat;
+                console.log(dat);
 
-                var c = EDEN.numCoord[dat.keyPress];
+                var c = EDEN.numCoord[dat];
                 var l = c ? EDEN.grid[c[0]][c[1]] : 'no grid';
-                console.log('you pressed ' + EDEN.keybindLegend[dat.keyPress] + '/' + dat.keyPress + '/' + l);
+                console.log('you pressed ' + EDEN.keybindLegend[dat] + '/' + dat + '/' + l);
 
-                if(dat.keyPress === 107){
+                if(dat === 107){
                     soul.resource = soul.resource + (soul.comboCount*soul.comboCount);
                     soul.comboCount = 0;
                     console.log(soul.resource);
@@ -185,10 +190,94 @@ EDEN.SOUL = {
             }
         });
 
+
+//        soul.reqRef.on('value',function(data){
+//            var dat = data.val();
+//            console.log(data.name());
+//            console.log(dat);
+//            if(dat.keyPress === null){
+//                soul.keyPress = dat.keyPress;
+//            } else if (dat.keyPress !== soul.keyPress){
+//                soul.keyPress = dat.keyPress;
+//                console.log(dat.keyPress);
+//
+//                var c = EDEN.numCoord[dat.keyPress];
+//                var l = c ? EDEN.grid[c[0]][c[1]] : 'no grid';
+//                console.log('you pressed ' + EDEN.keybindLegend[dat.keyPress] + '/' + dat.keyPress + '/' + l);
+//
+//                if(dat.keyPress === 107){
+//                    soul.resource = soul.resource + (soul.comboCount*soul.comboCount);
+//                    soul.comboCount = 0;
+//                    console.log(soul.resource);
+//                    soul.pubRef.child('resource').set(soul.resource);
+//                }
+//
+//                if(c){
+//
+//                    if(soul.combo === '='){
+//                        soul.combo = l;
+//                        console.log('LETTER SET.');
+//                    } else if (soul.combo === l){
+//                        soul.comboCount++;
+//                        console.log('COMBO '+ soul.comboCount +'!');
+//                    } else if (soul.combo != l){
+//                        console.log('COMBO BROKEN.');
+//                        soul.combo = '=';
+//                        soul.comboCount = 0;
+//                    }
+//                }
+//
+//                updateFB();
+//
+//            }
+//        });
+
+//        soul.reqRef.on('value',function(data){
+//            var dat = data.val();
+//            console.log(data.name());
+//            console.log(dat);
+//            if(dat.keyPress === null){
+//                soul.lastKey = dat.keyPress;
+//            } else if (dat.keyPress !== soul.keyPress){
+//                soul.keyPress = dat.keyPress;
+//                console.log(dat.keyPress);
+//
+//                var c = EDEN.numCoord[dat.keyPress];
+//                var l = c ? EDEN.grid[c[0]][c[1]] : 'no grid';
+//                console.log('you pressed ' + EDEN.keybindLegend[dat.keyPress] + '/' + dat.keyPress + '/' + l);
+//
+//                if(dat.keyPress === 107){
+//                    soul.resource = soul.resource + (soul.comboCount*soul.comboCount);
+//                    soul.comboCount = 0;
+//                    console.log(soul.resource);
+//                    soul.pubRef.child('resource').set(soul.resource);
+//                }
+//
+//                if(c){
+//
+//                    if(soul.combo === '='){
+//                        soul.combo = l;
+//                        console.log('LETTER SET.');
+//                    } else if (soul.combo === l){
+//                        soul.comboCount++;
+//                        console.log('COMBO '+ soul.comboCount +'!');
+//                    } else if (soul.combo != l){
+//                        console.log('COMBO BROKEN.');
+//                        soul.combo = '=';
+//                        soul.comboCount = 0;
+//                    }
+//                }
+//
+//                updateFB();
+//
+//            }
+//        });
+
         EDEN.SOULS[uid] = soul;
         console.log(uid+" has logged in.");
     },
     remove: function(uid){
+        EDEN.SOULS[uid].pubRef.off();
         EDEN.SOULS[uid].priRef.off();
         EDEN.SOULS[uid].reqRef.off();
 

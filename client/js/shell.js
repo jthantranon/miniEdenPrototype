@@ -25,9 +25,16 @@ EDEN.AUGSHELL = {
         $ctx.on('click',function(){
 //            $('body').on('keyup',EDEN.AUGSHELL.focus);
             $('#augShellCommandLine').focus();
+            EDEN.state.focus = "shell";
+            console.log(EDEN.state);
         });
-        $ctx.on('blur',function(){
-            $('#augShellCommandLine').blur();
+        this.$realInput.on('blur',function(){
+
+//            $('#augShellCommandLine').blur();
+
+            EDEN.state.focus = EDEN.state.focus == "shell" ? "" : EDEN.state.focus;
+
+            console.log(EDEN.state);
         });
 
 

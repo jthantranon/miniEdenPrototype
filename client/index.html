@@ -43,6 +43,18 @@
  |{{grid[2][0]}}{{grid[2][1]}}{{grid[2][2]}}| Bank: {{resource}}
  =====
     </div>
+    <div id="gridDraw" class="fixedWidthNoPre grid">
+        <div ng-repeat="gridX in grid">
+            <span ng-repeat="gridY in gridX">
+                {{gridY}}
+            </span>
+            <!--<div class="fixedWidth grid"  ng-repeat="gridY in gridX">-->
+                <!--<pre>{{gridY}}</pre>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+
 
     You have stumbled upon an anamoly in the very fabric of cyberspace. There is nothing to do here... for now.<br>
     <br>

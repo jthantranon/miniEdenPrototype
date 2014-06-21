@@ -20,6 +20,10 @@ div.stage {
     white-space: pre;
 }
 
+.fixedWidthNoPre {
+    font-family: monospace;
+}
+
 .grid {
     font-size: 5em;
 }
