@@ -7,7 +7,8 @@ var EDEN = {
     cache: {
         buffer: []
     },
-    seshRef: null
+    seshRef: null,
+    gridSelect: {}
 };
 
 EDEN.$SCOPE = null;
@@ -117,10 +118,11 @@ $(window).on('keydown', function(e){
 //    EDEN.Keys[EDEN.keybindLegend[e.which]] = true; // not needed until holding down keys is important
 
 //    console.log('you pressed ' + EDEN.keybindLegend[e.which] + '/' + e.which + '/' + l);
+    var keycode = e.which;
 
     if(EDEN.state.focus != 'shell'){
         FBR.reqYouser.child('keyPress').set(e.which);
-        var c = EDEN.numCoord[e.which];
+        var c = EDEN.numCoord[keycode];
 
         if(e.which === 107){
 //            EDEN.resource = EDEN.resource + (EDEN.comboCount*EDEN.comboCount);
@@ -129,6 +131,8 @@ $(window).on('keydown', function(e){
         }
 
         if(c){
+            EDEN.gridSelect[keycode] = c;
+
             $(".x"+c[0]+"y"+c[1]).css("background","yellow");
 //            var l = EDEN.grid[c[0]][c[1]];
 //            if(EDEN.combo === '='){

@@ -45,13 +45,17 @@ meClient.directive('edenGlass',function(){
 
 //EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("#MainCtrl")).scope();
 FBR.base.child('public').child('worldState').child('grid').on('value',function(data){
-//    console.log(data.val());
-//    var scope = angular.element($("#MainCtrl")).scope();
-        EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("#MainCtrl")).scope();
-        EDEN.$SCOPE.$apply(function(){
+    EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("#MainCtrl")).scope();
+    EDEN.$SCOPE.$apply(function(){
         EDEN.$SCOPE.grid = data.val();
         EDEN.grid = data.val();
     });
+    for (var highlight in EDEN.gridSelect) {
+        if (EDEN.gridSelect.hasOwnProperty(highlight)) {
+            var c = EDEN.gridSelect[highlight];
+            $(".x"+c[0]+"y"+c[1]).css("background","yellow");
+        }
+    }
 });
 
 
