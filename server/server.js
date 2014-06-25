@@ -114,15 +114,20 @@ EDEN.numCoord = {
 
 EDEN.SOULS = {};
 EDEN.SOUL = {
+//    update: function(){
+//        soul.pubRef.child('combo').set(soul.combo);
+//        soul.pubRef.child('comboCount').set(soul.comboCount);
+//    },
     create: function(uid){
-        console.log('THIS IS RUNNING THREE TIMES.');
         var soul = {};
         soul.loaded = false;
         soul.uid = uid;
         soul.keyPress = null;
+        soul.comboSet = {};
 //        soul.resource = 0;
         soul.combo = '=';
         soul.comboCount = 0;
+        soul.comboCoords = {};
 
         soul.pubRef = pubUsersRef.child(uid);
         soul.priRef = priUsersRef.child(uid);
@@ -151,6 +156,7 @@ EDEN.SOUL = {
 
         soul.reqRef.child('keyPress').on('value',function(data){
             var dat = data.val();
+            var c = EDEN.numCoord[dat];
             console.log(data.name());
             console.log(dat);
             if(dat === null){
@@ -159,11 +165,12 @@ EDEN.SOUL = {
                 soul.keyPress = dat;
                 console.log(dat);
 
-                var c = EDEN.numCoord[dat];
+//                var c = EDEN.numCoord[dat];
                 var l = c ? EDEN.grid[c[0]][c[1]] : 'no grid';
                 console.log('you pressed ' + EDEN.keybindLegend[dat] + '/' + dat + '/' + l);
 
                 if(dat === 107){
+                    soul.comboCoords = {};
                     soul.resource = soul.resource + (soul.comboCount*soul.comboCount);
                     soul.comboCount = 0;
                     console.log(soul.resource);
@@ -171,6 +178,17 @@ EDEN.SOUL = {
                 }
 
                 if(c){
+                    soul.comboSet[dat] = c;
+
+//                    soul.comboSet = {};
+                    soul.comboCoords[dat] = c;
+                    console.log(soul.comboCoords);
+
+//                    for (i=97;i<106;i++){
+//                        if(soul.comboSet[i]){
+//                            soul.comboCoords[dat] = soul.comboSet[i];
+//                        }
+//                    }
 
                     if(soul.combo === '='){
                         soul.combo = l;
@@ -336,6 +354,71 @@ EDEN.STATE = (function(state){
 var EDEN_RANDOM_EVENTS = (function(events){
     events = {};
     events.scram = function(force){
+        for (var soul in EDEN.SOULS) {
+            if (EDEN.SOULS.hasOwnProperty(soul)) {
+                var thisSoul = EDEN.SOULS[soul];
+
+                var letters = {};
+                var uniqueLettersCount;
+                console.log(typeof thisSoul.comboCoords);
+                console.log(thisSoul.comboCoords);
+                for (var key in thisSoul.comboCoords){
+                    if(thisSoul.comboCoords.hasOwnProperty(key)){
+                        var c = thisSoul.comboCoords[key];
+                        var l = EDEN.grid[c[0]][c[1]];
+                        letters[l]++;
+//                    if(seen[l]){
+//                        dupes = true;
+//                    } else if ( dupes != true ){
+//                        seen[l] = true;
+//                        dupes = false;
+//                    }
+                        console.log(c);
+                        console.log(l);
+                    }
+                }
+//                for (i = 0; i < thisSoul.comboCoords.length; i++){
+//                    var c = thisSoul.comboCoords[i];
+//                    var l = EDEN.grid[c[0]][c[1]];
+//                    letters[l]++;
+////                    if(seen[l]){
+////                        dupes = true;
+////                    } else if ( dupes != true ){
+////                        seen[l] = true;
+////                        dupes = false;
+////                    }
+//                    console.log(l);
+//                }
+
+//                for (var letter in letters){
+//                    if(letters.hasOwnProperty(letter)){
+//                        uniqueLettersCount++;
+//                    }
+//                }
+
+                var sampleSize = Object.edenObjLen(thisSoul.comboCoords) || 0;
+                var uniqueLetters = Object.edenObjLen(letters);
+                var comboCount = uniqueLetters == 1 ? sampleSize : 0;
+
+                var log = {
+                    who: thisSoul.uid,
+                    sampleSize: sampleSize,
+                    uniqueLetters: uniqueLetters
+                };
+
+                console.log(log);
+
+                thisSoul.comboCount = comboCount;
+                thisSoul.resource = thisSoul.resource + (thisSoul.comboCount*thisSoul.comboCount);
+
+//                console.log(soul.resource);
+//                thisSoul.pubRef.child('combo').set(soul.combo);
+                thisSoul.pubRef.child('comboCount').set(thisSoul.comboCount);
+                thisSoul.pubRef.child('resource').set(thisSoul.resource);
+
+
+            }
+        }
         var x = chance.integer({min: 0, max: 2});
         var y = chance.integer({min: 0, max: 2});
         EDEN.grid[x][y] = chance.character({alpha: true, casing: 'upper'});

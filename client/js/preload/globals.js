@@ -123,24 +123,25 @@ $(window).on('keydown', function(e){
         var c = EDEN.numCoord[e.which];
 
         if(e.which === 107){
-            EDEN.resource = EDEN.resource + (EDEN.comboCount*EDEN.comboCount);
-            EDEN.comboCount = 0;
-            console.log(EDEN.resource);
+//            EDEN.resource = EDEN.resource + (EDEN.comboCount*EDEN.comboCount);
+//            EDEN.comboCount = 0;
+//            console.log(EDEN.resource);
         }
 
         if(c){
-            var l = EDEN.grid[c[0]][c[1]];
-            if(EDEN.combo === '='){
-                EDEN.combo = l;
-                console.log('LETTER SET.');
-            } else if (EDEN.combo === l){
-                EDEN.comboCount++;
-                console.log('COMBO '+ EDEN.comboCount +'!');
-            } else if (EDEN.combo != l){
-                console.log('COMBO BROKEN.');
-                EDEN.combo = '=';
-                EDEN.comboCount = 0;
-            }
+            $(".x"+c[0]+"y"+c[1]).css("background","yellow");
+//            var l = EDEN.grid[c[0]][c[1]];
+//            if(EDEN.combo === '='){
+//                EDEN.combo = l;
+//                console.log('LETTER SET.');
+//            } else if (EDEN.combo === l){
+//                EDEN.comboCount++;
+//                console.log('COMBO '+ EDEN.comboCount +'!');
+//            } else if (EDEN.combo != l){
+//                console.log('COMBO BROKEN.');
+//                EDEN.combo = '=';
+//                EDEN.comboCount = 0;
+//            }
         }
 
     //    EDEN.$SCOPE.$apply(function(){

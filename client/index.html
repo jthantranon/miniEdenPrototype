@@ -37,16 +37,19 @@
     countdownUI     | craft
     ============================
     </div>
-    <div id="gridUI" class="fixedWidth grid"> =={{combo}}==
- |{{grid[0][0]}}{{grid[0][1]}}{{grid[0][2]}}| Streak: {{comboCount}}
- |{{grid[1][0]}}{{grid[1][1]}}{{grid[1][2]}}| Streak Score: {{comboScore}}
- |{{grid[2][0]}}{{grid[2][1]}}{{grid[2][2]}}| Bank: {{resource}}
- =====
-    </div>
+    <!--<div id="gridUI" class="fixedWidth grid"> =={{combo}}==-->
+ <!--|{{grid[0][0]}}{{grid[0][1]}}{{grid[0][2]}}| Streak: {{comboCount}}-->
+ <!--|{{grid[1][0]}}{{grid[1][1]}}{{grid[1][2]}}| Streak Score: {{comboScore}}-->
+ <!--|{{grid[2][0]}}{{grid[2][1]}}{{grid[2][2]}}| Bank: {{resource}}-->
+ <!--=====-->
+    <!--</div>-->
     <div id="gridDraw" class="fixedWidthNoPre grid">
+        <!--{{grid}}-->
         <div ng-repeat="gridX in grid">
-            <span ng-repeat="gridY in gridX">
-                {{gridY}}
+            <!--{{gridX}}-->
+            <!--{{$index}}-->
+            <span ng-repeat="letter in gridX track by $index">
+                <span class="x{{$parent.$index}}y{{$index}}">{{letter}}</span>
             </span>
             <!--<div class="fixedWidth grid"  ng-repeat="gridY in gridX">-->
                 <!--<pre>{{gridY}}</pre>-->
