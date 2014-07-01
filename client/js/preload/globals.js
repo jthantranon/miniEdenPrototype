@@ -128,9 +128,13 @@ $(window).on('keydown', function(e){
 //            EDEN.resource = EDEN.resource + (EDEN.comboCount*EDEN.comboCount);
 //            EDEN.comboCount = 0;
 //            console.log(EDEN.resource);
+            EDEN.gridSelect = 'none';
         }
 
         if(c){
+            if(EDEN.gridSelect === "none"){
+                EDEN.gridSelect = {};
+            }
             EDEN.gridSelect[keycode] = c;
 
             $(".x"+c[0]+"y"+c[1]).css("background","yellow");

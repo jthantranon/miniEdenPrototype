@@ -47,15 +47,25 @@
         <!--{{grid}}-->
         <div ng-repeat="gridX in grid">
             <!--{{gridX}}-->
-            <!--{{$index}}-->
+            <!--{{$index}}-->|
             <span ng-repeat="letter in gridX track by $index">
                 <span class="x{{$parent.$index}}y{{$index}}">{{letter}}</span>
-            </span>
+            </span>|
             <!--<div class="fixedWidth grid"  ng-repeat="gridY in gridX">-->
                 <!--<pre>{{gridY}}</pre>-->
             <!--</div>-->
         </div>
+
+
+            Streak: {{comboCount}}
+
+            Streak Score: {{comboCount}}
+
+            Bank: {{resource}}
+
+
     </div>
+
 
 
 

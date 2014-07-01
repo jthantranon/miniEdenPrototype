@@ -38,7 +38,24 @@ var pwsRef = pubRef.child('worldState');
 var sessionsRef = baseRef.child('sessions');
 var uRef;
 
+process.on('SIGINT', function(){
+    console.log('shutting down');
+    process.exit();
+});
 
+//var stdin = process.openStdin();
+//process.stdin.setRawMode();
+//
+//function LogEden(){
+//    console.log(EDEN);
+//}
+//
+//stdin.on('keypress', function (chunk, key) {
+//  process.stdout.write('Get Chunk: ' + chunk + '\n');
+//    process.stdout.write('WHEE');
+//  if (key && key.ctrl && key.name == 'c') process.exit();
+//    if (key && key.name == 'p') process.stdout.write(EDEN);
+//});
 
 function LOG(msg,color){
     fmsg = color ? clc[color](msg) : msg;
@@ -362,6 +379,7 @@ var EDEN_RANDOM_EVENTS = (function(events){
                 var uniqueLettersCount;
                 console.log(typeof thisSoul.comboCoords);
                 console.log(thisSoul.comboCoords);
+                console.log('SECTORS ATTUNED: ' + Object.edenObjLen(thisSoul.comboCoords));
                 for (var key in thisSoul.comboCoords){
                     if(thisSoul.comboCoords.hasOwnProperty(key)){
                         var c = thisSoul.comboCoords[key];
@@ -414,6 +432,11 @@ var EDEN_RANDOM_EVENTS = (function(events){
 //                console.log(soul.resource);
 //                thisSoul.pubRef.child('combo').set(soul.combo);
                 thisSoul.pubRef.child('comboCount').set(thisSoul.comboCount);
+                thisSoul.pubRef.child('resource').set(thisSoul.resource);
+                thisSoul.pubRef.child('comboCoords').set(thisSoul.comboCoords);
+                thisSoul.pubRef.child('sampleSize').set(sampleSize);
+                thisSoul.pubRef.child('uniqueLetters').set(uniqueLetters);
+                thisSoul.pubRef.child('comboScore').set(comboCount);
                 thisSoul.pubRef.child('resource').set(thisSoul.resource);
 
 
@@ -487,14 +510,14 @@ var EDEN_CLOCK = (function(clock,rEvents){
     }
 
     function eventsMicro(){
-//        rEvents.scram();
+        rEvents.scram();
     }
 
     function eventsMilli(){
         EDEN.STATE.update();
         rEvents.weather();
         rEvents.spawnMob();
-        rEvents.scram();
+//        rEvents.scram();
     }
 
 //    YY:MM:WW:DD:HH:MM:SS:MS
@@ -567,7 +590,7 @@ var EDEN_CLOCK = (function(clock,rEvents){
         if(time.centi > l){time.centi = 0; time.deci++;}
         if(time.deci > l){time.deci = 0; time.cycle++;}
         eventsNano();
-        time.nano = time.nano + 10;
+        time.nano = time.nano + 2;
 //        console.log(clock.time);
     };
 
