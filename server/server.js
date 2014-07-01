@@ -188,12 +188,12 @@ EDEN.SOUL = {
                 var l = c ? EDEN.grid[c[0]][c[1]] : 'no grid';
 //                console.log('you pressed ' + EDEN.keybindLegend[keyCode] + '/' + keyCode + '/' + l);
 
-                if(keyCode === 107){
+                if(keyCode === 107 || keyCode === "107"){
                     soul.comboCoords = {};
-                    soul.resource = soul.resource + (soul.comboCount*soul.comboCount);
-                    soul.comboCount = 0;
+//                    soul.resource = soul.resource + (soul.comboCount*soul.comboCount);
+//                    soul.comboCount = 0;
 //                    console.log(soul.resource);
-                    soul.pubRef.child('resource').set(soul.resource);
+//                    soul.pubRef.child('resource').set(soul.resource);
                 }
 
                 if(c){
@@ -431,7 +431,7 @@ var EDEN_RANDOM_EVENTS = (function(events){
                     uniqueLetters: uniqueLetters
                 };
 
-                console.log(log);
+//                console.log(log);
 
                 thisSoul.comboCount = comboCount;
                 thisSoul.resource = thisSoul.resource + (thisSoul.comboCount*thisSoul.comboCount);
