@@ -140,7 +140,7 @@ EDEN.SOUL = {
         soul.loaded = false;
         soul.uid = uid;
         soul.keyPress = null;
-        soul.comboSet = {};
+//        soul.comboSet = {};
 //        soul.resource = 0;
         soul.combo = '=';
         soul.comboCount = 0;
@@ -173,51 +173,58 @@ EDEN.SOUL = {
 
         soul.reqRef.child('keyPress').on('value',function(data){
             var dat = data.val();
-            var c = EDEN.numCoord[dat];
-            console.log(data.name());
             console.log(dat);
-            if(dat === null){
-                soul.keyPress = dat;
-            } else if (dat !== soul.keyPress){
-                soul.keyPress = dat;
-                console.log(dat);
+            var keyCode = dat.toString().charAt(0) === "-" ? dat.toString().substr(1) : dat.toString();
+            var c = EDEN.numCoord[keyCode];
+//            console.log(data.name());
+//            console.log(dat);
+            if(keyCode === null){
+                soul.keyPress = keyCode;
+            } else if (keyCode !== soul.keyPress){
+                soul.keyPress = keyCode;
+//                console.log(keyCode);
 
-//                var c = EDEN.numCoord[dat];
+//                var c = EDEN.numCoord[keyCode];
                 var l = c ? EDEN.grid[c[0]][c[1]] : 'no grid';
-                console.log('you pressed ' + EDEN.keybindLegend[dat] + '/' + dat + '/' + l);
+//                console.log('you pressed ' + EDEN.keybindLegend[keyCode] + '/' + keyCode + '/' + l);
 
-                if(dat === 107){
+                if(keyCode === 107){
                     soul.comboCoords = {};
                     soul.resource = soul.resource + (soul.comboCount*soul.comboCount);
                     soul.comboCount = 0;
-                    console.log(soul.resource);
+//                    console.log(soul.resource);
                     soul.pubRef.child('resource').set(soul.resource);
                 }
 
                 if(c){
-                    soul.comboSet[dat] = c;
+                    if(soul.comboCoords[keyCode] === c){
+                        delete soul.comboCoords[keyCode];
+                    } else {
+                        soul.comboCoords[keyCode] = c;
+                    }
+
 
 //                    soul.comboSet = {};
-                    soul.comboCoords[dat] = c;
-                    console.log(soul.comboCoords);
+//                    soul.comboCoords[keyCode] = c;
+//                    console.log(soul.comboCoords);
 
 //                    for (i=97;i<106;i++){
 //                        if(soul.comboSet[i]){
-//                            soul.comboCoords[dat] = soul.comboSet[i];
+//                            soul.comboCoords[keyCode] = soul.comboSet[i];
 //                        }
 //                    }
 
-                    if(soul.combo === '='){
-                        soul.combo = l;
-                        console.log('LETTER SET.');
-                    } else if (soul.combo === l){
-                        soul.comboCount++;
-                        console.log('COMBO '+ soul.comboCount +'!');
-                    } else if (soul.combo != l){
-                        console.log('COMBO BROKEN.');
-                        soul.combo = '=';
-                        soul.comboCount = 0;
-                    }
+//                    if(soul.combo === '='){
+//                        soul.combo = l;
+////                        console.log('LETTER SET.');
+//                    } else if (soul.combo === l){
+//                        soul.comboCount++;
+////                        console.log('COMBO '+ soul.comboCount +'!');
+//                    } else if (soul.combo != l){
+////                        console.log('COMBO BROKEN.');
+//                        soul.combo = '=';
+//                        soul.comboCount = 0;
+//                    }
                 }
 
                 updateFB();

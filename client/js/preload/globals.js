@@ -121,14 +121,15 @@ $(window).on('keydown', function(e){
     var keycode = e.which;
 
     if(EDEN.state.focus != 'shell'){
-        FBR.reqYouser.child('keyPress').set(e.which);
+        FBR.reqYouser.child('keyPress').set(keycode);
         var c = EDEN.numCoord[keycode];
 
-        if(e.which === 107){
+        if(keycode === 107){ // numpad plus sign
 //            EDEN.resource = EDEN.resource + (EDEN.comboCount*EDEN.comboCount);
 //            EDEN.comboCount = 0;
 //            console.log(EDEN.resource);
             EDEN.gridSelect = 'none';
+            $(".letter").css("background","");
         }
 
         if(c){
@@ -138,11 +139,14 @@ $(window).on('keydown', function(e){
 
             if(EDEN.gridSelect[keycode] === c){
                 delete EDEN.gridSelect[keycode];
+                FBR.reqYouser.child('keyPress').set("-"+keycode);
+                $(".x"+c[0]+"y"+c[1]).css("background","");
             } else {
                 EDEN.gridSelect[keycode] = c;
+                $(".x"+c[0]+"y"+c[1]).css("background","yellow");
             }
 
-            $(".x"+c[0]+"y"+c[1]).css("background","yellow");
+
 //            var l = EDEN.grid[c[0]][c[1]];
 //            if(EDEN.combo === '='){
 //                EDEN.combo = l;
