@@ -377,9 +377,9 @@ var EDEN_RANDOM_EVENTS = (function(events){
 
                 var letters = {};
                 var uniqueLettersCount;
-                console.log(typeof thisSoul.comboCoords);
-                console.log(thisSoul.comboCoords);
-                console.log('SECTORS ATTUNED: ' + Object.edenObjLen(thisSoul.comboCoords));
+//                console.log(typeof thisSoul.comboCoords);
+//                console.log(thisSoul.comboCoords);
+//                console.log('SECTORS ATTUNED: ' + Object.edenObjLen(thisSoul.comboCoords));
                 for (var key in thisSoul.comboCoords){
                     if(thisSoul.comboCoords.hasOwnProperty(key)){
                         var c = thisSoul.comboCoords[key];
@@ -392,7 +392,7 @@ var EDEN_RANDOM_EVENTS = (function(events){
 //                        dupes = false;
 //                    }
                         console.log(c);
-                        console.log(l);
+//                        console.log(l);
                     }
                 }
 //                for (i = 0; i < thisSoul.comboCoords.length; i++){
@@ -444,7 +444,8 @@ var EDEN_RANDOM_EVENTS = (function(events){
         }
         var x = chance.integer({min: 0, max: 2});
         var y = chance.integer({min: 0, max: 2});
-        EDEN.grid[x][y] = chance.character({alpha: true, casing: 'upper'});
+//        EDEN.grid[x][y] = chance.character({alpha: true, casing: 'upper'});
+        EDEN.grid[x][y] = chance.natural({min: 0, max: 1});
         pwsRef.child('grid').set(EDEN.grid);
         console.log(EDEN.grid);
     };

@@ -135,7 +135,12 @@ $(window).on('keydown', function(e){
             if(EDEN.gridSelect === "none"){
                 EDEN.gridSelect = {};
             }
-            EDEN.gridSelect[keycode] = c;
+
+            if(EDEN.gridSelect[keycode] === c){
+                delete EDEN.gridSelect[keycode];
+            } else {
+                EDEN.gridSelect[keycode] = c;
+            }
 
             $(".x"+c[0]+"y"+c[1]).css("background","yellow");
 //            var l = EDEN.grid[c[0]][c[1]];
