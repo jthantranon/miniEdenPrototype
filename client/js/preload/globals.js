@@ -39,7 +39,8 @@ $EDEN = {
     backstage: $("#backstage"),
     shellInputActual: $("#shellInputActual"),
     shellInputDisplay: $("#shellInputDisplay"),
-    shellCaret: $("#shellCaret")
+    shellCaret: $("#shellCaret"),
+    primerGlass: $("#glassPrimer")
 };
 
 

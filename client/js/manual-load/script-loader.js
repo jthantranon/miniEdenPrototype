@@ -12,6 +12,7 @@
 //    "//cdn.firebase.com/libs/angularfire/0.7.0/angularfire.js",
 //    "//cdn.firebase.com/js/simple-login/1.5.0/firebase-simple-login.js"
 //];
+console.log();
 
 var MAN_JS_PRE_FILES = [
     'globals',
@@ -97,7 +98,7 @@ $LAB
     .script("//cdn.firebase.com/js/simple-login/1.5.0/firebase-simple-login.js")
     .script(JS_PRE_FILES)
     .script(JS_FILES)
-    .script(MAN_JS_MODULES)
+    .script(JS_MODULES)
     .script(JS_POST_FILES)
 ;
 
