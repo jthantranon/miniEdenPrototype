@@ -10,20 +10,66 @@ $EDEN.shellInputActual.focus();
 /// TEST BED
 //////////////////////////
 
+EDEN.WIDGETS.LoginUI = (function(){
+    var m = {};
+    var $email = $("#email");
+    var $pass = $("#password");
+    m.dom = EDEN.Glass.create('MiniEden Login');
+
+    m.hide = function(){
+        m.dom.all.hide();
+    };
+    m.hide();
+
+    m.show = function(){
+        m.dom.all.show();
+    };
+
+
+    /// Init
+    m.dom.content.after('<div id="loginUINotification">PRESS ENTER TO SUBMIT!</div>');
+    m.dom.notification = $("#loginUINotification");
+
+
+    m.append = function(c){
+        m.dom.notification.html(c);
+    };
+    m.wrongPassword = function(){
+//        m.dom.content.html('INCORRECT PASSWORD. TRY AGAIN?');
+        $pass.val('');
+        m.append('INVALID PASSWORD!');
+    };
+    m.invalidEmail = function(){
+//        m.dom.content.html('INCORRECT PASSWORD. TRY AGAIN?');
+        $email.val('');
+        m.append('INVALID EMAIL!');
+    };
+
+    m.newAccountPrompt = function(){
+        m.append('EMAIL NOT FOUND, CREATE AN ACCOUNT?');
+    };
+
+    return m;
+}());
+
+
 FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
     if(error){
         if(error.code === "INVALID_USER"){
             EDEN.MainShell.print(
             'email: -' + EDEN.CACHE.email + '- does not exist <a href="#">CLICK TO REGISTER WITH THIS EMAIL.</a>',
             'red',false);
+            EDEN.WIDGETS.LoginUI.newAccountPrompt();
         } else if (error.code === "INVALID_PASSWORD"){
             EDEN.MainShell.print(
             'INCORRECT PASSWORD, PLEASE TRY AGAIN!',
             'red',false);
+            EDEN.WIDGETS.LoginUI.wrongPassword();
         } else if (error.code ==="INVALID_EMAIL"){
             EDEN.MainShell.print(
             'INVALID EMAIL OR EMAIL FORMAT, PLEASE TRY AGAIN!',
             'red',false);
+            EDEN.WIDGETS.LoginUI.invalidEmail();
         } else {
             EDEN.MainShell.print(error,'red',false);
             console.log(error);
@@ -82,7 +128,7 @@ meClient.controller('MainCtrl', function ($scope) {
     $scope.test = 'best';
     $scope.loginUIToggle = 'HERE';
     $scope.toggleLoginUI = function(){
-        $EDEN.loginUI = EDEN.Glass.create('MiniEden Login');
+        EDEN.WIDGETS.LoginUI.show();
         $("#email").focus();
     };
     $scope.login = function(){

@@ -6,7 +6,8 @@ EDEN = {
     TEST: "",
     LANG: {},
     STATE: {},
-    CACHE: {}
+    CACHE: {},
+    WIDGETS: {}
 };
 
 EDEN.STATE.Caret = function (mod){
