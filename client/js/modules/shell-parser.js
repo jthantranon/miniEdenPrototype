@@ -23,16 +23,17 @@ EDEN.ShellParser = (function(){
         }(raw));
 
         if(EDEN.STATE.promptEmail === true){
-            EDEN.STATE.promptEmail = false;
-            EDEN.MainShell.print(EDEN.LANG[LANG].shellPassword,'cyan');
-            EDEN.STATE.promptPassword = true;
             EDEN.CACHE.email = cmd[0];
+            EDEN.STATE.promptEmail = false;
+            EDEN.STATE.promptPassword = true;
+            EDEN.MainShell.print(EDEN.LANG[LANG].shellPassword,'cyan');
         } else if (EDEN.STATE.promptPassword === true){
-            EDEN.MainShell.print(EDEN.LANG[LANG].loggingIn,'cyan');
+            EDEN.CACHE.pass = cmd[0];
             EDEN.STATE.promptPassword = false;
             EDEN.STATE.ClearPrompt = true;
             EDEN.STATE.ClearRegistering = true;
-            EDEN.CACHE.pass = cmd[0];
+            EDEN.MainShell.print(EDEN.LANG[LANG].loggingIn,'cyan');
+
             if(EDEN.STATE.registering === true){
                 EDEN.Register();
             } else {
@@ -49,6 +50,7 @@ EDEN.ShellParser = (function(){
             }
             if(EDEN.STATE.ClearPrompt === true){
                 EDEN.STATE.prompt = false;
+                EDEN.STATE.ClearPrompt = false;
             }
         }
     };
@@ -71,7 +73,7 @@ EDEN.ShellAPI = {
         if(EDEN.STATE.loggedIn){
             EDEN.MainShell.print(EDEN.LANG[LANG].alreadyLoggedIn,'red', false);
         } else {
-            EDEN.MainShell.print(EDEN.LANG[LANG].shellLogin,'cyan', false);
+            EDEN.MainShell.print(EDEN.LANG[LANG].shellEmail,'cyan', false);
             EDEN.STATE.promptEmail = true;
             EDEN.STATE.prompt = true;
         }

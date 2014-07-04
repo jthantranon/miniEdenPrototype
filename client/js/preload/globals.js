@@ -9,46 +9,6 @@ EDEN = {
     CACHE: {}
 };
 
-EDEN.Login = function(){
-    var e = EDEN.CACHE.email,
-        p = EDEN.CACHE.pass;
-    EDEN.CACHE.email = '';
-    EDEN.CACHE.pw = '';
-
-    FBR.auth.login('password', {
-        email: e,
-        password: p,
-        rememberMe: true
-    });
-};
-
-EDEN.Logout = function(){
-    FBR.auth.logout();
-};
-
-EDEN.Register = function(){
-    var e = EDEN.CACHE.email,
-        p = EDEN.CACHE.pass;
-    FBR.auth.createUser(e, p, function(error, user) {
-        if (!error) {
-            console.log('User Id: ' + user.uid + ', Email: ' + user.email);
-            EDEN.Login();
-        } else {
-            console.log(error);
-        }
-    });
-};
-
-EDEN.STATE.Caret = function (mod){
-    var r;
-    if(EDEN.STATE.prompt || (mod === false)){
-        r = '';
-    } else {
-        r = '> ';
-    }
-    return r;
-};
-
 /// LANGUAGE
 EDEN.LANG = {
     EN: {},
@@ -57,7 +17,7 @@ EDEN.LANG = {
 
 EDEN.LANG.EN = {
     shellHelp: "There is no help... yet.",
-    shellLogin: "Please enter your email: ",
+    shellEmail: "Please enter your email: ",
     shellPassword: "Please enter your password: ",
     commandNotRecognized: "Error: Command not recognized.",
     loggingOut: "Logging out, stand by...",
