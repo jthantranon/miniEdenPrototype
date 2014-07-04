@@ -23,13 +23,14 @@ var MAN_JS_PRE_FILES = [
 var MAN_JS_FILES = [
     'main',
 //    'shell',
-    'glass',
-    'shell-api',
+//    'glass',
+//    'shell-api',
 ];
 
 var MAN_JS_MODULES = [
     'main-shell',
-    'shell-parser'
+    'shell-parser',
+    'glass'
 ];
 
 var MAN_POST_JS_FILES = [
@@ -39,6 +40,7 @@ var MAN_POST_JS_FILES = [
 var MAN_CSS_FILES = [
     'console',
     'glass',
+    'stat',
     'main'
 ];
 
