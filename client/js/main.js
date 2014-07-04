@@ -4,15 +4,37 @@
 
 $EDEN.shellInputActual.focus();
 
+//$EDEN.loginUI.content.html('<label>TEST</label>');
+
 ///
 /// TEST BED
 //////////////////////////
 
 FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
     if(error){
-        EDEN.MainShell.print(error,'red',false);
+        if(error.code === "INVALID_USER"){
+            EDEN.MainShell.print(
+            'email: -' + EDEN.CACHE.email + '- does not exist <a href="#">CLICK TO REGISTER WITH THIS EMAIL.</a>',
+            'red',false);
+        } else if (error.code === "INVALID_PASSWORD"){
+            EDEN.MainShell.print(
+            'INCORRECT PASSWORD, PLEASE TRY AGAIN!',
+            'red',false);
+        } else if (error.code ==="INVALID_EMAIL"){
+            EDEN.MainShell.print(
+            'INVALID EMAIL OR EMAIL FORMAT, PLEASE TRY AGAIN!',
+            'red',false);
+        } else {
+            EDEN.MainShell.print(error,'red',false);
+            console.log(error);
+        }
+
+
     } else if (user !== null) {
-        console.log(user);
+//        console.log(user);
+        EDEN.CACHE.email = '';
+        EDEN.CACHE.pw = '';
+        if($EDEN.loginUI){$EDEN.loginUI.all.hide();}
         EDEN.MainShell.print(EDEN.LANG.EN.loggedIn,'green',false);
         EDEN.STATE.loggedIn = true;
     } else if (user === null && error === null){
@@ -24,8 +46,6 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
 EDEN.Login = function(){
     var e = EDEN.CACHE.email,
         p = EDEN.CACHE.pass;
-    EDEN.CACHE.email = '';
-    EDEN.CACHE.pw = '';
 
     FBR.auth.login('password', {
         email: e,
@@ -51,15 +71,7 @@ EDEN.Register = function(){
     });
 };
 
-EDEN.STATE.Caret = function (mod){
-    var r;
-    if(EDEN.STATE.prompt || (mod === false)){
-        r = '';
-    } else {
-        r = '> ';
-    }
-    return r;
-};
+
 
 
 ///
@@ -67,6 +79,21 @@ EDEN.STATE.Caret = function (mod){
 //////////////////////////
 var meClient = angular.module('meClient', []);
 meClient.controller('MainCtrl', function ($scope) {
-    // ...
+    $scope.test = 'best';
+    $scope.loginUIToggle = 'HERE';
+    $scope.toggleLoginUI = function(){
+        $EDEN.loginUI = EDEN.Glass.create('MiniEden Login');
+        $("#email").focus();
+    };
+    $scope.login = function(){
+        console.log('test');
+        EDEN.CACHE.email = $scope.email;
+        EDEN.CACHE.pass = $scope.password;
+        EDEN.Login();
+
+    };
+    $scope.register = function(){
+        console.log('test');
+    }
 });
 angular.bootstrap(document, ['meClient']);

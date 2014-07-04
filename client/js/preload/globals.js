@@ -9,6 +9,16 @@ EDEN = {
     CACHE: {}
 };
 
+EDEN.STATE.Caret = function (mod){
+    var r;
+    if(EDEN.STATE.prompt || (mod === false)){
+        r = '';
+    } else {
+        r = '> ';
+    }
+    return r;
+};
+
 /// LANGUAGE
 EDEN.LANG = {
     EN: {},

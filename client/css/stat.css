@@ -1,0 +1,197 @@
+@charset "utf-8";
+/* CSS Document */
+
+.statEntry {
+	width:137px;
+	height:22px;
+	background-image:url(../img/dividers/statBG.png);
+	color:#fff;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight:100;
+	margin-left:10px;
+	margin-top:10px;
+	float:left;
+}
+
+.statEntryWide {
+	width:350px;
+	height:22px;
+	background-image:url(../img/dividers/statBGWide2.png);
+    background-size:cover;
+	color:#fff;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight:100;
+	margin-left:10px;
+	margin-top:10px;
+	float:left;
+}
+
+.statEntryDuo {
+	width:419px;
+	height:22px;
+	background-image:url(../img/dividers/duoStatBG.png);
+	color:#fff;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight:100;
+	margin-left:10px;
+	margin-top:10px;
+	clear:both;
+	float:left;
+}
+
+.statEntryTrio {
+	width:431px;
+	height:22px;
+	background-image:url(../img/dividers/triStatBG.png);
+	color:#fff;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight:100;
+	margin-left:10px;
+	margin-top:10px;
+	float:left;
+}
+
+.statName {
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:90px;
+	float:left;
+	line-height:22px;
+}
+
+.statEntryWide .statName {
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:220px;
+	float:left;
+	line-height:22px;
+}
+
+.statEntryDuo .statName, .statEntryTrio .statName {
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:212px;
+	float:left;
+	line-height:22px;
+}
+
+.statEntryDuo .statValue, .statEntryDuo .statValue2 {
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:102px;
+	float:left;
+	font-weight:bold;
+	line-height:22px;
+}
+
+.statEntryTrio .statValue, .statEntryTrio .statValue2, .statEntryTrio .statValue3 {
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:73px;
+	float:left;
+	font-weight:bold;
+	line-height:22px;
+}
+
+.statValue {
+    /*visibility: hidden;*/
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:220px;
+	float:left;
+	font-weight:bold;
+	line-height:22px;
+}
+
+.statValue2 {
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:47px;
+	float:left;
+	font-weight:bold;
+	line-height:22px;
+}
+
+.statValue3 {
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:47px;
+	float:left;
+	font-weight:bold;
+	line-height:22px;
+}
+
+.statEntryDuoLabel {
+	width:419px;
+	height:16px;
+	background-image:none;
+	color:#fff;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight:100;
+	margin-left:10px;
+	margin-top:10px;
+	padding-left:5px;
+	clear:both;
+	float:left;
+	background-color:rgba(255,100,0,.25);
+}
+
+.statEntryTrioLabel {
+	width:431px;
+	height:16px;
+	background-image:none;
+	color:#fff;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight:100;
+	margin-left:10px;
+	margin-top:10px;
+	padding-left:5px;
+	clear:both;
+	float:left;
+	margin-bottom:-5px;
+	background-color:rgba(255,100,0,.25);
+
+}
+
+.statEntryDuoLabel .statName, .statEntryTrioLabel .statName {
+	font-size:12px;
+	font-weight:bold;
+	margin-top:0px;
+	margin-bottom:-5px;
+	text-align:left;
+	width:212px;
+	float:left;
+	line-height:16px;
+}
+
+.statEntryDuoLabel .statValue, .statEntryDuoLabel .statValue2 {
+	font-size:12px;
+	font-weight:bold;
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:102px;
+	float:left;
+	font-weight:bold;
+	line-height:16px;
+}
+
+.statEntryTrioLabel .statValue, .statEntryTrioLabel .statValue2, .statEntryTrioLabel .statValue3 {
+	font-size:12px;
+	font-weight:bold;
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+	width:73px;
+	float:left;
+	font-weight:bold;
+	line-height:16px;
+}

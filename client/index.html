@@ -22,7 +22,7 @@
     <script src="js/manual-load/script-loader.js"></script>
 
 </head>
-<body>
+<body ng-controller="MainCtrl">
 <span hidden>{% raw %}</span>
 
 <div id="backstage">
@@ -33,15 +33,29 @@
 <div id="curtain">
     <div id="shellInputDisplay">>&nbsp;</div>
     <div id="shellCaret"></div>
+
 </div>
 
-
+{{test}}
 <div class="allWrapper" id="glassPrimer" style="display: none">
     <div class="innerAllWrapper">
         <div class="titleWrapper">
             <p>Title</p>
         </div>
         <div class="stuffWrapper">
+            <div class="statWrapper">
+                <form ng-submit="login()">
+                    <div class="statEntry">
+                        <p class="statName">E-Mail: </p>
+                        <p class="statValue"><input id="email" ng-model="email" type="text"></p>
+                    </div>
+                    <div class="statEntry">
+                        <p class="statName">Password: </p>
+                        <p class="statValue"><input id="password" ng-model="password" type="password"></p>
+                    </div>
+                    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+                </form>
+            </div>
         </div>
     </div>
 </div>
