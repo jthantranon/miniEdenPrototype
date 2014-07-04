@@ -1,0 +1,1 @@
+EDEN.$SCOPE = angular.element($("body")).scope();

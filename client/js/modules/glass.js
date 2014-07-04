@@ -4,11 +4,13 @@
 
 EDEN.Glass = (function(){
     var m = {};
+//    $EDEN.primerGlass = $EDEN.primerGlass || $("#glassPrimer");
+//    $EDEN.primerGlass = $('#glassPrimer');
     m.create = function(id){
         var $glass = {};
         var width = 400;
         var height = 60;
-        $glass.all = $EDEN.primerGlass.css('top',50).css('left',800).attr('id',id);
+        $glass.all = $EDEN.primerGlass.clone().css('top',50).css('left',800).attr('id',id);
         $glass.all
             .appendTo($EDEN.curtain)// Append before applying draggable otherwise position: rel is applied (bad)
             .draggable({handle: ".titleWrapper"})

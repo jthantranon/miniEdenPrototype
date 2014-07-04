@@ -36,7 +36,8 @@
 
 </div>
 
-{{test}}
+<!--<ng-include src="'tpl/glass.html'" onload="bind()"></ng-include>-->
+
 <div class="allWrapper" id="glassPrimer" style="display: none">
     <div class="innerAllWrapper">
         <div class="titleWrapper">
@@ -53,12 +54,21 @@
                         <p class="statName">Password: </p>
                         <p class="statValue"><input id="password" ng-model="password" type="password"></p>
                     </div>
+
                     <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
                 </form>
             </div>
+
+        </div>
+        <div id="loginUINotification">
+            <span ng-show="!registerClick">{{loginMessage}}</span>
+            <span ng-show="registerClick" ng-click="register()"><a href="#">>>CLICK TO REGISTER THIS EMAIL<<<a/></span>
+            <!--<span ng-show>PRESS ENTER TO SUBMIT!</span>-->
+            <!--<span>INVALID EMAIL!</span>-->
         </div>
     </div>
 </div>
+
 
 
 <span hidden>{% endraw %}</span>

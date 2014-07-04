@@ -6,9 +6,14 @@ EDEN = {
     TEST: "",
     LANG: {},
     STATE: {},
-    CACHE: {},
+    CACHE: {
+        pass: null,
+        email: null
+    },
     WIDGETS: {}
 };
+
+
 
 EDEN.STATE.Caret = function (mod){
     var r;
@@ -66,3 +71,4 @@ FBR.private = FBR.base.child('private');
 FBR.requests = FBR.base.child('requests');
 FBR.sessions = FBR.base.child('sessions');
 FBR.privateUsers = FBR.private.child('users');
+
