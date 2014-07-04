@@ -27,9 +27,6 @@ class MainPage(webapp2.RequestHandler):
         js_path = 'js/'
         js_files = [js_path+f for f in listdir(js_path) if isfile(join(js_path, f))]
 
-        js_module_path = 'js/modules/'
-        js_module_files = [js_module_path+f for f in listdir(js_module_path) if isfile(join(js_module_path, f))]
-
         js_post_path = 'js/postload/'
         js_post_files = [js_post_path+f for f in listdir(js_post_path) if isfile(join(js_post_path, f))]
 
@@ -37,7 +34,6 @@ class MainPage(webapp2.RequestHandler):
             'cssFiles': json.dumps(css_files),
             'jsPreFiles': json.dumps(js_pre_files),
             'jsFiles': json.dumps(js_files),
-            'jsModules': json.dumps(js_module_files),
             'jsPostFiles': json.dumps(js_post_files),
             'appEngineLoaded': '<span id="appEngineLoaded"></span>',
         }

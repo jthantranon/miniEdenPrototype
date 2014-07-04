@@ -1,0 +1,43 @@
+body {
+	background-color:#FFF;
+    /*background-image: ;*/
+}
+
+#curtain {
+    background: #000000;
+    z-index: 100;
+    width:      100%;
+    height:     100%;
+    top:        0;
+    left:       0;
+    position:   fixed;
+}
+
+div.stage {
+  opacity:    1;
+    padding: 10px;
+  background: #FFF;
+  width:      100%;
+  height:     100%;
+  z-index:    10;
+  top:        0;
+  left:       0;
+  position:   fixed;
+}
+
+.fixedWidth {
+    font-family: monospace;
+    white-space: pre;
+}
+
+.fixedWidthNoPre {
+    font-family: monospace;
+}
+
+.grid {
+    font-size: 5em;
+}
+
+/*.letter {*/
+    /*background: #add8e6;*/
+/*}*/

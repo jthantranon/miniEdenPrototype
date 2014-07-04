@@ -1,0 +1,459 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* ----- GLASS STRUCTURE ----- */
+
+.allWrapper {
+	position:fixed;
+	top:20px;
+	left:10px;
+	box-shadow:0px 0px 8px 0px rgba(0,0,0,.4);
+	border: 1px solid rgba(185,185,185,.5);
+	background: rgb(255,255,255); /* Old browsers */
+	background: radial-gradient(ellipse at center, rgba(255,255,255,.75) 0%,rgba(0,0,0,.75) 100%); /* W3C */	
+	border-radius:4px;
+    /*z-index: THIS IS SET IN GLASSCOMP.js*/
+	
+}
+
+.innerAllWrapper {
+	width:380px;
+	border-radius:4px;
+	background-image:url(../img/newglass/top_reflection.png);
+	background-size:cover;
+	box-shadow:inset 0px 0px 10px rgba(0,0,0,.5);
+	background-repeat:no-repeat;
+	background-position:top;
+}
+
+.titleWrapper.orange {
+	background-color:rgba(247,147,30,.5);	
+}
+
+.stuffWrapper {
+/*	height:400px;*/
+	overflow-y:scroll;
+	padding-bottom:10px;	
+}
+
+
+.sheetTab {
+	position:absolute;
+	right:-22px;
+	height:42px;
+	width:17px;
+	background-image:url(../img/newglass/rightTab.png);
+	margin-top:5px;
+	font-size:22px;
+	line-height:42px;
+	text-transform:uppercase;
+	padding-left:5px;
+	/*z-index:-1;*/
+	cursor:move;
+}
+
+/* ----- CONTENT SECTIONS FORMATTING ----- */
+.glassHeading {
+	color:#006666;
+	font-family:'Open Sans', sans-serif;
+	margin-left:20px;
+	font-size:14px;
+	font-weight:bold;
+	text-transform:uppercase;
+	margin-bottom:10px;
+}
+
+.glassHeading.white {
+	color:#FFFFFF;	
+}
+
+/*NEW GLASS*/
+
+@charset "utf-8";
+/* CSS Document */
+
+/*body {*/
+    /*background-color:#000;*/
+/*}*/
+
+/* ----- GLASS STRUCTURE ----- */
+
+.glassWrapper {
+    position:fixed;
+    top:20px;
+    left:10px;
+    box-shadow:0px 0px 8px 0px rgba(0,0,0,.4);
+    border: 1px solid rgba(185,185,185,.5);
+    background: rgb(255,255,255); /* Old browsers */
+    background: radial-gradient(ellipse at center, rgba(125,125,125,.75) 0%,rgba(0,0,0,.75) 100%); /* W3C */
+    border-radius:4px;
+
+}
+
+.glassInnertube {
+    width:600px;
+    border-radius:4px;
+    background-image:url(../img/newglass/top_reflection.png);
+    background-size:cover;
+    box-shadow:inset 0px 0px 10px rgba(0,0,0,.5);
+    background-repeat:no-repeat;
+    background-position:top;
+}
+
+.titleWrapper {
+    background-color:rgba(0,255,255,.5);
+    margin-top:10px;
+    height:42px;
+    cursor:move;
+    overflow:hidden;
+    z-index:10;
+
+}
+
+.titleWrapper.orange {
+    background-color:rgba(247,147,30,.5);
+}
+
+.titleWrapper p {
+    position:relative;
+    font-family: 'Titillium Web', sans-serif;
+    color:#FFF;
+    font-size:26px;
+    font-weight:400;
+    line-height:40px;
+    text-transform:uppercase;
+    padding-left:12px;
+    z-index:1000;
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+.contentWrapper {
+    /*max-height:800px;*/
+    padding-bottom:10px;
+}
+
+.contentScrollY {
+    overflow-y:scroll;
+}
+
+
+.sheetTab {
+    position:absolute;
+    right:-22px;
+    height:42px;
+    width:17px;
+    background-image:url(../img/newglass/rightTab.png);
+    margin-top:5px;
+    font-size:22px;
+    line-height:42px;
+    text-transform:uppercase;
+    padding-left:5px;
+    /*z-index:-1;*/
+    cursor:move;
+}
+
+.contentArea {
+    padding-left:10px;
+    padding-right:10px;
+    /*max-height: 775px;*/
+}
+
+.contentBox {
+    padding:8px;
+    background:rgba(100,100,100,.75);
+    border-radius:6px;
+    margin-bottom:15px;
+}
+
+/* ----- CONTENT SECTIONS FORMATTING ----- */
+
+.glassWrapper {
+    font-family: 'Open Sans', sans-serif;
+    color:#FFFFFF;
+}
+
+.glassWrapper h1, .glassWrapper h2, .glassWrapper h3,
+.glassWrapper h4, .glassWrapper h5, .glassWrapper h6 {
+    text-transform:uppercase;
+    margin-top:25px;
+    margin-bottom:5px;
+}
+
+.glassWrapper h1:first-child, .glassWrapper h2:first-child,
+.glassWrapper h3:first-child, .glassWrapper h4:first-child {
+    margin-top:0px;
+}
+
+.glassWrapper p {
+    margin-top:0px;
+    margin-bottom:20px;
+    color:#EEEEEE;
+}
+
+.glassWrapper p:last-child {
+    margin-bottom:0px;
+}
+
+.glassWrapper a {
+    color:rgba(0,225,255,1);
+}
+
+.glassWrapper blockquote {
+    font-style:italic;
+}
+
+.glassWrapper cite {
+    font-size:14px;
+}
+
+/* ----- FORM FORMATTING -----  */
+
+.glassWrapper fieldset {
+    border: 1px dashed #666666;
+}
+
+.glassWrapper legend {
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.glassWrapper button, .glassWrapper input[type=button], .glassWrapper input[type=submit] {
+    font-family:'Nexa Free Bold', sans-serif;
+    background-color:#008080;
+    color:#FFFFFF;
+    font-weight:bold;
+    padding:6px;
+    margin:0px 15px 15px 0px;
+    border-radius:4px;
+    border:1px solid #00AAAA;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+
+.glassWrapper button:hover {
+    background-color:rgba(0,225,255,1);
+}
+
+.glassWrapper label {
+    margin:10px 10px 10px 0;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.glassWrapper input[type=text], .glassWrapper input[type=search],
+.glassWrapper input[type=email], .glassWrapper input[type=url], .glassWrapper input[type=password]{
+    width:200px;
+    height:26px;
+    border-radius:4px;
+    background-color:#CCCCCC;
+    border:1px solid #666666;
+    padding:2px;
+    margin:10px 0px;
+    vertical-align: top;
+}
+
+.glassWrapper input[type=checkbox], .glassWrapper input[type=radio]{
+    margin:10px;
+}
+
+.glassWrapper select {
+    width:200px;
+    /*height:30px;*/
+    border-radius:4px;
+    margin:10px 0px;
+    background-color:#CCCCCC;
+    border:1px solid #666666;
+    vertical-align: top;
+}
+
+.glassWrapper textarea {
+    width:200px;
+    height:50px;
+    border-radius:4px;
+    margin:10px 0px;
+    background-color:#CCCCCC;
+    border:1px solid #666666;
+    padding:2px;
+}
+
+
+/* ----- SIZE FORMATTING -----  */
+
+.block {
+    display:block;
+}
+
+.left {
+    float:left;
+}
+
+.right {
+    float:right;
+}
+
+.clear {
+    clear:both;
+}
+
+.wide25 {
+    width:25%;
+}
+
+.wide33 {
+    width:33%;
+}
+
+.wide35 {
+    width:35%;
+}
+
+.wide50 {
+    width:50%;
+}
+
+.wide75 {
+    width:75%;
+}
+
+.wide100 {
+    width:100%;
+}
+
+.short {
+    width:100px;
+}
+
+.wide200 {
+    width:200px;
+}
+
+.wide400 {
+    width:400px;
+}
+
+.wide600 {
+    width:600px;
+}
+/* ----- COLORS -----  */
+
+.orange {
+    color:rgba(247,147,30,.75);
+}
+
+.blue {
+    color:rgba(0,225,255,1);
+}
+
+.darkblue {
+    color:rgba(0,200,200,1);
+}
+
+.green {
+    color:rgba(0,225,0,1);
+}
+
+.red {
+    color:rgba(255,0,75,1);
+}
+
+.yellow {
+    color:rgba(255,255,0,1);
+}
+
+.bgorange {
+    background-color:rgba(247,147,30,.75);
+}
+
+.bgblue {
+    background-color:rgba(0,225,255,1);
+}
+
+.bgdarkblue {
+    background-color:rgba(0,200,200,1);
+}
+
+.bggreen {
+    background-color:rgba(0,225,0,1);
+}
+
+.bgred {
+    background-color:rgba(255,0,75,1);
+}
+
+.bgyellow {
+    background-color:rgba(255,255,0,1);
+}
+
+
+
+/* ----- SCROLLBAR FORMATTING -----  */
+
+/* Turn on a 13x13 scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-button:vertical {
+    background-color: rgba(102,204,255,1);
+}
+
+/* Turn on single button up on top, and down on bottom */
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    display: block;
+}
+
+/* Turn off the down area up on top, and up area on bottom */
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement {
+    display: none;
+}
+
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:vertical:increment {
+    background-color: rgba(102,204,255,.1);
+}
+
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:vertical:decrement {
+    background-color: rgba(102,204,255,.1);
+}
+
+::-webkit-scrollbar-track:vertical {
+    display: none;
+}
+
+/* Top area above thumb and below up button */
+::-webkit-scrollbar-track-piece:vertical:start {
+}
+
+/* Bottom area below thumb and down button */
+::-webkit-scrollbar-track-piece:vertical:end {
+}
+
+/* Track below and above */
+::-webkit-scrollbar-track-piece {
+    background-color: rgba(102,204,255,.1);
+}
+
+/* The thumb itself */
+::-webkit-scrollbar-thumb:vertical {
+    height: 50px;
+    background-color: rgba(102,204,255,.25);
+}
+
+/* Corner */
+::-webkit-scrollbar-corner:vertical {
+    background-color: rgba(102,204,255,.1);
+}
+
+/* Resizer */
+::-webkit-scrollbar-resizer:vertical {
+    background-color: rgba(102,204,255,.1);
+}
+
+/* -------------------  */
+
+

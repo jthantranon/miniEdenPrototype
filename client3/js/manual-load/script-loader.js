@@ -20,15 +20,10 @@ var MAN_JS_PRE_FILES = [
 ];
 
 var MAN_JS_FILES = [
-    'main',
-//    'shell',
+    'client',
+    'shell',
     'glass',
     'shell-api',
-];
-
-var MAN_JS_MODULES = [
-    'main-shell',
-    'shell-parser'
 ];
 
 var MAN_POST_JS_FILES = [
@@ -54,12 +49,6 @@ for (var i = 0; i < manJSFilesLength; i++){
     MAN_JS_FILES[i] = "js/" + MAN_JS_FILES[i] + ".js"
 }
 
-
-var manJSModulesLength = MAN_JS_MODULES.length;
-for (var i = 0; i < manJSModulesLength; i++){
-    MAN_JS_MODULES[i] = "js/modules/" + MAN_JS_MODULES[i] + ".js"
-}
-
 var manJSPostFilesLength = MAN_POST_JS_FILES.length;
 for (var i = 0; i < manJSPostFilesLength; i++){
     MAN_POST_JS_FILES[i] = "js/postload/" + MAN_POST_JS_FILES[i] + ".js"
@@ -76,7 +65,6 @@ for (var i = 0,l = MAN_CSS_FILES.length;i < l; i++){
 if(!JS_FILES){
     var JS_PRE_FILES = MAN_JS_PRE_FILES;
     var JS_FILES = MAN_JS_FILES;
-    var JS_MODULES = MAN_JS_MODULES;
     var JS_POST_FILES = MAN_POST_JS_FILES;
     var CSS_FILES = MAN_CSS_FILES;
 }
@@ -97,7 +85,6 @@ $LAB
     .script("//cdn.firebase.com/js/simple-login/1.5.0/firebase-simple-login.js")
     .script(JS_PRE_FILES)
     .script(JS_FILES)
-    .script(MAN_JS_MODULES)
     .script(JS_POST_FILES)
 ;
 

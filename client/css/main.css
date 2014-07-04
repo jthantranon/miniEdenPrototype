@@ -1,33 +1,31 @@
-body {
-	background-color:#FFF;
-    /*background-image: ;*/
-}
-
-div.stage {
-  opacity:    1;
+#curtain {
+    background: #000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
     padding: 10px;
-  background: #FFF;
-  width:      100%;
-  height:     100%;
-  z-index:    10;
-  top:        0;
-  left:       0;
-  position:   fixed;
+    font-family: monospace;
 }
 
-.fixedWidth {
-    font-family: monospace;
+#shellInputDisplay {
+    float: left;
+    color: #FFFFFF;
     white-space: pre;
 }
 
-.fixedWidthNoPre {
-    font-family: monospace;
+#shellCaret {
+    float: left;
+    width: 7px;
+    height: 14px;
+    background: #f8ec77;
+    opacity: .95;
 }
 
-.grid {
-    font-size: 5em;
-}
+.shellOutput {
+    color: #FFF;
+    margin-top: 0;
+    margin-bottom: 0;
 
-/*.letter {*/
-    /*background: #add8e6;*/
-/*}*/
+}
