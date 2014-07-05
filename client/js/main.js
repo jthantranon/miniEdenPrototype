@@ -16,7 +16,10 @@ EDEN.WIDGETS.LoginUI = (function(){
     var m = {};
     var $email = $("#email");
     var $pass = $("#password");
-    m.dom = EDEN.Glass.create('MiniEden-Login');
+    var args = {
+        name: 'miniEden Login GUI'
+    };
+    m.dom = EDEN.Glass.create('eden-gui',args);
 
     m.hide = function(){
         m.dom.all.hide();
@@ -30,7 +33,7 @@ EDEN.WIDGETS.LoginUI = (function(){
 
     /// Init
 //    m.dom.content.after('<div id="loginUINotification">PRESS ENTER TO SUBMIT!</div>');
-    m.dom.notification = $("#loginUINotification");
+    m.dom.notification = $("#login-ui-notification");
 
 
     m.append = function(c){

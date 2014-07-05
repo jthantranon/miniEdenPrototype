@@ -7,7 +7,7 @@ body {
 
 /* ----- GLASS STRUCTURE ----- */
 
-.allWrapper {
+.all-wrapper {
 	position:fixed;
 	top:20px;
 	left:10px;
@@ -19,7 +19,7 @@ body {
 	
 }
 
-.innerAllWrapper {
+.inner-all-wrapper {
 	width:380px;
 	border-radius:4px;
 	background-image:url(../img/newglass/top_reflection.png);
@@ -29,18 +29,18 @@ body {
 	background-position:top;
 }
 
-.titleWrapper.orange {
+.title-wrapper.orange {
 	background-color:rgba(247,147,30,.5);	
 }
 
-.stuffWrapper {
+.stuff-wrapper {
 /*	height:400px;*/
 	overflow-y:scroll;
 	padding-bottom:10px;	
 }
 
 
-.sheetTab {
+.sheet-tab {
 	position:absolute;
 	right:-22px;
 	height:42px;
@@ -56,7 +56,7 @@ body {
 }
 
 /* ----- CONTENT SECTIONS FORMATTING ----- */
-.glassHeading {
+.glass-heading {
 	color:#006666;
 	font-family:'Open Sans', sans-serif;
 	margin-left:20px;
@@ -66,7 +66,7 @@ body {
 	margin-bottom:10px;
 }
 
-.glassHeading.white {
+.glass-heading.white {
 	color:#FFFFFF;	
 }
 
@@ -81,7 +81,7 @@ body {
 
 /* ----- GLASS STRUCTURE ----- */
 
-.glassWrapper {
+.glass-wrapper {
     position:fixed;
     top:20px;
     left:10px;
@@ -93,7 +93,7 @@ body {
 
 }
 
-.glassInnertube {
+.glass-innertube {
     width:600px;
     border-radius:4px;
     background-image:url(../img/newglass/top_reflection.png);
@@ -103,7 +103,7 @@ body {
     background-position:top;
 }
 
-.titleWrapper {
+.title-wrapper {
     background-color:rgba(0,255,255,.5);
     margin-top:10px;
     height:42px;
@@ -113,11 +113,11 @@ body {
 
 }
 
-.titleWrapper.orange {
+.title-wrapper.orange {
     background-color:rgba(247,147,30,.5);
 }
 
-.titleWrapper p {
+.title-wrapper p {
     position:relative;
     font-family: 'Titillium Web', sans-serif;
     color:#FFF;
@@ -131,17 +131,17 @@ body {
     margin-bottom:0px;
 }
 
-.contentWrapper {
+.content-wrapper {
     /*max-height:800px;*/
     padding-bottom:10px;
 }
 
-.contentScrollY {
+.content-scroll-y {
     overflow-y:scroll;
 }
 
 
-.sheetTab {
+.sheet-tab {
     position:absolute;
     right:-22px;
     height:42px;
@@ -156,13 +156,13 @@ body {
     cursor:move;
 }
 
-.contentArea {
+.content-area {
     padding-left:10px;
     padding-right:10px;
     /*max-height: 775px;*/
 }
 
-.contentBox {
+.content-box {
     padding:8px;
     background:rgba(100,100,100,.75);
     border-radius:6px;
@@ -171,57 +171,57 @@ body {
 
 /* ----- CONTENT SECTIONS FORMATTING ----- */
 
-.glassWrapper {
+.glass-wrapper {
     font-family: 'Open Sans', sans-serif;
     color:#FFFFFF;
 }
 
-.glassWrapper h1, .glassWrapper h2, .glassWrapper h3,
-.glassWrapper h4, .glassWrapper h5, .glassWrapper h6 {
+.glass-wrapper h1, .glass-wrapper h2, .glass-wrapper h3,
+.glass-wrapper h4, .glass-wrapper h5, .glass-wrapper h6 {
     text-transform:uppercase;
     margin-top:25px;
     margin-bottom:5px;
 }
 
-.glassWrapper h1:first-child, .glassWrapper h2:first-child,
-.glassWrapper h3:first-child, .glassWrapper h4:first-child {
+.glass-wrapper h1:first-child, .glass-wrapper h2:first-child,
+.glass-wrapper h3:first-child, .glass-wrapper h4:first-child {
     margin-top:0px;
 }
 
-.glassWrapper p {
+.glass-wrapper p {
     margin-top:0px;
     margin-bottom:20px;
     color:#EEEEEE;
 }
 
-.glassWrapper p:last-child {
+.glass-wrapper p:last-child {
     margin-bottom:0px;
 }
 
-.glassWrapper a {
+.glass-wrapper a {
     color:rgba(0,225,255,1);
 }
 
-.glassWrapper blockquote {
+.glass-wrapper blockquote {
     font-style:italic;
 }
 
-.glassWrapper cite {
+.glass-wrapper cite {
     font-size:14px;
 }
 
 /* ----- FORM FORMATTING -----  */
 
-.glassWrapper fieldset {
+.glass-wrapper fieldset {
     border: 1px dashed #666666;
 }
 
-.glassWrapper legend {
+.glass-wrapper legend {
     font-weight:bold;
     text-transform:uppercase;
 }
 
-.glassWrapper button, .glassWrapper input[type=button], .glassWrapper input[type=submit] {
+.glass-wrapper button, .glass-wrapper input[type=button], .glass-wrapper input[type=submit] {
     font-family:'Nexa Free Bold', sans-serif;
     background-color:#008080;
     color:#FFFFFF;
@@ -234,18 +234,18 @@ body {
     margin-bottom:5px;
 }
 
-.glassWrapper button:hover {
+.glass-wrapper button:hover {
     background-color:rgba(0,225,255,1);
 }
 
-.glassWrapper label {
+.glass-wrapper label {
     margin:10px 10px 10px 0;
     font-size:12px;
     font-weight:bold;
 }
 
-.glassWrapper input[type=text], .glassWrapper input[type=search],
-.glassWrapper input[type=email], .glassWrapper input[type=url], .glassWrapper input[type=password]{
+.glass-wrapper input[type=text], .glass-wrapper input[type=search],
+.glass-wrapper input[type=email], .glass-wrapper input[type=url], .glass-wrapper input[type=password]{
     width:200px;
     height:26px;
     border-radius:4px;
@@ -256,11 +256,11 @@ body {
     vertical-align: top;
 }
 
-.glassWrapper input[type=checkbox], .glassWrapper input[type=radio]{
+.glass-wrapper input[type=checkbox], .glass-wrapper input[type=radio]{
     margin:10px;
 }
 
-.glassWrapper select {
+.glass-wrapper select {
     width:200px;
     /*height:30px;*/
     border-radius:4px;
@@ -270,7 +270,7 @@ body {
     vertical-align: top;
 }
 
-.glassWrapper textarea {
+.glass-wrapper textarea {
     width:200px;
     height:50px;
     border-radius:4px;

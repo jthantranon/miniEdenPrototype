@@ -38,13 +38,13 @@
 
 <!--<ng-include src="'tpl/glass.html'" onload="bind()"></ng-include>-->
 
-<div class="allWrapper" id="glassPrimer" style="display: none">
-    <div class="innerAllWrapper">
-        <div class="titleWrapper">
+<div class="all-wrapper" id="glass-primer" style="display: none">
+    <div class="inner-all-wrapper">
+        <div class="title-wrapper">
             <p>Title</p>
         </div>
-        <div class="stuffWrapper">
-            <div class="statWrapper">
+        <div class="stuff-wrapper">
+            <div class="stat-wrapper">
                 <form ng-submit="login()">
                     <div class="statEntry">
                         <p class="statName">E-Mail: </p>
@@ -60,7 +60,7 @@
             </div>
 
         </div>
-        <div id="loginUINotification">
+        <div id="login-ui-notification">
             <span ng-show="!registerClick">{{loginMessage}}</span>
             <span ng-show="registerClick" ng-click="register()"><a href="#">>>CLICK TO REGISTER THIS EMAIL<<<a/></span>
             <!--<span ng-show>PRESS ENTER TO SUBMIT!</span>-->
