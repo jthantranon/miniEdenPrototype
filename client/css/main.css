@@ -30,7 +30,7 @@
 
 }
 
-#login-ui-notification{
+.ui-notification{
     text-align: center;
     /*text-;*/
     opacity: .50;

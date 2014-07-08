@@ -67,6 +67,12 @@ EDEN.Glass = (function(){
             $glass[name].appendTo($glass.content).show();
         };
 
+        compInit.binaryScore = function(name){
+            $glass[name] = $EDEN[name].clone().css('top', top).css('left', left).attr('id','binary-score');
+            $glass.content.after($glass[name]);
+            $glass[name].appendTo($glass.content).show();
+        };
+
         for (var i = 0; i < comps.length; i++){
             compInit[comps[i]](comps[i]);
         }

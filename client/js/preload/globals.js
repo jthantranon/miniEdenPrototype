@@ -60,7 +60,8 @@ $EDEN = {
     loginGUI: $("#login-gui-primer"),
     loginUINotification: $("#login-ui-notification-primer"),
     prompt: $("#prompt-primer"),
-    binary: $("#binary-primer")
+    binary: $("#binary-primer"),
+    binaryScore: $("#binary-score-primer")
 };
 
 
@@ -71,8 +72,10 @@ $EDEN = {
 var FBR = {};
 FBR.base = new Firebase('https://minieden.firebaseio.com');
 FBR.public = FBR.base.child('public');
+FBR.publicUsers = FBR.public.child('users');
 FBR.private = FBR.base.child('private');
+FBR.privateUsers = FBR.private.child('users');
 FBR.requests = FBR.base.child('requests');
 FBR.sessions = FBR.base.child('sessions');
-FBR.privateUsers = FBR.private.child('users');
+
 

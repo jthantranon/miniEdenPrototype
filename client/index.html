@@ -97,12 +97,20 @@
 
         </div>
         <!--LOGIN NOTES - CAN'T BE MOVED OUT OF GLASS PRIMER UNLESS COMPILED-->
-        <div id="login-ui-notification-primer" style="display: none">
+        <div id="login-ui-notification-primer" class="ui-notification" style="display: none">
             <span ng-show="!registerClick">{{loginMessage}}</span>
             <span ng-show="registerClick" ng-click="register()"><a href="#">>>CLICK TO REGISTER THIS EMAIL<<</a></span>
             <!--<span ng-show>PRESS ENTER TO SUBMIT!</span>-->
             <!--<span>INVALID EMAIL!</span>-->
         </div>
+
+        <!--BINARY SCORE NOTES - CAN'T BE MOVED OUT OF GLASS PRIMER UNLESS COMPILED-->
+        <pre id="binary-score-primer" class="ui-notification" style="display: none">
+Bits:
+{{privateYouser.bits}}
+MATCHES / SELECTED:
+3/5
+        </pre>
 
 
     </div>

@@ -78,11 +78,25 @@ EDEN.WIDGETS.Binary = (function(){
         name: 'MINE IT',
         left: 100,
         top: 200,
-        height: 150,
+        height: 175,
         width: 200
     }, ['binary']);
 
     m.hide();
+
+    return m;
+}());
+
+EDEN.WIDGETS.Stats = (function(){
+    var m = EDEN.Glass.create('stats',{
+        name: 'META-DATA',
+        left: 350,
+        top: 200,
+        height: 175,
+        width: 200
+    }, ['binaryScore']);
+
+//    m.hide();
 
     return m;
 }());
@@ -116,15 +130,22 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         EDEN.$SCOPE.$apply();
 
     } else if (user !== null) {
-//        console.log(user);
         EDEN.CACHE.email = '';
         EDEN.CACHE.pw = '';
         EDEN.WIDGETS.LoginUI.hide();
         EDEN.WIDGETS.Prompt.hide();
         EDEN.WIDGETS.Binary.show();
-//        if($EDEN.loginUI){$EDEN.loginUI.hide();}
         EDEN.MainShell.print(EDEN.LANG.EN.loggedIn,'green',false);
         EDEN.STATE.loggedIn = true;
+
+        /// BIND Firebase Stuff
+        FBR.privateYouser = FBR.privateUsers.child(user.uid);
+        FBR.privateYouser.on('value',function(data){
+            var dat = data.val();
+            EDEN.$SCOPE.privateYouser = dat;
+            console.log(dat);
+        });
+
     } else if (user === null && error === null){
         EDEN.MainShell.print(EDEN.LANG.EN.loggedOut,'green',false);
         EDEN.WIDGETS.Prompt.show();
