@@ -52,7 +52,8 @@
                 <div class="binary-elements">
                 <div ng-repeat="row in binaryGrid">
                     <span ng-repeat="binary in row track by $index">
-                        <span ng-bind="binary" ng-init="coords='x'+$parent.$index+'y'+$index" ng-click="binaryClick(coords)" class="{{coords}} letter"></span>
+                        <span ng-bind="binary" ng-init="coords='x'+$parent.$index+'y'+$index"
+                              ng-click="binaryClick(coords)" class="{{coords}} letter"></span>
                     </span>
 
                 </div>

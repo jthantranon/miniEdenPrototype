@@ -12,6 +12,8 @@ $EDEN.shellInputActual.focus();
 /// TEST BED
 //////////////////////////
 
+EDEN.binarySelects = {};
+
 FBR.pWorldState = FBR.public.child('worldState');
 FBR.binaryGrid = FBR.pWorldState.child('grid');
 
@@ -60,6 +62,8 @@ EDEN.WIDGETS.Prompt = (function(){
         name: 'HELLO USER...'
     }, ['prompt']);
 
+    m.hide();
+
 
 //    if(EDEN.STATE.loggedIn){
 //        m.hide();
@@ -72,57 +76,16 @@ EDEN.WIDGETS.Prompt = (function(){
 EDEN.WIDGETS.Binary = (function(){
     var m = EDEN.Glass.create('binary',{
         name: 'MINE IT',
-        left: 800,
-        height: 200
+        left: 100,
+        top: 200,
+        height: 150,
+        width: 200
     }, ['binary']);
 
     m.hide();
 
     return m;
 }());
-
-//EDEN.WIDGETS.OldOrNew = (function(){
-//    var m = {};
-//    var $email = $("#email");
-//    var $pass = $("#password");
-//    m.dom = EDEN.Glass.create('Old School?');
-//
-//    m.hide = function(){
-//        m.dom.all.hide();
-//    };
-//    m.hide();
-//
-//    m.show = function(){
-//        m.dom.all.show();
-//    };
-//
-//
-//    /// Init
-//    m.dom.content.after('<div id="loginUINotification">PRESS ENTER TO SUBMIT!</div>');
-//    m.dom.notification = $("#loginUINotification");
-//
-//
-//    m.append = function(c){
-//        m.dom.notification.html(c);
-//    };
-//    m.wrongPassword = function(){
-////        m.dom.content.html('INCORRECT PASSWORD. TRY AGAIN?');
-//        $pass.val('');
-//        m.append('INVALID PASSWORD!');
-//    };
-//    m.invalidEmail = function(){
-////        m.dom.content.html('INCORRECT PASSWORD. TRY AGAIN?');
-//        $email.val('');
-//        m.append('INVALID EMAIL!');
-//    };
-//
-//    m.newAccountPrompt = function(){
-//        m.append('EMAIL NOT FOUND, CREATE AN ACCOUNT?');
-//    };
-//
-//    return m;
-//}());
-
 
 FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
     if(error){
@@ -164,6 +127,7 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         EDEN.STATE.loggedIn = true;
     } else if (user === null && error === null){
         EDEN.MainShell.print(EDEN.LANG.EN.loggedOut,'green',false);
+        EDEN.WIDGETS.Prompt.show();
         EDEN.STATE.loggedIn = false;
     }
 });
@@ -269,14 +233,38 @@ meClient.controller('MainCtrl', function ($scope) {
         EDEN.MainShell.focus();
     };
 
+    $scope.colorSelects = function(){
+
+        for(coords in EDEN.binarySelects){
+            var $coords = $('.'+coords);
+//            var binSelect = EDEN.binarySelects[coords];
+            if(EDEN.binarySelects.hasOwnProperty(coords) && EDEN.binarySelects[coords] === true){
+                $coords.css('background','yellow');
+            } else {
+                $coords.css('background','');
+            }
+        }
+    };
+
     $scope.binaryClick = function(coords){
-        console.log(coords);
+//        var $coords = $('.'+coords);
+        var thisBinarySelects = EDEN.binarySelects[coords] || false;
+        EDEN.binarySelects[coords] = thisBinarySelects ? false : true;
+        $scope.colorSelects();
+//        if(EDEN.binarySelects[coords] === true){
+//            $coords.css('background','yellow');
+//        } else {
+//            $coords.css('background','');
+//        }
+
+        console.log(EDEN.binarySelects);
     };
 
     FBR.binaryGrid.on('value',function(data){
         var dat = data.val();
         $scope.binaryGrid = dat;
         $scope.$apply();
+        $scope.colorSelects();
     });
 
 

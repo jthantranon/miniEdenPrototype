@@ -55,10 +55,17 @@
 .binary{
     margin: 0 auto;
     text-align: center;
-    font-size: 2em;
+    font-size: 3em;
+    /*cursor: pointer, hand;*/
 }
 
 .binary-elements{
-    margin-top: 50px;
-    /*TODO: fix this hack above*/
+    margin-top: 20px;
+    /*TODO: fix margin hack above*/
+    cursor: pointer;
+    user-select: none;
+   -o-user-select:none;
+   -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
 }
