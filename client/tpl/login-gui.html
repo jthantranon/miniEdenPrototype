@@ -1,0 +1,14 @@
+<div class="stat-wrapper" id="{{loginGui}}">
+    <form ng-submit="$parent.login()">
+        <div class="statEntry">
+            <p class="statName" ng-click="$parent.login(email,password)">E-Mail: </p>
+            <p class="statValue"><input id="email" ng-model="email" type="text"></p>
+        </div>
+        <div class="statEntry">
+            <p class="statName">Password: </p>
+            <p class="statValue"><input id="password" ng-model="password" type="password"></p>
+        </div>
+
+        <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+    </form>
+</div>

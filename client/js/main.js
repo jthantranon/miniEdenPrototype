@@ -1,4 +1,4 @@
-
+//EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("body")).scope();
 
 ///
 /// MAIN INITIALIZATION
@@ -13,46 +13,49 @@ $EDEN.shellInputActual.focus();
 //////////////////////////
 
 EDEN.WIDGETS.LoginUI = (function(){
-    var m = {};
+//    EDEN.$SCOPE.guiStuff = "loginGUI";
+//    EDEN.$SCOPE.$apply(function(){
+//        EDEN.$SCOPE.guiStuff = "loginGUI";
+//    });
+
+    var m = EDEN.Glass.create('eden-gui',{
+        name: 'miniEden Login GUI'
+    }, ['loginUINotification','loginGUI']);
+
+
+//    EDEN.$SCOPE.$apply();
+
     var $email = $("#email");
     var $pass = $("#password");
-    var args = {
-        name: 'miniEden Login GUI'
-    };
-    m.dom = EDEN.Glass.create('eden-gui',args);
-
-    m.hide = function(){
-        m.dom.all.hide();
-    };
-    m.hide();
-
-    m.show = function(){
-        m.dom.all.show();
-    };
-
 
     /// Init
 //    m.dom.content.after('<div id="loginUINotification">PRESS ENTER TO SUBMIT!</div>');
-    m.dom.notification = $("#login-ui-notification");
+    m.notification = $("#login-ui-notification");
 
+    m.hide();
 
     m.append = function(c){
         m.dom.notification.html(c);
     };
     m.wrongPassword = function(){
-//        m.dom.content.html('INCORRECT PASSWORD. TRY AGAIN?');
         $pass.val('');
-//        m.append('INVALID PASSWORD!');
     };
     m.invalidEmail = function(){
-//        m.dom.content.html('INCORRECT PASSWORD. TRY AGAIN?');
         $email.val('');
-//        m.append('INVALID EMAIL!');
     };
-
     m.newAccountPrompt = function(){
 //        m.append('EMAIL NOT FOUND, <a href="#" ng-click="register()">CREATE AN ACCOUNT?</a></span');
     };
+
+    return m;
+}());
+
+EDEN.WIDGETS.Prompt = (function(){
+    var m = EDEN.Glass.create('eden-gui',{
+        name: 'miniEden Login GUI'
+    }, []);
+
+//    m.hide();
 
     return m;
 }());
@@ -179,15 +182,39 @@ EDEN.Register = function(){
 var meClient = angular.module('meClient', []);
 meClient.controller('MainCtrl', function ($scope) {
     $scope.test = 'best';
+    $scope.ftest = function(){
+        alert('this');
+    };
     $scope.loginMessage = 'PRESS ENTER TO SUBMIT!';
     $scope.loginUIToggle = 'HERE';
     $scope.toggleLoginUI = function(){
+        EDEN.$SCOPE.guiStuff = "loginGUI";
+//        EDEN.$SCOPE.$apply();
+//        EDEN.WIDGETS.LoginUI();
+
         EDEN.WIDGETS.LoginUI.show();
+
+//        $compile(body.html());
+
+
+
+//        EDEN.$SCOPE.directive('autotranslate', function($interpolate, $compile) {
+//            return function(scope, element, attr) {
+//                var html = element.html();
+//                debugger;
+//                html = html.replace(/\[\[(\w+)\]\]/g, function(_, text) {
+//                    return '<span translate="' + text + '"></span>';
+//                });
+//                element.html(html);
+//                $compile(element.contents())(scope); //<---- recompilation
+//            }
+//        });
         $("#email").focus();
     };
-    $scope.login = function(){
-        EDEN.CACHE.email = $scope.email;
-        EDEN.CACHE.pass = $scope.password;
+    $scope.login = function(e,p){
+        alert('login');
+        EDEN.CACHE.email = e || $scope.email;
+        EDEN.CACHE.pass = p || $scope.password;
         EDEN.Login();
 
     };
@@ -207,7 +234,56 @@ meClient.controller('MainCtrl', function ($scope) {
 //        console.log("LOADED!");
     };
 
+
+
+
 });
+
+//meClient.directive('glass',function(){
+//    return {
+//        restrict: 'A',
+//        scope: {
+//            glass: '@'
+//        },
+//        templateUrl: 'tpl/glass.html',
+//        link: function(scope,element){
+////            var name = "wee";
+////            scope.show = true;
+////            var $glass = $(element);
+////            $glass.title = $glass.find('.title-wrapper');
+////            $glass.title.html('<p>' + name + '</p>');
+////            $glass.draggable({handle: ".title-wrapper"});
+//            var args = {
+//                anchor: element,
+//                name: 'wee wee'
+//            };
+//            EDEN.glass.create('weee',args);
+//        }
+//    }
+//});
+//
+//meClient.directive('loginGui',function($compile){
+//    return {
+//        restrict: 'A',
+//        scope: {
+//            loginGui: '@'
+//        },
+////        template: '<span ng-click="ftest()">{{test}}</span>',
+//        templateUrl: 'tpl/login-gui.html',
+//        link: function(scope){
+////            alert(scope.meGlass);
+//        }
+////        ,
+////        link: function(scope,element,attrs){
+////            element.html('YES');
+////            loginGUI = $EDEN.loginGUI.clone().attr('id','login-gui');
+//////            loginGUI.attr('ng-click','ftest()');
+////            loginGUI.appendTo(element).show();
+////            $compile(element);
+////        }
+//    }
+//});
+
 
 angular.element(document).ready(function() {
 

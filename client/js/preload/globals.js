@@ -56,7 +56,9 @@ $EDEN = {
     shellInputActual: $("#shellInputActual"),
     shellInputDisplay: $("#shellInputDisplay"),
     shellCaret: $("#shellCaret"),
-    primerGlass: $("#glass-primer")
+    primerGlass: $("#glass-primer"),
+    loginGUI: $("#login-gui-primer"),
+    loginUINotification: $("#login-ui-notification-primer")
 };
 
 

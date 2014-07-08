@@ -34,6 +34,10 @@
     <div id="shellInputDisplay">>&nbsp;</div>
     <div id="shellCaret"></div>
 
+    <!--<div glass="main"></div>-->
+
+    <!--<div login-gui="login-gui"></div>-->
+
 </div>
 
 <!--<ng-include src="'tpl/glass.html'" onload="bind()"></ng-include>-->
@@ -44,7 +48,9 @@
             <p>Title</p>
         </div>
         <div class="stuff-wrapper">
-            <div class="stat-wrapper">
+
+            <!--LOGIN PROMPT-->
+            <div class="stat-wrapper" id="login-gui-primer" style="display: none">
                 <form ng-submit="login()">
                     <div class="statEntry">
                         <p class="statName">E-Mail: </p>
@@ -59,13 +65,20 @@
                 </form>
             </div>
 
+            <!--LOGIN NOTES-->
+
+
+
         </div>
-        <div id="login-ui-notification">
+
+        <div id="login-ui-notification-primer" style="display: none">
             <span ng-show="!registerClick">{{loginMessage}}</span>
             <span ng-show="registerClick" ng-click="register()"><a href="#">>>CLICK TO REGISTER THIS EMAIL<<<a/></span>
             <!--<span ng-show>PRESS ENTER TO SUBMIT!</span>-->
             <!--<span>INVALID EMAIL!</span>-->
         </div>
+
+
     </div>
 </div>
 
