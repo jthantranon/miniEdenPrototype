@@ -48,6 +48,17 @@
             <p>Title</p>
         </div>
         <div class="stuff-wrapper">
+            <div class="binary" id="binary-primer" style="display: none">
+                <div class="binary-elements">
+                <div ng-repeat="row in binaryGrid">
+                    <span ng-repeat="binary in row track by $index">
+                        <span ng-bind="binary" ng-init="coords='x'+$parent.$index+'y'+$index" ng-click="binaryClick(coords)" class="{{coords}} letter"></span>
+                    </span>
+
+                </div>
+                </div>
+
+            </div>
 
             <!--LOGIN PROMPT-->
             <div class="stat-wrapper" id="login-gui-primer" style="display: none">
@@ -65,15 +76,29 @@
                 </form>
             </div>
 
-            <!--LOGIN NOTES-->
+            <!--PROMPT-->
+            <div id="prompt-primer" class="prompt" style="display: none">
+                <div class="prompt-text">ARE YOU A: </div>
+                <div class="stat-wrapper prompt-buttons">
+                    <div class="statEntry">
+                        <p class="statName" ng-click="clicker()">CLICKER </p>
+                        <p class="statValue"></p>
+                    </div>
+                    <div class="statEntry">
+                        <p class="statName" ng-click="typist()">TYPIST </p>
+                        <p class="statValue"></p>
+                    </div>
 
+                    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+                </div>
 
+            </div>
 
         </div>
-
+        <!--LOGIN NOTES - CAN'T BE MOVED OUT OF GLASS PRIMER UNLESS COMPILED-->
         <div id="login-ui-notification-primer" style="display: none">
             <span ng-show="!registerClick">{{loginMessage}}</span>
-            <span ng-show="registerClick" ng-click="register()"><a href="#">>>CLICK TO REGISTER THIS EMAIL<<<a/></span>
+            <span ng-show="registerClick" ng-click="register()"><a href="#">>>CLICK TO REGISTER THIS EMAIL<<</a></span>
             <!--<span ng-show>PRESS ENTER TO SUBMIT!</span>-->
             <!--<span>INVALID EMAIL!</span>-->
         </div>

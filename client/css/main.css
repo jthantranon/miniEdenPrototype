@@ -41,3 +41,24 @@
     /*margin-left: 30px;*/
     background: white;
 }
+
+.prompt-text{
+    padding-top: 10px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.prompt-buttons{
+    /*padding: 10px;*/
+}
+
+.binary{
+    margin: 0 auto;
+    text-align: center;
+    font-size: 2em;
+}
+
+.binary-elements{
+    margin-top: 50px;
+    /*TODO: fix this hack above*/
+}

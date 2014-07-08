@@ -25,6 +25,10 @@ EDEN.MainShell = (function(){
         $EDEN.shellInputDisplay.before(msg);
     };
 
+    m.focus = function(){
+        $EDEN.shellInputActual.focus();
+    };
+
     /// Caret Blink
     setInterval(function(){
         $EDEN.shellCaret.each( function(){ $(this).css('visibility' , $(this).css('visibility') === 'hidden' ? '' : 'hidden') } );

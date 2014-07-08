@@ -12,6 +12,11 @@ $EDEN.shellInputActual.focus();
 /// TEST BED
 //////////////////////////
 
+FBR.pWorldState = FBR.public.child('worldState');
+FBR.binaryGrid = FBR.pWorldState.child('grid');
+
+
+
 EDEN.WIDGETS.LoginUI = (function(){
 //    EDEN.$SCOPE.guiStuff = "loginGUI";
 //    EDEN.$SCOPE.$apply(function(){
@@ -51,11 +56,27 @@ EDEN.WIDGETS.LoginUI = (function(){
 }());
 
 EDEN.WIDGETS.Prompt = (function(){
-    var m = EDEN.Glass.create('eden-gui',{
-        name: 'miniEden Login GUI'
-    }, []);
+    var m = EDEN.Glass.create('first-prompt',{
+        name: 'HELLO USER...'
+    }, ['prompt']);
 
-//    m.hide();
+
+//    if(EDEN.STATE.loggedIn){
+//        m.hide();
+//        console.log('true');
+//    }
+
+    return m;
+}());
+
+EDEN.WIDGETS.Binary = (function(){
+    var m = EDEN.Glass.create('binary',{
+        name: 'MINE IT',
+        left: 800,
+        height: 200
+    }, ['binary']);
+
+    m.hide();
 
     return m;
 }());
@@ -136,6 +157,8 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         EDEN.CACHE.email = '';
         EDEN.CACHE.pw = '';
         EDEN.WIDGETS.LoginUI.hide();
+        EDEN.WIDGETS.Prompt.hide();
+        EDEN.WIDGETS.Binary.show();
 //        if($EDEN.loginUI){$EDEN.loginUI.hide();}
         EDEN.MainShell.print(EDEN.LANG.EN.loggedIn,'green',false);
         EDEN.STATE.loggedIn = true;
@@ -181,6 +204,7 @@ EDEN.Register = function(){
 //////////////////////////
 var meClient = angular.module('meClient', []);
 meClient.controller('MainCtrl', function ($scope) {
+
     $scope.test = 'best';
     $scope.ftest = function(){
         alert('this');
@@ -233,6 +257,27 @@ meClient.controller('MainCtrl', function ($scope) {
 //        $EDEN.primerGlass = $EDEN.primerGlass || $("#glassPrimer");
 //        console.log("LOADED!");
     };
+
+    $scope.clicker = function(){
+        $('#first-prompt').hide();
+        EDEN.WIDGETS.LoginUI.show();
+    };
+
+    $scope.typist = function(){
+        $('#first-prompt').hide();
+        EDEN.MainShell.print('Welcome typist, try "help" for help!');
+        EDEN.MainShell.focus();
+    };
+
+    $scope.binaryClick = function(coords){
+        console.log(coords);
+    };
+
+    FBR.binaryGrid.on('value',function(data){
+        var dat = data.val();
+        $scope.binaryGrid = dat;
+        $scope.$apply();
+    });
 
 
 

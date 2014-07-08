@@ -32,7 +32,7 @@ EDEN.LANG = {
 };
 
 EDEN.LANG.EN = {
-    shellHelp: "There is no help... yet.",
+    shellHelp: "Commands: <br>'login'<br>'logout'",
     shellEmail: "Please enter your email: ",
     shellPassword: "Please enter your password: ",
     commandNotRecognized: "Error: Command not recognized.",
@@ -58,7 +58,9 @@ $EDEN = {
     shellCaret: $("#shellCaret"),
     primerGlass: $("#glass-primer"),
     loginGUI: $("#login-gui-primer"),
-    loginUINotification: $("#login-ui-notification-primer")
+    loginUINotification: $("#login-ui-notification-primer"),
+    prompt: $("#prompt-primer"),
+    binary: $("#binary-primer")
 };
 
 

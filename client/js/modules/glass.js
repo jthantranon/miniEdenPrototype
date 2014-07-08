@@ -11,8 +11,8 @@ EDEN.Glass = (function(){
         var args = rawArgs || false;
         var width = args.width || 400,
             height = args.height || 60,
-            top = args.top || 50,
-            left = args.left || 800,
+            top = args.top || 15,
+            left = args.left || 15,
             name = args.name || id,
             maxHeight = args.maxHeight || 600;
             anchor = args.anchor || $EDEN.curtain;
@@ -52,6 +52,19 @@ EDEN.Glass = (function(){
             $glass[name] = $EDEN[name].clone().css('top', top).css('left', left).attr('id','login-ui-notification');
             $glass.content.after($glass[name]);
             $glass[name].after($glass.loginGUI).show();
+        };
+
+        compInit.prompt = function(name){
+            $glass[name] = $EDEN[name].clone().css('top', top).css('left', left).attr('id','prompt');
+            $glass.content.after($glass[name]);
+            $glass[name].appendTo($glass.content).show();
+        };
+
+
+        compInit.binary = function(name){
+            $glass[name] = $EDEN[name].clone().css('top', top).css('left', left).attr('id','binary');
+            $glass.content.after($glass[name]);
+            $glass[name].appendTo($glass.content).show();
         };
 
         for (var i = 0; i < comps.length; i++){
