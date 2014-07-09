@@ -1,3 +1,5 @@
+exports = {}; // Actually part of commonJS. required to be here for client to work, if added in commonJS, server won't work
+
 //////////////////////////////////////////////////////////////////////////
 /// MANUAL FILE MANIFEST.
 /// Files added to directory will load automagically if using App Engine,

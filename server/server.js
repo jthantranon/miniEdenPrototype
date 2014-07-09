@@ -85,7 +85,8 @@ EDEN.grid[2] = ['G','H','I'];
 
 console.log(cjs.test);
 var FBR = cjs.FBR(Firebase);
-FBR.privateSystem.child('test').set('weee');
+//FBR.privateSystem.child('test').set('weee');
+FBR.psUsers = FBR.privateSystem.child('users');
 
 sessionsRef.on('child_added',function(data){
     var dat = data.val();
@@ -93,12 +94,16 @@ sessionsRef.on('child_added',function(data){
         EDEN.SOUL.create(dat);
     }
 
+//    FBR.psUsers.set(EDEN.SOUL || 'none');
+
 });
 
 sessionsRef.on('child_removed',function(data){
     var dat = data.val();
     console.log('REMOVING: ' + dat);
-    EDEN.SOUL.remove(dat)
+    EDEN.SOUL.remove(dat);
+
+//    FBR.psUsers.set(EDEN.SOULS || 'none');
 });
 
 
@@ -133,6 +138,7 @@ EDEN.numCoord = {
 };
 
 EDEN.SOULS = {};
+EDEN.SOULS_LIST = {};
 EDEN.SOUL = {
 //    update: function(){
 //        soul.pubRef.child('combo').set(soul.combo);
@@ -319,6 +325,8 @@ EDEN.SOUL = {
 //        });
 
         EDEN.SOULS[uid] = soul;
+        EDEN.SOULS_LIST[uid] = true;
+        FBR.psUsers.set(EDEN.SOULS_LIST || 'empty');
         console.log(uid+" has logged in.");
     },
     remove: function(uid){
@@ -327,12 +335,11 @@ EDEN.SOUL = {
         EDEN.SOULS[uid].reqRef.off();
 
         delete EDEN.SOULS[uid];
+        delete EDEN.SOULS_LIST[uid];
+        FBR.psUsers.set(EDEN.SOULS_LIST || 'empty');
         console.log(uid+" has logged out.");
     }
 };
-
-
-
 
 uReqRef.on('value',function(data){
     var dat = data.val();
