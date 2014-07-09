@@ -130,6 +130,7 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         EDEN.$SCOPE.$apply();
 
     } else if (user !== null) {
+        /// STATE & UI INITIALIZATION & MODIFICATION
         EDEN.CACHE.email = '';
         EDEN.CACHE.pw = '';
         EDEN.WIDGETS.LoginUI.hide();
@@ -143,6 +144,11 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         FBR.youserRequests = FBR.requests.child(user.uid);
         FBR.youserGridSelects = FBR.youserRequests.child('gridSelects');
 
+        /// SESSION MANAGEMENT
+        FBR.thisSesh = FBR.sessions.push(user.uid);
+        FBR.thisSesh.onDisconnect().remove();
+
+        /// BINDINGS
         FBR.privateYouser.on('value',function(data){
             var dat = data.val();
             EDEN.$SCOPE.privateYouser = dat;
@@ -153,6 +159,9 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         EDEN.MainShell.print(EDEN.LANG.EN.loggedOut,'green',false);
         EDEN.WIDGETS.Prompt.show();
         EDEN.STATE.loggedIn = false;
+
+        FBR.thisSesh.remove();
+
     }
 });
 
