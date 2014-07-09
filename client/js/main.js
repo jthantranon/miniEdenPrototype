@@ -140,6 +140,9 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
 
         /// BIND Firebase Stuff
         FBR.privateYouser = FBR.privateUsers.child(user.uid);
+        FBR.youserRequests = FBR.requests.child(user.uid);
+        FBR.youserGridSelects = FBR.youserRequests.child('gridSelects');
+
         FBR.privateYouser.on('value',function(data){
             var dat = data.val();
             EDEN.$SCOPE.privateYouser = dat;
@@ -267,11 +270,16 @@ meClient.controller('MainCtrl', function ($scope) {
         }
     };
 
+    $scope.saveSelects = function(){
+        FBR.youserGridSelects.set(EDEN.binarySelects);
+    };
+
     $scope.binaryClick = function(coords){
 //        var $coords = $('.'+coords);
         var thisBinarySelects = EDEN.binarySelects[coords] || false;
         EDEN.binarySelects[coords] = thisBinarySelects ? false : true;
         $scope.colorSelects();
+        $scope.saveSelects();
 //        if(EDEN.binarySelects[coords] === true){
 //            $coords.css('background','yellow');
 //        } else {

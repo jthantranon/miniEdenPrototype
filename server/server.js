@@ -84,12 +84,15 @@ EDEN.grid[1] = ['D','E','F'];
 EDEN.grid[2] = ['G','H','I'];
 
 console.log(cjs.test);
+var FBR = cjs.FBR(Firebase);
+FBR.privateSystem.child('test').set('weee');
 
 sessionsRef.on('child_added',function(data){
     var dat = data.val();
     if(!EDEN.SOULS[dat]){
         EDEN.SOUL.create(dat);
     }
+
 });
 
 sessionsRef.on('child_removed',function(data){
