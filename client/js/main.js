@@ -331,12 +331,12 @@ meClient.controller('MainCtrl', function ($scope) {
 //        }
 
         if (thisBinarySelects !== false){
-            EDEN.binarySelect[coords] = false;
+            EDEN.binarySelects[coords] = false;
 //        } else if (thisBinarySelects === 'init'){
 //            EDEN.binarySelects = {};
 //            EDEN.binarySelect[coords] = [x,y];
         } else {
-            EDEN.binarySelect[coords] = [x,y];
+            EDEN.binarySelects[coords] = [x,y];
         }
 
 //        EDEN.binarySelects[coords] = thisBinarySelects ? false : [x,y];
