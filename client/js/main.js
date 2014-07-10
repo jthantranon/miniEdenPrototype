@@ -1,4 +1,4 @@
-//EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("body")).scope();
+EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("body")).scope();
 
 ///
 /// MAIN INITIALIZATION
@@ -238,6 +238,7 @@ EDEN.Register = function(){
 //////////////////////////
 var meClient = angular.module('meClient', []);
 meClient.controller('MainCtrl', function ($scope) {
+    EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("body")).scope();
 
     $scope.test = 'best';
     $scope.ftest = function(){
