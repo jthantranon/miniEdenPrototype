@@ -37,14 +37,18 @@ EDEN.Glass = (function(){
 
         $glass.show = function(){
             $glass.all.show();
+            $glass.visibility = true;
         };
 
         $glass.hide = function(){
             $glass.all.hide();
+            $glass.visibility = false;
         };
 
         compInit.loginGUI = function(name){
             $glass[name] = $EDEN.loginGUI.clone().css('top', top).css('left', left).attr('id','login-gui');
+            $glass[name].find('.email').attr('id','email');
+            $glass[name].find('.password').attr('id','password');
             $glass[name].appendTo($glass.content).show();
         };
 

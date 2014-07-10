@@ -68,11 +68,11 @@
                 <form ng-submit="login()">
                     <div class="statEntry">
                         <p class="statName">E-Mail: </p>
-                        <p class="statValue"><input id="email" ng-model="email" type="text"></p>
+                        <p class="statValue"><input id="email-primer" class="email" ng-model="email" type="text"></p>
                     </div>
                     <div class="statEntry">
                         <p class="statName">Password: </p>
-                        <p class="statValue"><input id="password" ng-model="password" type="password"></p>
+                        <p class="statValue"><input id="password-primer" class="password" ng-model="password" type="password"></p>
                     </div>
 
                     <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
@@ -81,14 +81,14 @@
 
             <!--PROMPT-->
             <div id="prompt-primer" class="prompt" style="display: none">
-                <div class="prompt-text">ARE YOU A: </div>
+                <div class="prompt-text">Would You Like A GUI? </div>
                 <div class="stat-wrapper prompt-buttons">
                     <div class="statEntry">
-                        <p class="statName" ng-click="clicker()">CLICKER </p>
+                        <p class="statName" ng-click="clicker()">YES </p>
                         <p class="statValue"></p>
                     </div>
                     <div class="statEntry">
-                        <p class="statName" ng-click="typist()">TYPIST </p>
+                        <p class="statName" ng-click="typist()">NO </p>
                         <p class="statValue"></p>
                     </div>
 

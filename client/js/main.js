@@ -5,6 +5,12 @@
 //////////////////////////
 
 $EDEN.shellInputActual.focus();
+$EDEN.curtain.on('click',function(){
+    if(!EDEN.WIDGETS.LoginUI.visibility){
+        $EDEN.shellInputActual.focus();
+    }
+
+});
 
 //$EDEN.loginUI.content.html('<label>TEST</label>');
 
@@ -153,7 +159,7 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         FBR.privateYouser.on('value',function(data){
             var dat = data.val();
             EDEN.$SCOPE.privateYouser = dat;
-            console.log(dat);
+//            console.log(dat);
         });
         FBR.youserGridSelects.on('value',function(data){
             var dat = data.val();
@@ -169,7 +175,9 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         EDEN.WIDGETS.Binary.hide();
         EDEN.STATE.loggedIn = false;
 
-        FBR.thisSesh.remove();
+        if(FBR.thisSesh){
+            FBR.thisSesh.remove();
+        }
 
     }
 });
@@ -242,7 +250,6 @@ meClient.controller('MainCtrl', function ($scope) {
         $("#email").focus();
     };
     $scope.login = function(e,p){
-        alert('login');
         EDEN.CACHE.email = e || $scope.email;
         EDEN.CACHE.pass = p || $scope.password;
         EDEN.Login();
@@ -267,6 +274,7 @@ meClient.controller('MainCtrl', function ($scope) {
     $scope.clicker = function(){
         $('#first-prompt').hide();
         EDEN.WIDGETS.LoginUI.show();
+        $('#email').focus();
     };
 
     $scope.typist = function(){

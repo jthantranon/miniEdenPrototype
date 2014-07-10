@@ -2,7 +2,7 @@ exports.test = {
     hello: 'a hello',
     goodbye: 'a goodbye',
     FBR: (function(){
-        console.log('hahaha');
+//        console.log('hahaha');
     }())
 };
 

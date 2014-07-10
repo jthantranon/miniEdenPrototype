@@ -43,9 +43,11 @@
 }
 
 .prompt-text{
-    padding-top: 10px;
+    font-family:'Open Sans', sans-serif;
+    background: white;
+    padding-top: 5px;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
 .prompt-buttons{

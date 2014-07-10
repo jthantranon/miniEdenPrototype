@@ -10,6 +10,6 @@ YUI().use('get', function (Y) {
             return;
         }
 
-        Y.log('All CSS files loaded successfully!');
+//        Y.log('All CSS files loaded successfully!');
     });
 });
