@@ -12,7 +12,7 @@ $EDEN.shellInputActual.focus();
 /// TEST BED
 //////////////////////////
 
-EDEN.binarySelects = {};
+
 
 FBR.pWorldState = FBR.public.child('worldState');
 FBR.binaryGrid = FBR.pWorldState.child('grid');
@@ -154,6 +154,12 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
             EDEN.$SCOPE.privateYouser = dat;
             console.log(dat);
         });
+        FBR.youserGridSelects.on('value',function(data){
+            var dat = data.val();
+            EDEN.binarySelects = dat;
+            EDEN.$SCOPE.colorSelects();
+        });
+
 
     } else if (user === null && error === null){
         EDEN.MainShell.print(EDEN.LANG.EN.loggedOut,'green',false);
@@ -271,7 +277,7 @@ meClient.controller('MainCtrl', function ($scope) {
         for(coords in EDEN.binarySelects){
             var $coords = $('.'+coords);
 //            var binSelect = EDEN.binarySelects[coords];
-            if(EDEN.binarySelects.hasOwnProperty(coords) && EDEN.binarySelects[coords] === true){
+            if(EDEN.binarySelects.hasOwnProperty(coords) && EDEN.binarySelects[coords] !== false){
                 $coords.css('background','yellow');
             } else {
                 $coords.css('background','');
@@ -283,10 +289,15 @@ meClient.controller('MainCtrl', function ($scope) {
         FBR.youserGridSelects.set(EDEN.binarySelects);
     };
 
-    $scope.binaryClick = function(coords){
+    $scope.binaryClick = function(coords,x,y){
 //        var $coords = $('.'+coords);
         var thisBinarySelects = EDEN.binarySelects[coords] || false;
-        EDEN.binarySelects[coords] = thisBinarySelects ? false : true;
+//        if(thisBinarySelects !== false){
+//            EDEN.binarySelects[coords] = false;
+//        } else {
+//            EDEN.binarySelects[coords] =
+//        }
+        EDEN.binarySelects[coords] = thisBinarySelects ? false : [x,y];
         $scope.colorSelects();
         $scope.saveSelects();
 //        if(EDEN.binarySelects[coords] === true){

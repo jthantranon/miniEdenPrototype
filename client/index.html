@@ -54,8 +54,8 @@
                 <div class="binary-elements">
                 <div ng-repeat="row in binaryGrid">
                     <span ng-repeat="binary in row track by $index">
-                        <span ng-bind="binary" ng-init="coords='x'+$parent.$index+'y'+$index"
-                              ng-click="binaryClick(coords)" class="{{coords}} letter"></span>
+                        <span ng-bind="binary" ng-init="coords='x'+$parent.$index+'y'+$index;x=$parent.$index;y=$index"
+                              ng-click="binaryClick(coords,x,y)" class="{{coords}} letter"></span>
                     </span>
 
                 </div>
@@ -107,12 +107,14 @@
         </div>
 
         <!--BINARY SCORE NOTES - CAN'T BE MOVED OUT OF GLASS PRIMER UNLESS COMPILED-->
-        <pre id="binary-score-primer" class="ui-notification" style="display: none">
-Bits:
-{{privateYouser.bits}}
-MATCHES / SELECTED:
-3/5
-        </pre>
+        <span id="binary-score-primer" class="ui-notification" style="display: none">
+Total KiloBits:
+<h2>{{privateYouser.bits/1000}}</h2>
+Bits This Tick:
+<h1>{{privateYouser.points}}</h1>
+<!--Sample Size:-->
+<!--<h3>{{privateYouser.selectionSize}}</h3>-->
+        </span>
 
 
     </div>
