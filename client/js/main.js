@@ -176,7 +176,23 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         FBR.youserGridSelects.on('value',function(data){
             var dat = data.val();
             EDEN.binarySelects = dat;
-            EDEN.$SCOPE.colorSelects();
+
+            var cacheDat = function(){
+                EDEN.$SCOPE.privateYouser = dat;
+            };
+
+            /// TODO: Fix this hack.
+            var cacheDat = function(){
+                EDEN.$SCOPE.colorSelects();
+            };
+
+            if(EDEN.$SCOPE){
+                cacheDat();
+            } else {
+                setTimeout(cacheDat,1000);
+            }
+            /// TODO: End "Fix This Hack"
+            
         });
 
 
