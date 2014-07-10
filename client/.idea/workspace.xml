@@ -55,7 +55,7 @@
       <file leaf-file-name="server.js" pinned="true" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3728" max-vertical-offset="18766">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3200" max-vertical-offset="18766">
               <caret line="201" column="0" selection-start-line="201" selection-start-column="0" selection-end-line="201" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -131,8 +131,8 @@
       <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7404403" vertical-offset="6819" max-vertical-offset="9196">
-              <caret line="339" column="30" selection-start-line="339" selection-start-column="30" selection-end-line="339" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.49710312" vertical-offset="6721" max-vertical-offset="9196">
+              <caret line="325" column="52" selection-start-line="325" selection-start-column="52" selection-end-line="325" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -938,8 +938,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7404403" vertical-offset="6819" max-vertical-offset="9196">
-          <caret line="339" column="30" selection-start-line="339" selection-start-column="30" selection-end-line="339" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.49710312" vertical-offset="6721" max-vertical-offset="9196">
+          <caret line="325" column="52" selection-start-line="325" selection-start-column="52" selection-end-line="325" selection-end-column="52" />
           <folding />
         </state>
       </provider>
