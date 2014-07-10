@@ -322,8 +322,8 @@ meClient.controller('MainCtrl', function ($scope) {
 
     $scope.binaryClick = function(coords,x,y){
 //        var $coords = $('.'+coords);
-//        EDEN.binarySelect = EDEN.binarySelects || {};
-        var thisBinarySelects = EDEN.binarySelects ? (EDEN.binarySelects[coords] || false) : false;
+        EDEN.binarySelects = EDEN.binarySelects || {};
+        var thisBinarySelects = EDEN.binarySelects ? (EDEN.binarySelects[coords] || false) : 'init';
 //        if(thisBinarySelects !== false){
 //            EDEN.binarySelects[coords] = false;
 //        } else {
@@ -332,6 +332,9 @@ meClient.controller('MainCtrl', function ($scope) {
 
         if (thisBinarySelects !== false){
             EDEN.binarySelect[coords] = false;
+//        } else if (thisBinarySelects === 'init'){
+//            EDEN.binarySelects = {};
+//            EDEN.binarySelect[coords] = [x,y];
         } else {
             EDEN.binarySelect[coords] = [x,y];
         }
