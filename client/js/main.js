@@ -137,7 +137,6 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
 
     } else if (user !== null) {
         /// STATE & UI INITIALIZATION & MODIFICATION
-        EDEN.CACHE.email = '';
         EDEN.CACHE.pw = '';
         EDEN.WIDGETS.LoginUI.hide();
         EDEN.WIDGETS.Prompt.hide();
@@ -156,9 +155,14 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         FBR.thisSesh.onDisconnect().remove();
 
         /// BINDINGS
+        FBR.privateYouser.once('value',function(data){
+            var dat = data.val();
+            if(dat.email !== EDEN.CACHE.email){
+                FBR.privateYouser.child('email').set(EDEN.CACHE.email);
+            }
+        });
         FBR.privateYouser.on('value',function(data){
             var dat = data.val();
-
             /// TODO: Fix this hack.
             var cacheDat = function(){
                 if(typeof EDEN.$SCOPE === 'undefined'){
@@ -166,11 +170,10 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
                 } else {
                     EDEN.$SCOPE.privateYouser = dat;
                     EDEN.$SCOPE.$apply();
+                    EDEN.$SCOPE.colorSelects();
                 }
             }();
             /// TODO: End "Fix This Hack"
-
-//            console.log(dat);
         });
         FBR.youserGridSelects.on('value',function(data){
             var dat = data.val();
@@ -312,7 +315,8 @@ meClient.controller('MainCtrl', function ($scope) {
             var $coords = $('.'+coords);
 //            var binSelect = EDEN.binarySelects[coords];
             if(EDEN.binarySelects.hasOwnProperty(coords) && EDEN.binarySelects[coords] !== false){
-                $coords.css('background','yellow');
+                var color = $scope.privateYouser.points === 0 ? 'red' : 'yellow';
+                $coords.css('background',color);
             } else {
                 $coords.css('background','');
             }
