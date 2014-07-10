@@ -96,7 +96,7 @@ EDEN.WIDGETS.Stats = (function(){
         width: 200
     }, ['binaryScore']);
 
-//    m.hide();
+    m.hide();
 
     return m;
 }());
@@ -136,6 +136,7 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         EDEN.WIDGETS.LoginUI.hide();
         EDEN.WIDGETS.Prompt.hide();
         EDEN.WIDGETS.Binary.show();
+        EDEN.WIDGETS.Stats.show();
         EDEN.MainShell.print(EDEN.LANG.EN.loggedIn,'green',false);
         EDEN.STATE.loggedIn = true;
 
@@ -164,6 +165,8 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
     } else if (user === null && error === null){
         EDEN.MainShell.print(EDEN.LANG.EN.loggedOut,'green',false);
         EDEN.WIDGETS.Prompt.show();
+        EDEN.WIDGETS.Stats.hide();
+        EDEN.WIDGETS.Binary.hide();
         EDEN.STATE.loggedIn = false;
 
         FBR.thisSesh.remove();
