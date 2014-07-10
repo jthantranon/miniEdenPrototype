@@ -271,7 +271,7 @@ EDEN.STATE = (function(state){
 
 var EDEN_RANDOM_EVENTS = (function(events){
     events = {};
-    events.scram = function(force){
+    events.tallyScores = function(force){
         for (var soul in EDEN.SOULS) {
             if (EDEN.SOULS.hasOwnProperty(soul)) {
                 var thisSoul = EDEN.SOULS[soul];
@@ -309,7 +309,7 @@ var EDEN_RANDOM_EVENTS = (function(events){
                     points: points
                 };
 
-                console.log(log);
+//                console.log(log);
 
                 thisSoul.gridSelectionSize = selectionSize;
                 thisSoul.gridPoints = points;
@@ -318,12 +318,12 @@ var EDEN_RANDOM_EVENTS = (function(events){
 
             }
         }
+    };
+    events.scram = function(force){
         var x = chance.integer({min: 0, max: 2});
         var y = chance.integer({min: 0, max: 2});
-//        EDEN.grid[x][y] = chance.character({alpha: true, casing: 'upper'});
         EDEN.grid[x][y] = chance.natural({min: 0, max: 1});
         pwsRef.child('grid').set(EDEN.grid);
-//        console.log(EDEN.grid);
     };
     events.weather = function(force){
         var l = {
@@ -387,11 +387,12 @@ var EDEN_CLOCK = (function(clock,rEvents){
     }
 
     function eventsMicro(){
-        rEvents.scram();
+        rEvents.tallyScores();
     }
 
     function eventsMilli(){
         EDEN.STATE.update();
+        rEvents.scram();
         rEvents.weather();
         rEvents.spawnMob();
 //        rEvents.scram();

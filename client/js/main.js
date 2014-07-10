@@ -165,6 +165,7 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
                     setTimeout(cacheDat,1000);
                 } else {
                     EDEN.$SCOPE.privateYouser = dat;
+                    EDEN.$SCOPE.$apply();
                 }
             }();
             /// TODO: End "Fix This Hack"
@@ -182,6 +183,7 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
                     setTimeout(cacheDat,1000);
                 } else {
                     EDEN.$SCOPE.colorSelects();
+                    EDEN.$SCOPE.$apply();
                 }
             }();
             /// TODO: End "Fix This Hack"
