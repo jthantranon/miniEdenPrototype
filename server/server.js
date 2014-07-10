@@ -181,7 +181,7 @@ EDEN.SOUL = {
         soul.priRef.on('value',function(data){
             var dat = data.val();
             soul.loaded = true;
-            soul.resource = dat.bits;
+            soul.resource = dat ? dat.bits : 0;
         });
 
         var updateFB = function(){
