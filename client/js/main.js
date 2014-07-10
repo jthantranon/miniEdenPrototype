@@ -158,7 +158,19 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         /// BINDINGS
         FBR.privateYouser.on('value',function(data){
             var dat = data.val();
-            EDEN.$SCOPE.privateYouser = dat;
+
+            /// TODO: Fix this hack.
+            var cacheDat = function(){
+                EDEN.$SCOPE.privateYouser = dat;
+            };
+
+            if(EDEN.$SCOPE){
+                cacheDat();
+            } else {
+                setTimeout(cacheDat,1000);
+            }
+            /// TODO: End "Fix This Hack"
+
 //            console.log(dat);
         });
         FBR.youserGridSelects.on('value',function(data){
