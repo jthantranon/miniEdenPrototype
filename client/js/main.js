@@ -323,7 +323,7 @@ meClient.controller('MainCtrl', function ($scope) {
     $scope.binaryClick = function(coords,x,y){
 //        var $coords = $('.'+coords);
 //        EDEN.binarySelect = EDEN.binarySelects || {};
-        var thisBinarySelects = EDEN.binarySelects ? EDEN.binarySelects[coords] : false;
+        var thisBinarySelects = EDEN.binarySelects ? (EDEN.binarySelects[coords] || false) : false;
 //        if(thisBinarySelects !== false){
 //            EDEN.binarySelects[coords] = false;
 //        } else {
