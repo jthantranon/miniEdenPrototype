@@ -329,7 +329,14 @@ meClient.controller('MainCtrl', function ($scope) {
 //        } else {
 //            EDEN.binarySelects[coords] =
 //        }
-        EDEN.binarySelects[coords] = thisBinarySelects ? false : [x,y];
+
+        if (thisBinarySelects !== false){
+            EDEN.binarySelect[coords] = false;
+        } else {
+            EDEN.binarySelect[coords] = [x,y];
+        }
+
+//        EDEN.binarySelects[coords] = thisBinarySelects ? false : [x,y];
         $scope.colorSelects();
         $scope.saveSelects();
 //        if(EDEN.binarySelects[coords] === true){
