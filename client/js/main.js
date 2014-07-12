@@ -24,27 +24,6 @@ $EDEN.curtain.on('click',function(event){
 /// TEST BED
 //////////////////////////
 
-EDEN.TitleBlink = (function () {
-  var title = 'miniEden';
-  var msg = "Drill Misaligned!";
-  var timeoutRef;
-  var blink = function() { document.title = document.title == msg ? title : msg; };
-  var clear = function() {
-    clearInterval(timeoutRef);
-    document.title = title;
-    window.onclick = null;
-    timeoutRef = null;
-  };
-  return function () {
-    if (!timeoutRef) {
-      timeoutRef = setInterval(blink, 1000);
-      window.onclick = function(){
-          setTimeout(clear,1000); /// TODO: Fix this timing hack.
-      };
-    }
-  };
-}());
-
 
 
 FBR.pWorldState = FBR.public.child('worldState');
@@ -213,7 +192,7 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
                     setTimeout(cacheDat,1000);
                 } else {
                     EDEN.$SCOPE.colorSelects();
-//                    EDEN.$SCOPE.$apply();
+                    EDEN.$SCOPE.$apply();
                 }
             }();
             /// TODO: End "Fix This Hack"
@@ -342,15 +321,7 @@ meClient.controller('MainCtrl', function ($scope) {
             var $coords = $('.'+coords);
 //            var binSelect = EDEN.binarySelects[coords];
             if(EDEN.binarySelects.hasOwnProperty(coords) && EDEN.binarySelects[coords] !== false){
-                var color;
-                if($scope.privateYouser.points === 0){
-                    color = 'red';
-                    EDEN.TitleBlink();
-                } else {
-                    color = 'yellow';
-                }
-//                var color = $scope.privateYouser.points === 0 ? 'red' : 'yellow';
-
+                var color = $scope.privateYouser.points === 0 ? 'red' : 'yellow';
                 $coords.css('background',color);
             } else {
                 $coords.css('background','');
