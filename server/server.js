@@ -186,9 +186,9 @@ EDEN.SOUL = {
 
         var updateFB = function(){
             if(soul.loaded === true){
-                soul.priRef.child('bits').set(soul.resource || 0);
-                soul.priRef.child('points').set(soul.gridPoints || 0);
-                soul.priRef.child('selectionSize').set(soul.gridSelectionSize || 0);
+                soul.priRef.child('bits').set(soul.resource);
+                soul.priRef.child('points').set(soul.gridPoints);
+                soul.priRef.child('selectionSize').set(soul.gridSelectionSize);
             }
         };
         soul.updateFB = updateFB; // TODO: this is probably really dumb, i should fix this.
