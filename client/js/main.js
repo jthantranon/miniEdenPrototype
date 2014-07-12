@@ -5,11 +5,17 @@ EDEN.$SCOPE = EDEN.$SCOPE || angular.element($("body")).scope();
 //////////////////////////
 
 $EDEN.shellInputActual.focus();
-$EDEN.curtain.on('click',function(){
+$EDEN.curtain.on('click',function(event){
     if(!EDEN.WIDGETS.LoginUI.visibility){
-        $EDEN.shellInputActual.focus();
-    }
+        if(!$(event.target).is('.letter')){
+            $EDEN.shellInputActual.focus();
+//            console.log(event.target,parent);
+        } else {
+            $EDEN.shellInputActual.blur();
+        }
 
+
+    }
 });
 
 //$EDEN.loginUI.content.html('<label>TEST</label>');
@@ -357,6 +363,7 @@ meClient.controller('MainCtrl', function ($scope) {
     };
 
     $scope.binaryClick = function(coords,x,y){
+
 //        var $coords = $('.'+coords);
         EDEN.binarySelects = EDEN.binarySelects || {};
         var thisBinarySelects = EDEN.binarySelects ? (EDEN.binarySelects[coords] || false) : 'init';
