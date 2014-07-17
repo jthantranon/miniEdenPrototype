@@ -18,6 +18,8 @@ $EDEN.curtain.on('click',function(event){
     }
 });
 
+
+
 //$EDEN.loginUI.content.html('<label>TEST</label>');
 
 ///
@@ -78,10 +80,13 @@ EDEN.WIDGETS.LoginUI = (function(){
         m.dom.notification.html(c);
     };
     m.wrongPassword = function(){
-        $pass.val('');
+        $pass.val('').focus();
+
     };
     m.invalidEmail = function(){
         $email.val('');
+        $pass.val('');
+        $email.focus();
     };
     m.newAccountPrompt = function(){
 //        m.append('EMAIL NOT FOUND, <a href="#" ng-click="register()">CREATE AN ACCOUNT?</a></span');
@@ -133,6 +138,38 @@ EDEN.WIDGETS.Stats = (function(){
 
     return m;
 }());
+
+EDEN.WIDGETS.Furnace = (function(){
+    var m = EDEN.Glass.create('furnace',{
+        name: 'Furnace',
+        left: 600,
+        top: 200,
+        height: 175,
+        width: 200
+    }, ['furnace']);
+
+    $(".bit-icon").draggable({
+        helper: 'clone',
+        appendTo: 'body',
+        zIndex: 999
+    });
+
+    m.all.droppable({
+        drop: function(){
+//            console.log('win');
+//            var furnace = EDEN.$SCOPE.privateYouser.furnace || 0;
+//            EDEN.$SCOPE.privateYouser.furnace = furnace+1;
+            FBR.youserRequests.child('furnace').set(1);
+            EDEN.$SCOPE.$apply();
+//            console.log(EDEN.$SCOPE.privateYouser.furnace);
+        }
+    });
+
+//    m.hide();
+
+    return m;
+}());
+
 
 FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
     if(error){

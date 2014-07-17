@@ -4,8 +4,6 @@
 
 EDEN.Glass = (function(){
     var m = {};
-//    $EDEN.primerGlass = $EDEN.primerGlass || $("#glassPrimer");
-//    $EDEN.primerGlass = $('#glassPrimer');
     m.create = function(id, rawArgs, comps){
         var $glass = {};
         var args = rawArgs || false;
@@ -21,7 +19,7 @@ EDEN.Glass = (function(){
         var compInit = {};
 
 
-        $glass.all = $EDEN.primerGlass.clone().css('top', top).css('left', left).attr('id',id);
+        $glass.all = $("#glass-primer").clone().css('top', top).css('left', left).attr('id',id);
         $glass.all
             .appendTo(anchor)// Append before applying draggable otherwise position: rel is applied (bad)
             .draggable({handle: ".title-wrapper"})
@@ -45,40 +43,28 @@ EDEN.Glass = (function(){
             $glass.visibility = false;
         };
 
-        compInit.loginGUI = function(name){
-            $glass[name] = $EDEN.loginGUI.clone().css('top', top).css('left', left).attr('id','login-gui');
-            $glass[name].find('.email').attr('id','email');
-            $glass[name].find('.password').attr('id','password');
-            $glass[name].appendTo($glass.content).show();
-        };
 
-        compInit.loginUINotification = function(name){
-            $glass[name] = $EDEN[name].clone().css('top', top).css('left', left).attr('id','login-ui-notification');
-            $glass.content.after($glass[name]);
-            $glass[name].after($glass.loginGUI).show();
-        };
+        var addComp = function(name,hypthenName){
+            $glass[name] = $('#'+hypthenName+'-primer').clone().css('top', top).css('left', left).attr('id',hypthenName);
+            switch(compsCamel){
+                case 'loginUINotification':
+                    $glass.content.after($glass[name]);
+                    break;
+                case 'loginGUI':
+                    $glass[name].find('.email').attr('id','email');
+                    $glass[name].find('.password').attr('id','password'); // INTENTIONAL FALL THROUGH no break;
+                default:
+                    $glass[name].appendTo($glass.content);
+                    break;
+            }
+            $glass[name].show();
 
-        compInit.prompt = function(name){
-            $glass[name] = $EDEN[name].clone().css('top', top).css('left', left).attr('id','prompt');
-            $glass.content.after($glass[name]);
-            $glass[name].appendTo($glass.content).show();
-        };
-
-
-        compInit.binary = function(name){
-            $glass[name] = $EDEN[name].clone().css('top', top).css('left', left).attr('id','binary');
-            $glass.content.after($glass[name]);
-            $glass[name].appendTo($glass.content).show();
-        };
-
-        compInit.binaryScore = function(name){
-            $glass[name] = $EDEN[name].clone().css('top', top).css('left', left).attr('id','binary-score');
-            $glass.content.after($glass[name]);
-            $glass[name].appendTo($glass.content).show();
         };
 
         for (var i = 0; i < comps.length; i++){
-            compInit[comps[i]](comps[i]);
+            var compsCamel = comps[i],
+                compsHyphen = compsCamel.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+            addComp(compsCamel,compsHyphen);
         }
 
         return $glass;

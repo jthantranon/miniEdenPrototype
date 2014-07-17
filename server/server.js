@@ -178,34 +178,40 @@ EDEN.SOUL = {
 //            soul.resource = dat.resource || 0;
         });
 
+        soul.furnace = 'loading';
         soul.priRef.on('value',function(data){
             var dat = data.val();
             soul.loaded = true;
-            soul.resource = dat ? dat.bits : 0;
+            soul.bits = dat ? dat.bits : 0;
+            soul.furnace = dat ? dat.furnace : 0;
         });
 
         var updateFB = function(){
             if(soul.loaded === true){
-                soul.priRef.child('bits').set(soul.resource || 0);
+                soul.priRef.child('bits').set(soul.bits || 0);
                 soul.priRef.child('points').set(soul.gridPoints || 0);
                 soul.priRef.child('selectionSize').set(soul.gridSelectionSize || 0);
             }
         };
         soul.updateFB = updateFB; // TODO: this is probably really dumb, i should fix this.
 
-        updateFB();
-
-        soul.priRef.on('value',function(data){
-            console.log(data.name());
-            console.log(data.val());
+        /// FURNACE LOGIC
+        soul.reqRef.child('furnace').on('value',function(data){
+            var dat = data.val();
+            if(dat > 0){
+                soul.priRef.child('furnace').set(soul.furnace += dat);
+                soul.bits -= (1024*dat);
+                soul.reqRef.child('furnace').set(0);
+            }
         });
 
         soul.reqRef.child('gridSelects').on('value',function(data){
             var dat = data.val();
             soul.comboCoords = dat;
-//            console.log(dat);
-
         });
+
+
+
 
 
         EDEN.SOULS[uid] = soul;
@@ -293,6 +299,13 @@ var EDEN_RANDOM_EVENTS = (function(events){
                     }
                 }
 
+                /// TICK PROCESSING
+//                if(thisSoul.furnace && thisSoul.furnace > 0){
+//                    FBR.
+//                }
+                ///////////////////////////////////////////
+
+
                 var points = 0;
                 if(letters['0'] === 0){
                     points =  letters['1'];
@@ -313,7 +326,7 @@ var EDEN_RANDOM_EVENTS = (function(events){
 
                 thisSoul.gridSelectionSize = selectionSize;
                 thisSoul.gridPoints = points;
-                thisSoul.resource = thisSoul.resource + points;
+                thisSoul.bits = thisSoul.bits + points;
                 thisSoul.updateFB();
 
             }

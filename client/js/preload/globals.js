@@ -55,13 +55,7 @@ $EDEN = {
     backstage: $("#backstage"),
     shellInputActual: $("#shellInputActual"),
     shellInputDisplay: $("#shellInputDisplay"),
-    shellCaret: $("#shellCaret"),
-    primerGlass: $("#glass-primer"),
-    loginGUI: $("#login-gui-primer"),
-    loginUINotification: $("#login-ui-notification-primer"),
-    prompt: $("#prompt-primer"),
-    binary: $("#binary-primer"),
-    binaryScore: $("#binary-score-primer")
+    shellCaret: $("#shellCaret")
 };
 
 
