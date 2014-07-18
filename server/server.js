@@ -140,7 +140,7 @@ EDEN.SOUL = {
         /// FURNACE LOGIC
         soul.reqRef.child('furnace').on('value',function(data){
             var dat = data.val();
-            if(dat > 0){
+            if(dat > 0 && (soul.bits >= (1024*dat))){
                 soul.priRef.child('furnace').set(soul.furnace += dat);
                 soul.bits -= (1024*dat);
                 soul.reqRef.child('furnace').set(0);
@@ -233,7 +233,7 @@ function gridScores(thisSoul){
 
     thisSoul.gridSelectionSize = selectionSize;
     thisSoul.gridPoints = points;
-    thisSoul.bits += points;
+    thisSoul.bits += points*selectionSize;
     thisSoul.updateFB();
 }
 
