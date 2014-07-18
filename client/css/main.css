@@ -71,3 +71,11 @@
    -khtml-user-select: none;
    -webkit-user-select: none;
 }
+
+.furn-prog{
+}
+
+.furn-prog-div{
+    text-align: center;
+    padding: 10px;
+}

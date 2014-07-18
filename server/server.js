@@ -107,23 +107,31 @@ EDEN.SOUL = {
         soul.priRef = FBR.privateUsers.child(uid);
         soul.reqRef = FBR.requests.child(uid);
 
-
         /// BINDINGS
         soul.pubRef.on('value',function(data){
             var dat = data.val();
         });
 
-        soul.furnace = 'loading';
-        soul.priRef.on('value',function(data){
-            var dat = data.val();
+        soul.priRef.once('value',function(data){ /// TODO: changed from on to once, can be really bad.
+            var dat = data.val() || false;
             soul.loaded = true;
-            soul.bits = dat ? dat.bits : 0;
-            soul.furnace = dat ? dat.furnace : 0;
+
+            if(dat !== false){
+                soul.bits = dat.bits || 0;
+                soul.furnace = dat.furnace || 0;
+                soul.furnaceProg = dat.furnaceProg || 0;
+                soul.kb = dat.kb || 0;
+            }
+
         });
 
         soul.updateFB = function(){ // TODO: this is probably really dumb, i should fix this.
             if(soul.loaded === true){
-                soul.priRef.child('bits').set(soul.bits || 0);
+                soul.priRef.child('bits').set(soul.bits);
+                soul.priRef.child('kb').set(soul.kb);
+                soul.priRef.child('furnace').set(soul.furnace);
+                soul.priRef.child('furnaceProg').set(soul.furnaceProg);
+
                 soul.priRef.child('points').set(soul.gridPoints || 0);
                 soul.priRef.child('selectionSize').set(soul.gridSelectionSize || 0);
             }
@@ -198,6 +206,58 @@ EDEN.STATE = (function(state){
     return state;
 }(EDEN.STATE || {}));
 
+function gridScores(thisSoul){
+    var letters = {
+        '0': 0,
+        '1': 0
+    };
+
+    var selectionSize = 0;
+    for (var key in thisSoul.comboCoords){
+        if(thisSoul.comboCoords.hasOwnProperty(key)){
+            var c = thisSoul.comboCoords[key];
+            if(c !== false){
+                var l = (EDEN.grid[c[0]][c[1]]).toString();
+                letters[l]++;
+                selectionSize++;
+            }
+        }
+    }
+
+    var points = 0;
+    if(letters['0'] === 0){
+        points =  letters['1'];
+    } else if (letters['1'] === 0){
+        points = letters['0'];
+    }
+
+    thisSoul.gridSelectionSize = selectionSize;
+    thisSoul.gridPoints = points;
+    thisSoul.bits += points;
+    thisSoul.updateFB();
+}
+
+function furnaceTick(soul){
+    var process = function(){
+        soul.furnace -= 1;
+//        soul.updateFB();
+        soul.kb += 1;
+//        soul.updateFB();
+    };
+    if(soul.furnace > 0){
+        if(soul.furnaceProg >= 100){
+            soul.furnaceProg = 0;
+//            soul.updateFB();
+            process();
+        } else if (soul.furnaceProg >= 0 && soul.furnaceProg !== 100){
+            soul.furnaceProg += 5;
+//            soul.updateFB();
+        }
+
+    }
+}
+
+
 var EDEN_RANDOM_EVENTS = (function(events){
     events = {};
     events.tallyScores = function(force){
@@ -205,39 +265,16 @@ var EDEN_RANDOM_EVENTS = (function(events){
             if (EDEN.SOULS.hasOwnProperty(soul)) {
                 var thisSoul = EDEN.SOULS[soul];
 
-                var letters = {
-                    '0': 0,
-                    '1': 0
-                };
-
-                var selectionSize = 0;
-                for (var key in thisSoul.comboCoords){
-                    if(thisSoul.comboCoords.hasOwnProperty(key)){
-                        var c = thisSoul.comboCoords[key];
-                        if(c !== false){
-                            var l = (EDEN.grid[c[0]][c[1]]).toString();
-                            letters[l]++;
-                            selectionSize++;
-                        }
-                    }
-                }
-
-                var points = 0;
-                if(letters['0'] === 0){
-                    points =  letters['1'];
-                    console.log('MATCH!');
-                } else if (letters['1'] === 0){
-                    points = letters['0'];
-                }
-
-                thisSoul.gridSelectionSize = selectionSize;
-                thisSoul.gridPoints = points;
-                thisSoul.bits += points;
-                thisSoul.updateFB();
-
+                gridScores(thisSoul);
+                furnaceTick(thisSoul);
             }
         }
     };
+
+    events.furnace = function(force){
+
+    };
+
     events.scram = function(force){
         var x = chance.integer({min: 0, max: 2});
         var y = chance.integer({min: 0, max: 2});

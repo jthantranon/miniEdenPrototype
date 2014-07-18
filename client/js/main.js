@@ -116,7 +116,7 @@ EDEN.WIDGETS.Binary = (function(){
         name: 'MINE IT',
         left: 100,
         top: 200,
-        height: 175,
+        height: 200,
         width: 200
     }, ['binary']);
 
@@ -130,7 +130,7 @@ EDEN.WIDGETS.Stats = (function(){
         name: 'META-DATA',
         left: 350,
         top: 200,
-        height: 175,
+        height: 200,
         width: 200
     }, ['binaryScore']);
 
@@ -144,7 +144,7 @@ EDEN.WIDGETS.Furnace = (function(){
         name: 'Furnace',
         left: 600,
         top: 200,
-        height: 175,
+        height: 200,
         width: 200
     }, ['furnace']);
 
