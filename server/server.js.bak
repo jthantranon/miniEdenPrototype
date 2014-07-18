@@ -1,7 +1,18 @@
+//var static = require('node-static');
+//
+//var fileServer = new static.Server('../client');
+//
+//require('http').createServer(function (request, response) {
+//    request.addListener('end', function () {
+//        fileServer.serve(request, response);
+//    }).resume();
+//}).listen(8080);
+
 var WSS_PORT = 8082;
 var Firebase = require('firebase');
 var pwHash = require('password-hash');
-
+//var FirebaseTokenGenerator = require("firebase-token-generator");
+//var WebSocketServer = require('ws').Server, wss = new WebSocketServer({port: 8080});
 var Chance = require('chance');
 var clc = require('cli-color');
 var uuid = require('node-uuid');
@@ -10,16 +21,44 @@ var cjs = require('../shared/commonJSTest.js');
 var FB_KEY = require('../shared/fb-key.js');
 
 var chance = new Chance();
+//var tokenGenerator = new FirebaseTokenGenerator('g0SM2eytPDTPm1VjIfhi1s2Iphbvd0sX09bQpLUE');
 
+var baseURL = "https://minieden.firebaseio.com";
+var baseRef = new Firebase(baseURL);
+var uReqRef = baseRef.child('requests').child('users');
+var pubRef = baseRef.child('public');
+var priRef = baseRef.child('private');
+var reqRef = baseRef.child('requests');
+
+var pubUsersRef = pubRef.child('users');
+var priUsersRef = priRef.child('users');
+//var reqUsersRef = reqRef.child('users');
+
+var pwsRef = pubRef.child('worldState');
+var sessionsRef = baseRef.child('sessions');
 var uRef;
 
 process.on('SIGINT', function(){
-    LOG('shutting down','green');
+    console.log('shutting down');
     process.exit();
 });
 
+//var stdin = process.openStdin();
+//process.stdin.setRawMode();
+//
+//function LogEden(){
+//    console.log(EDEN);
+//}
+//
+//stdin.on('keypress', function (chunk, key) {
+//  process.stdout.write('Get Chunk: ' + chunk + '\n');
+//    process.stdout.write('WHEE');
+//  if (key && key.ctrl && key.name == 'c') process.exit();
+//    if (key && key.name == 'p') process.stdout.write(EDEN);
+//});
+
 function LOG(msg,color){
-    var fmsg = color ? clc[color](msg) : msg;
+    fmsg = color ? clc[color](msg) : msg;
     console.log(fmsg);
 }
 
@@ -27,7 +66,7 @@ var FBR = cjs.FBR(Firebase);
 
 /// Register Server with Firebase
 //////////////////////////////////
-FBR.base.auth(FB_KEY.val, function(error) {
+baseRef.auth(FB_KEY.val, function(error) {
     if(error) {
         console.log("SERVER: Firebase login failed!", error);
     } else {
@@ -43,23 +82,38 @@ FBR.base.auth(FB_KEY.val, function(error) {
 
 var SESSIONS = {};
 var EDEN = {
-    USERS: {},
-    SOUL: {},
-    SOULS: {}
+    USERS: {}
 };
 
-FBR.sessions.on('child_added',function(data){
+
+//EDEN.grid = [];
+//EDEN.grid[0] = ['A','B','C'];
+//EDEN.grid[1] = ['D','E','F'];
+//EDEN.grid[2] = ['G','H','I'];
+
+console.log(cjs.test);
+
+//FBR.privateSystem.child('test').set('weee');
+FBR.psUsers = FBR.privateSystem.child('users');
+
+sessionsRef.on('child_added',function(data){
     var dat = data.val();
     if(!EDEN.SOULS[dat]){
         EDEN.SOUL.create(dat);
     }
+
+//    FBR.psUsers.set(EDEN.SOUL || 'none');
+
 });
 
-FBR.sessions.on('child_removed',function(data){
+sessionsRef.on('child_removed',function(data){
     var dat = data.val();
     console.log('REMOVING: ' + dat);
     EDEN.SOUL.remove(dat);
+
+//    FBR.psUsers.set(EDEN.SOULS || 'none');
 });
+
 
 EDEN.Keys = {};
 EDEN.keybindLegend = {
@@ -94,23 +148,34 @@ EDEN.numCoord = {
 EDEN.SOULS = {};
 EDEN.SOULS_LIST = {};
 EDEN.SOUL = {
+//    update: function(){
+//        soul.pubRef.child('combo').set(soul.combo);
+//        soul.pubRef.child('comboCount').set(soul.comboCount);
+//    },
     create: function(uid){
         var soul = {};
         soul.loaded = false;
         soul.uid = uid;
         soul.keyPress = null;
+//        soul.comboSet = {};
+//        soul.resource = 0;
+//        soul.combo = '=';
+//        soul.comboCount = 0;
         soul.gridSelectionSize = 0;
         soul.gridPoints = 0;
         soul.comboCoords = {};
 
-        soul.pubRef = FBR.publicUsers.child(uid);
-        soul.priRef = FBR.privateUsers.child(uid);
-        soul.reqRef = FBR.requests.child(uid);
+        soul.pubRef = pubUsersRef.child(uid);
+        soul.priRef = priUsersRef.child(uid);
+        soul.reqRef = reqRef.child(uid);
 
 
         /// BINDINGS
+
         soul.pubRef.on('value',function(data){
             var dat = data.val();
+//            soul.loaded = true;
+//            soul.resource = dat.resource || 0;
         });
 
         soul.furnace = 'loading';
@@ -121,13 +186,14 @@ EDEN.SOUL = {
             soul.furnace = dat ? dat.furnace : 0;
         });
 
-        soul.updateFB = function(){ // TODO: this is probably really dumb, i should fix this.
+        var updateFB = function(){
             if(soul.loaded === true){
                 soul.priRef.child('bits').set(soul.bits || 0);
                 soul.priRef.child('points').set(soul.gridPoints || 0);
                 soul.priRef.child('selectionSize').set(soul.gridSelectionSize || 0);
             }
         };
+        soul.updateFB = updateFB; // TODO: this is probably really dumb, i should fix this.
 
         /// FURNACE LOGIC
         soul.reqRef.child('furnace').on('value',function(data){
@@ -144,10 +210,14 @@ EDEN.SOUL = {
             soul.comboCoords = dat;
         });
 
+
+
+
+
         EDEN.SOULS[uid] = soul;
         EDEN.SOULS_LIST[uid] = true;
         FBR.psUsers.set(EDEN.SOULS_LIST || 'empty');
-        LOG(uid+" has logged in.",'green');
+        console.log(uid+" has logged in.");
     },
     remove: function(uid){
         EDEN.SOULS[uid].pubRef.off();
@@ -157,14 +227,19 @@ EDEN.SOUL = {
         delete EDEN.SOULS[uid];
         delete EDEN.SOULS_LIST[uid];
         FBR.psUsers.set(EDEN.SOULS_LIST || 'empty');
-        LOG(uid+" has logged out.",'green');
+        console.log(uid+" has logged out.");
     }
 };
+
+uReqRef.on('value',function(data){
+    var dat = data.val();
+    console.log(dat);
+});
 
 /// HELPER FUNCTIONS
 /////////////////////////////////////
 function getURef(id){
-    return FBR.publicUsers.child(id);
+    return pubUsersRef.child(id);
 }
 
 Object.edenObjLen = function(obj){
@@ -186,14 +261,16 @@ EDEN.STATE = (function(state){
             var tString = Math.floor(u).toString();
             return (tString.length ==1) ? '0' + tString : tString;
         }
-        FBR.publicWorldState.child('time').set({
+        pwsRef.child('time').set({
             cycle: stringTime(t.cycle),
-            deci: stringTime(t.deci), // KiloCycle
-            centi: stringTime(t.centi), // MegaCycle
-            milli: stringTime(t.milli), // GigaCycle
-            micro: stringTime(t.micro), // TeraCycle
-            nano: stringTime(t.nano) // PentaCycle
+            deci: stringTime(t.deci),
+            centi: stringTime(t.centi),
+            milli: stringTime(t.milli),
+            micro: stringTime(t.micro),
+            nano: stringTime(t.nano)
         });
+//        pwsRef.child('time').set(EDEN_CLOCK.time);
+//        console.log('updating State');
     };
     return state;
 }(EDEN.STATE || {}));
@@ -222,17 +299,34 @@ var EDEN_RANDOM_EVENTS = (function(events){
                     }
                 }
 
+                /// TICK PROCESSING
+//                if(thisSoul.furnace && thisSoul.furnace > 0){
+//                    FBR.
+//                }
+                ///////////////////////////////////////////
+
+
                 var points = 0;
                 if(letters['0'] === 0){
                     points =  letters['1'];
                     console.log('MATCH!');
                 } else if (letters['1'] === 0){
                     points = letters['0'];
+                    console.log('MATCH!');
+                } else {
+                    console.log('MISMATCH!');
                 }
+
+                var log = {
+                    selectionSize: selectionSize,
+                    points: points
+                };
+
+//                console.log(log);
 
                 thisSoul.gridSelectionSize = selectionSize;
                 thisSoul.gridPoints = points;
-                thisSoul.bits += points;
+                thisSoul.bits = thisSoul.bits + points;
                 thisSoul.updateFB();
 
             }
@@ -242,7 +336,7 @@ var EDEN_RANDOM_EVENTS = (function(events){
         var x = chance.integer({min: 0, max: 2});
         var y = chance.integer({min: 0, max: 2});
         EDEN.grid[x][y] = chance.natural({min: 0, max: 1});
-        FBR.publicWorldState.child('grid').set(EDEN.grid);
+        pwsRef.child('grid').set(EDEN.grid);
     };
     events.weather = function(force){
         var l = {
@@ -260,7 +354,7 @@ var EDEN_RANDOM_EVENTS = (function(events){
 
         if(chance.d100() > 90 || force){
             EDEN.WEATHER = l[chance.d10()];
-            FBR.publicWorldState.child('weather').set(EDEN.WEATHER);
+            pwsRef.child('weather').set(EDEN.WEATHER);
             LOG('WEATHER REPORT: ' +EDEN.WEATHER,'cyan');
         }
     };
@@ -274,7 +368,11 @@ var EDEN_RANDOM_EVENTS = (function(events){
                 uuid: uuid.v4()
             }
         }
-
+//        var beastiary = {
+//            bug: {
+//
+//            }
+//        };
         var mobs = {
             1: mobFactory('bug'),
             2: mobFactory('crawler'),
@@ -286,7 +384,7 @@ var EDEN_RANDOM_EVENTS = (function(events){
         if(force || (chance.d100() > 70 && (!EDEN.STATE.mobs || Object.edenObjLen(EDEN.STATE.mobs) < 5))){
             newMob = mobs[chance.d6()];
             EDEN.STATE.mobs[newMob.uuid] = newMob;
-            FBR.publicWorldState.child('mobs').set(EDEN.STATE.mobs);
+            pwsRef.child('mobs').set(EDEN.STATE.mobs);
             console.log(newMob);
         }
     };
@@ -310,9 +408,71 @@ var EDEN_CLOCK = (function(clock,rEvents){
         rEvents.scram();
         rEvents.weather();
         rEvents.spawnMob();
+//        rEvents.scram();
     }
 
+//    YY:MM:WW:DD:HH:MM:SS:MS
+
+    // 1 ms = nc ms
+    // 100 ms = μc second
+    // 6,000 = mc minute
+    // 1,000,000 =
+
+    // cycle = 86400000000000 // month 100 days
+    // cycle = 864000000000 // month 1000 days
+    // deci = 8640000000 // week (10 days)
+    // centi = 86400000 // day actual
+    // milli = 864000 // hour
+    // micro = 8640 // minute
+    // nano = 86.4 // second
+
+
+    // deca = 31536000000 // year actual
+    // cycle = 315360000 // month
+    // deci = 3153600 // week
+    // centi = 31536 // day
+    // milli = 315.36 // hour
+    // micro = 3.1536 // minute
+    // nano = .031536 // second
+
+    // cycle = 2678400000 // month actual
+    // deci = 26784000 // week
+    // centi = 267840 // day
+    // milli = 2678.4 // hour
+    // micro = 26.784 // minute
+    // nano = .26784 // second
+
+
+    // cycle = 604800000 // week actual
+    // deci = 6048000 // day
+    // centi = 60480 // hour
+    // milli = 604.8 // minute
+    // micro = 6.048 // second
+
+
+    // cycle = 8640000000 // 100 days
+    // deci = 86400000 // 1 day actual
+    // centi = 864000 // 1 hundreth of an hour (eden minute)
+    // milli = 8640 // seconds
+    // micro = 86.4 // hour
+    // nano = .8646 //
+
+    // deca =31536000000
+    // centi = 315360000
+    // milli = 3153600
+    // micro = 31536
+    // nano = 315.36
+
+    /// nano 60/100 seconds
+    // micro 60/100 minutes
+    // milli 24/100 hours
+    // centi 30/100 days
+    // deca 365/100 year
+
+    var epoch = 1396249200000;
+
     clock.tick = function(){
+        var now = new Date().getTime() - epoch;
         var time = clock.time;
         var l = 99;
         if(time.nano > l){time.nano = time.nano-l;time.micro++;eventsMicro();}
@@ -321,10 +481,13 @@ var EDEN_CLOCK = (function(clock,rEvents){
         if(time.centi > l){time.centi = 0; time.deci++;}
         if(time.deci > l){time.deci = 0; time.cycle++;}
         eventsNano();
-        time.nano += 2;
+        time.nano = time.nano + 2;
+//        console.log(clock.time);
     };
 
     clock.start = function(){
+
+
         var epoch = 1396249200000;
         var now = new Date().getTime();
         var elapsed =  now - epoch;
@@ -333,7 +496,12 @@ var EDEN_CLOCK = (function(clock,rEvents){
 
         function tForm(unit){
             unit = unit || "00";
+            console.log(unit);
+//            var formatted =
             return (unit*100) % 100;
+//            var thereturn = (formatted < 10) ? ("0" + formatted) : formatted;
+//            console.log(thereturn);
+//            return thereturn.toString();
         }
 
         var xc = edenTime % 100;
@@ -358,15 +526,45 @@ var EDEN_CLOCK = (function(clock,rEvents){
         setInterval(clock.tick,8.646);
     };
 
-    FBR.publicWorldState.child('time').once('value',function(data){
+
+//    clock.tick = function(){
+//        var time = clock.time;
+//        var l = 99;
+//        if(time.nano > l){time.nano = 0;time.micro++;eventsMicro();}
+//        if(time.micro > l){time.micro = 0; time.milli++;console.log(time);}
+//        if(time.milli > l){time.milli = 0; time.centi++;}
+//        if(time.centi > l){time.centi = 0; time.deci++;}
+//        if(time.nano > l){EDEN.CLOCK.NANOCYCLE = 1; EDEN.CLOCK.MICROCYCLE++;} // console.log("MICROCYCLE: " + EDEN.CLOCK.MICROCYCLE);}
+//        eventsNano();
+//        time.nano++;
+////        console.log(clock.time);
+//    };
+
+//    clock.start = function(){
+//        clock.time = clock.time || {
+//            nano: 0,
+//            micro: 0,
+//            milli: 0,
+//            centi: 0,
+//            deci: 0
+//        };
+//        rEvents.weather(true);
+//        rEvents.spawnMob(true);
+//        setInterval(clock.tick,100);
+//    };
+
+    pwsRef.child('time').once('value',function(data){
+//        clock.time = data.val() || {};
         clock.start();
     });
+
+
 
     return clock;
 }(EDEN_CLOCK|{},EDEN_RANDOM_EVENTS));
 
 
-LOG('Welcome to MiniEden, Administrator.','cyan');
+console.log('Welcome to MiniEden, Administrator.');
 
 var WSM = (function (wsm) {
     wsm = {};
@@ -378,6 +576,7 @@ var WSM = (function (wsm) {
         /// PACK N SEND FUNCTION EXPOSED PUBLICLY THROUGH WSM.pns
         ///////////////////////////////////////////////////////////
         wsm.pns = function (data,type){
+//            console.log(data);
             type = type || 'misc';
             if((typeof data) != 'object'){
                 var oldData = data;
@@ -408,9 +607,13 @@ var WSM = (function (wsm) {
         initWSDependencies(ws);
 
         ws.on('message', function(rawPack) {
-            var jPack = JSON.parse(rawPack);
+            jPack = JSON.parse(rawPack);
+//            console.log(jPack.type);
 
             var packTypes = {
+//                login: login,
+//                logout: logout,
+//                register: register,
                 test: test,
                 action: EDEN.ACTIONS[jPack.actionType],
                 auth: EDEN.AUTH[jPack.authType]
@@ -433,7 +636,8 @@ EDEN.AUTH = (function(auth,wsm){
     auth = {};
     auth.authReq = function(msg){
         LOG(('AUTH: ' + msg.uid + ' is requesting authorization.'),'cyan');
-        var pRef = FBR.privateUsers.child(msg.uid);
+//        console.log(msg.data);
+        var pRef = priUsersRef.child(msg.uid);
         pRef.once('value',function(data){
             var newKey = chance.d100();
             EDEN.USERS[msg.uid] = {
@@ -448,6 +652,9 @@ EDEN.AUTH = (function(auth,wsm){
         })
     };
     auth.keyReply = function(msg){
+//        console.log('auth');
+//        console.log(msg);
+//        console.log(EDEN.USERS[msg.uid]);
         if(msg.key == EDEN.USERS[msg.uid].seshKey){
             LOG('AUTH: Key sync from'+msg.uid,'green');
             wsm.pns({
@@ -466,7 +673,7 @@ EDEN.ACTIONS = {
         if(dat.legit){
             var diceResult = chance.d10();
             LOG('ACTION: ' + dat.creds.sender + ' rolled: ' + diceResult,'yellowBright');
-            FBR.privateUsers.child(dat.creds.sender).child('actions').child('rollDice').set(diceResult);
+            priUsersRef.child(dat.creds.sender).child('actions').child('rollDice').set(diceResult);
         }
     },
     attack: function(dat){
@@ -501,7 +708,7 @@ EDEN.ACTIONS = {
                 if(newHP <= 0){
                     delete EDEN.STATE.mobs[dat.target];
 //                  EDEN.STATE.update();
-                    FBR.publicWorldState.child('mobs').child(dat.target).remove();
+                    pwsRef.child('mobs').child(dat.target).remove();
                     EDEN.USERS[dat.creds.sender].pRef.child('bits').once('value',function(data){
                         data = data.val() || 0;
                         var earn = chance.d10();
@@ -519,7 +726,7 @@ EDEN.ACTIONS = {
                 } else {
                     EDEN.STATE.mobs[dat.target].hp = newHP;
                     console.log(EDEN.STATE.mobs[dat.target].hp);
-                    FBR.publicWorldState.child('mobs').child(dat.target).set(EDEN.STATE.mobs[dat.target]);
+                    pwsRef.child('mobs').child(dat.target).set(EDEN.STATE.mobs[dat.target]);
                 }
             } else {
                 console.log('ERROR: Target not found.');
@@ -571,6 +778,66 @@ EDEN.ACTIONS = {
     }
 };
 
+//function login(msg){
+//    console.log('login object recieved ' + msg.name);
+//    pubUsersRef.child(msg.name).set(pwHash.generate(msg.name));
+//
+//}
+//
+//function logout(msg){
+//    console.log(msg);
+//}
+
+//function register(msg){
+//    uRef = pubUsersRef.child(msg.uuid);
+//    console.log('register');
+//    console.log(msg);
+//
+//    uRef.once('value',function(data){
+//        var dat = data.val();
+//        var uuid;
+//        uDat = {
+//            email: msg.email,
+//            password:pwHash.generate(msg.password),
+//            uuid: msg.uuid,
+//            name: getName(dat),
+//            token: token || "noToken"
+//        };
+//       if(dat){
+//           console.log('already registered');
+//           var valid = pwHash.verify(msg.password,dat.password);
+////           var tokenObj = {
+////               token: token,
+////               email: msg.email,
+////               uuid: uuid,
+////               name: getName(dat)
+////           };
+//            if(valid){
+//                WSM.pns('pass match!');
+//                var token = tokenGenerator.createToken(uDat);
+//                uDat.token = token;
+//                WSM.pns(JSON.stringify(uDat),'token');
+//                console.log('password match');
+//                SESSIONS[token] = uDat;
+////                console.log(SESSIONS[token]);
+//           } else {
+//               var tokenCookie = msg.password.split(';')[0];
+//               if(SESSIONS[tokenCookie]){
+//                   uDat.token = tokenCookie;
+//                   WSM.pns(JSON.stringify(uDat),'token');
+//                   console.log(uDat.name);
+//                   console.log(SESSIONS[tokenCookie]);
+//               }
+//               console.log('wrong password');
+//           }
+//       } else {
+//           pubUsersRef.child(msg.uuid).set(uDat);
+//       }
+//    });
+//
+//
+//}
+
 function getName(dat){
     var name = 'Mxxx-Exxx-4xxx'.replace(/[xy]/g, function(c) {
         var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
@@ -583,4 +850,13 @@ function getName(dat){
     }
     return name;
 
+}
+
+function test(msg){
+    var uid = SESSIONS[msg.data];
+    console.log(uid);
+    pubUsersRef.child(uid).once('value',function(data){
+        var dat = data.val();
+        console.log(dat);
+    })
 }
