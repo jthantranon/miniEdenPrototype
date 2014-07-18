@@ -77,5 +77,9 @@
 
 .furn-prog-div{
     text-align: center;
-    padding: 10px;
+    padding-bottom: 10px;
+}
+
+.bit-icon2{
+    vertical-align: middle;
 }
