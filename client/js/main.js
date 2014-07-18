@@ -165,7 +165,7 @@ EDEN.WIDGETS.Furnace = (function(){
         }
     });
 
-//    m.hide();
+    m.hide();
 
     return m;
 }());
@@ -206,6 +206,7 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
         EDEN.WIDGETS.Prompt.hide();
         EDEN.WIDGETS.Binary.show();
         EDEN.WIDGETS.Stats.show();
+        EDEN.WIDGETS.Furnace.show();
         EDEN.MainShell.print(EDEN.LANG.EN.loggedIn,'green',false);
         EDEN.STATE.loggedIn = true;
 
@@ -260,8 +261,9 @@ FBR.auth = new FirebaseSimpleLogin(FBR.base, function(error, user) {
     } else if (user === null && error === null){
         EDEN.MainShell.print(EDEN.LANG.EN.loggedOut,'green',false);
         EDEN.WIDGETS.Prompt.show();
-        EDEN.WIDGETS.Stats.hide();
         EDEN.WIDGETS.Binary.hide();
+        EDEN.WIDGETS.Stats.hide();
+        EDEN.WIDGETS.Furnace.hide();
         EDEN.STATE.loggedIn = false;
 
         if(FBR.thisSesh){
