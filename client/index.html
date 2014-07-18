@@ -109,9 +109,9 @@
         <!--BINARY SCORE NOTES - CAN'T BE MOVED OUT OF GLASS PRIMER UNLESS COMPILED-->
         <span id="binary-score-primer" class="ui-notification" style="display: none">
 Total KB + Bits Last Tick:
-<h3>{{(privateYouser.bits/1024).toFixed(3)}} + {{privateYouser.points}}</h3>
+<h3>{{(privateYouser.bits/1024).toFixed(3)}} + {{privateYouser.points*privateYouser.selectionSize}}</h3>
 Process:
-<h4><img class="bit-icon" src="img/nodes/serverfarmBlue.png"></h4>
+<h4><img class="bit-icon" src="img/nodes/serverfarmBlue.png" ng-hide="{{privateYouser.bits < 1024}}"></h4>
 <!--Sample Size:-->
 <!--<h3>{{privateYouser.selectionSize}}</h3>-->
         </span>
