@@ -111,7 +111,7 @@
 Total KB + Bits Last Tick:
 <h3>{{(privateYouser.bits/1024).toFixed(3)}} + {{privateYouser.points*privateYouser.selectionSize}}</h3>
 Process:
-<h4><img ng-hide="privateYouser.bits < 1024" class="bit-icon" src="img/nodes/serverfarmBlue.png"></h4>
+<h4>{{(privateYouser.bits/1024).toFixed(0)}}<img ng-hide="privateYouser.bits < 1024" class="bit-icon bit-icon2" src="img/nodes/serverfarmBlue.png"></h4>
 <!--Sample Size:-->
 <!--<h3>{{privateYouser.selectionSize}}</h3>-->
         </span>
