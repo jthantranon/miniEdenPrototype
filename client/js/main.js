@@ -159,7 +159,13 @@ EDEN.WIDGETS.Furnace = (function(){
 //            console.log('win');
 //            var furnace = EDEN.$SCOPE.privateYouser.furnace || 0;
 //            EDEN.$SCOPE.privateYouser.furnace = furnace+1;
-            FBR.youserRequests.child('furnace').set(1);
+            var amount ;
+            if(event.shiftKey==1){
+                amount = 32;
+            } else {
+                amount = 1;
+            }
+            FBR.youserRequests.child('furnace').set(amount);
             EDEN.$SCOPE.$apply();
 //            console.log(EDEN.$SCOPE.privateYouser.furnace);
         }
