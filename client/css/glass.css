@@ -34,8 +34,11 @@ body {
 }
 
 .stuff-wrapper {
-/*	height:400px;*/
-	overflow-y:scroll;
+    overflow: hidden;
+    /*TODO: THIS IS A HACK AND WE NEED TO EVENTUALLY ALLOW SCROLLING*/
+	/*	height:400px;*/
+	/*overflow-y:scroll;*/
+    /*overflow-x:hidden;*/
 	padding-bottom:10px;	
 }
 

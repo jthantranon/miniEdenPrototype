@@ -32,7 +32,8 @@
     <input id="shellInputActual" type="text" maxlength="55">
 </div>
 
-<div id="curtain">
+<!--NO-HIGHLIGHT ON CURTAIN IS A HACK/OVERKILL, TODO: Be more selective-->
+<div id="curtain" class="no-highlight">
     <div id="shellInputDisplay">>&nbsp;</div>
     <div id="shellCaret"></div>
 
@@ -108,12 +109,13 @@
 
         <!--BINARY SCORE NOTES - CAN'T BE MOVED OUT OF GLASS PRIMER UNLESS COMPILED-->
         <span id="binary-score-primer" class="ui-notification" style="display: none">
-Total KB + Bits Last Tick:
-<h3>{{(privateYouser.bits/1024).toFixed(3)}} + {{privateYouser.points*privateYouser.selectionSize}}</h3>
-Process:
-<h1 ng-hide="privateYouser.bits < 1024">{{(privateYouser.bits/1024).toFixed(0)}}<img class="bit-icon bit-icon2" src="img/nodes/serverfarmBlue.png"></h1>
-<!--Sample Size:-->
-<!--<h3>{{privateYouser.selectionSize}}</h3>-->
+            Total KB + Bits Earned:
+            <h2>{{(privateYouser.bits/1024).toFixed(3)}}</h2>
+            <h1>+{{privateYouser.points*privateYouser.selectionSize}}</h1>
+            Move To Furnace:
+            <h1 ng-hide="privateYouser.bits < 1024">{{(privateYouser.bits/1024).toFixed(0)}}<img class="bit-icon bit-icon2" src="img/nodes/serverfarmBlue.png"></h1>
+            <!--Sample Size:-->
+            <!--<h3>{{privateYouser.selectionSize}}</h3>-->
         </span>
 
         <span id="furnace-primer" class="ui-notification" style="display: none">
